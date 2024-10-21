@@ -8,19 +8,29 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>owcs-rest-client</name>
 	<description>Oracle WebCenter Sites Rest Client</description>
-	<url />
+	<url>https://github.com/glynch/jollama</url>
+
 	<licenses>
-		<license />
+		<license>
+			<name>MIT License</name>
+			<url>https://github.com/glynch/owcs-rest-client/blob/main/LICENSE</url>
+		</license>
 	</licenses>
-	<developers>
-		<developer />
-	</developers>
+
 	<scm>
-		<connection />
-		<developerConnection />
-		<tag />
-		<url />
+		<connection>scm:git:git@github.com:glynch/owcs-rest-client.git</connection>
+		<developerConnection>scm:git:https://github.com/glynch/jollama.git</developerConnection>
+		<url>https://github.com/glynch/owcs-rest-client</url>
+		<tag>HEAD</tag>
 	</scm>
+
+	<developers>
+		<developer>
+			<name>Graham Lynch</name>
+			<email>graham.lynch@gmail.com</email>
+			<url>https://github.com/glynch</url>
+		</developer>
+	</developers>
 	<properties>
 		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.target>17</maven.compiler.target>
