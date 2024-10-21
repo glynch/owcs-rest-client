@@ -10,5 +10,5 @@
     </root>
 
     <logger name="io.github" level="DEBUG" />
-    <logger name="org.ehcache.core" level="DEBUG" />
+    <logger name="org.ehcache.core" level="ERROR" />
 </configuration>

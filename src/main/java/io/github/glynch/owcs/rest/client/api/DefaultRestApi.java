@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.function.Function;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.github.glynch.owcs.rest.client.exceptions.RestClientException;
@@ -49,8 +50,10 @@ public class DefaultRestApi implements RestApi {
             } else {
                 errorHandler.handleError(response);
             }
-        } catch (IOException e) {
+        } catch (JsonProcessingException e) {
             throw new RestClientRequestException(request);
+        } catch (IOException e) {
+            throw new RestClientRequestException(request, e);
         }
         return data;
     }

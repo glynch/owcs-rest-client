@@ -25,7 +25,7 @@ public class CachingTokenProvider implements TokenProvider {
             token = delegate.getToken(baseUrl, username, password);
             cache.put(cacheKey, token);
         } else {
-            LOGGER.trace("Cache hit for {} using username ({)}", baseUrl, username, token);
+            LOGGER.trace("Cache hit for {} using username ({}): {}", baseUrl, username, token);
         }
 
         return token;

@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fatwire.rest.beans.AssetBean;
 import com.fatwire.rest.beans.AssetInfo;
@@ -20,11 +21,14 @@ import com.fatwire.rest.beans.AssociationsBean;
 import com.fatwire.rest.beans.Attribute;
 import com.fatwire.rest.beans.EnabledTypesBean;
 import com.fatwire.rest.beans.IndexConfigsBean;
+import com.fatwire.rest.beans.LayoutTypeEnum;
 import com.fatwire.rest.beans.Parent;
 import com.fatwire.rest.beans.RolesBean;
 import com.fatwire.rest.beans.SitesBean;
 import com.fatwire.rest.beans.Struct;
 import com.fatwire.rest.beans.UserLocalesBean;
+import com.fatwire.rest.beans.UsersBean;
+import com.fatwire.rest.beans.ViewTypeEnum;
 
 import io.github.glynch.owcs.rest.client.RestClient.Builder;
 import io.github.glynch.owcs.rest.client.api.DefaultRestApi;
@@ -46,10 +50,13 @@ import io.github.glynch.owcs.rest.client.mixins.RolesBeanMixin;
 import io.github.glynch.owcs.rest.client.mixins.SitesBeanMixin;
 import io.github.glynch.owcs.rest.client.mixins.StructMixin;
 import io.github.glynch.owcs.rest.client.mixins.UserLocalesBeanMixin;
+import io.github.glynch.owcs.rest.client.mixins.UsersBeanMixin;
 import io.github.glynch.owcs.rest.client.support.ResponseErrorHandler;
 import io.github.glynch.owcs.rest.client.v1.DefaultV1RestClient;
 import io.github.glynch.owcs.rest.client.v1.V1RestClient;
 import io.github.glynch.owcs.rest.client.v1.support.DefaultResponseErrorHandler;
+import io.github.glynch.owcs.rest.support.LayoutTypeEnumDeserializer;
+import io.github.glynch.owcs.rest.support.ViewTypeEnumDeserializer;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 
@@ -73,18 +80,25 @@ public class DefaultRestClientBuilder implements RestClient.Builder {
         mixins.put(UserLocalesBean.class, UserLocalesBeanMixin.class);
         mixins.put(RolesBean.class, RolesBeanMixin.class);
         mixins.put(IndexConfigsBean.class, IndexConfigsBeanMixin.class);
+        mixins.put(UsersBean.class, UsersBeanMixin.class);
     }
     private static final ObjectMapper objectMapper = new ObjectMapper();
     private static final JavaTimeModule javaTimeModule = new JavaTimeModule();
+    private static final SimpleModule simpleModule = new SimpleModule();
 
     static {
+        simpleModule.addDeserializer(LayoutTypeEnum.class, new LayoutTypeEnumDeserializer());
+        simpleModule.addDeserializer(ViewTypeEnum.class, new ViewTypeEnumDeserializer());
         objectMapper.registerModule(javaTimeModule);
+        objectMapper.registerModule(simpleModule);
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
         objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
         objectMapper.setMixIns(mixins);
     }
+
+    // deserializerByType(LayoutTypeEnum.class, new LayoutTypeEnumDeserializer())
 
     private static final HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
     private final String baseUrl;
@@ -118,6 +132,7 @@ public class DefaultRestClientBuilder implements RestClient.Builder {
 
     @Override
     public Builder connectTimeout(Duration duration) {
+        Objects.requireNonNull(duration, "duration cannot be null");
         builder.connectTimeout(duration);
         return this;
     }
@@ -131,6 +146,8 @@ public class DefaultRestClientBuilder implements RestClient.Builder {
     @Override
     public AuthenticatedRestClient.Builder authenticated(
             String username, String password) {
+        Objects.requireNonNull(username, "username cannot be null");
+        Objects.requireNonNull(password, "password cannot be null");
 
         return new DefaultAuthenticatedRestClientBuilder(builder.build(), objectMapper, baseUrl, username, password);
     }

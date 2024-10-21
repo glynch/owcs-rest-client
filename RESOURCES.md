@@ -33,10 +33,10 @@ Create an asset type.
 
 ```java
     AssetTypeBean assetTypeBean = ....
-    AssetTypeBean assetTypeBean = client.types("AVIArticle").put(assetTypeBean);
+    assetTypeBean = client.types("AVIArticle").put(assetTypeBean);
 ```
 
-## Create a v1 REST client
+## Create a v1 aggregated REST client
 
 Using the builder so you can configure the client with `readTimeout`, `connectTimeout`, `trace` etc
 
