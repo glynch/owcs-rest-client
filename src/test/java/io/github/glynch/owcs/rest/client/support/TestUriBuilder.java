@@ -8,6 +8,8 @@ import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
+import io.github.glynch.owcs.rest.support.UriBuilder;
+
 public class TestUriBuilder {
 
     @Test

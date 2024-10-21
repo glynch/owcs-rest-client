@@ -1,6 +1,6 @@
 package io.github.glynch.owcs.rest.client.support;
 
-public enum Index implements IndexName {
+public enum Index implements Indexes {
     GLOBAL("Global");
 
     private final String name;

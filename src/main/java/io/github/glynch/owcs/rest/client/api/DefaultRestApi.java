@@ -11,7 +11,7 @@ import io.github.glynch.owcs.rest.client.exceptions.RestClientException;
 import io.github.glynch.owcs.rest.client.exceptions.RestClientRequestException;
 import io.github.glynch.owcs.rest.client.support.DefaultUriBuilder;
 import io.github.glynch.owcs.rest.client.support.ResponseErrorHandler;
-import io.github.glynch.owcs.rest.client.support.UriBuilder;
+import io.github.glynch.owcs.rest.support.UriBuilder;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;

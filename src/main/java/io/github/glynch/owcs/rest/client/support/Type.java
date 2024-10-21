@@ -1,6 +1,6 @@
 package io.github.glynch.owcs.rest.client.support;
 
-public enum Type implements TypeName {
+public enum Type implements Types {
     AVIARTICLE("AVIArticle");
 
     private final String name;

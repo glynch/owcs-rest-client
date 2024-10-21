@@ -25,10 +25,10 @@ import com.fatwire.rest.beans.UsersBean;
 
 import io.github.glynch.owcs.rest.client.api.AuthenticatedRestApi;
 import io.github.glynch.owcs.rest.client.exceptions.RestClientException;
-import io.github.glynch.owcs.rest.client.support.IndexName;
-import io.github.glynch.owcs.rest.client.support.RoleName;
-import io.github.glynch.owcs.rest.client.support.SiteName;
-import io.github.glynch.owcs.rest.client.support.TypeName;
+import io.github.glynch.owcs.rest.client.support.Indexes;
+import io.github.glynch.owcs.rest.client.support.Roles;
+import io.github.glynch.owcs.rest.client.support.Sites;
+import io.github.glynch.owcs.rest.client.support.Types;
 
 public class DefaultAuthenticatedRestClient implements AuthenticatedRestClient {
 
@@ -65,13 +65,13 @@ public class DefaultAuthenticatedRestClient implements AuthenticatedRestClient {
     }
 
     @Override
-    public AssetTypeBean type(TypeName type) throws RestClientException {
+    public AssetTypeBean type(Types type) throws RestClientException {
         return restApi.get(baseUrl + TYPE_URI_TEMPLATE, builder -> builder.build(Map.of("type", type.getName())),
                 AssetTypeBean.class);
     }
 
     @Override
-    public TypeResources types(TypeName type) throws RestClientException {
+    public TypeResources types(Types type) throws RestClientException {
         return new DefaultTypeResources(this, type.getName());
     }
 
@@ -81,7 +81,7 @@ public class DefaultAuthenticatedRestClient implements AuthenticatedRestClient {
     }
 
     @Override
-    public IndexConfigBean index(IndexName index) throws RestClientException {
+    public IndexConfigBean index(Indexes index) throws RestClientException {
         Objects.requireNonNull(index, "index cannot be null");
         return restApi.get(baseUrl + INDEX_URI_TEMPLATE, builder -> builder.build(Map.of("index", index.getName())),
                 IndexConfigBean.class);
@@ -93,14 +93,14 @@ public class DefaultAuthenticatedRestClient implements AuthenticatedRestClient {
     }
 
     @Override
-    public SiteBean site(SiteName site) throws RestClientException {
+    public SiteBean site(Sites site) throws RestClientException {
         Objects.requireNonNull(site, "site cannot be null");
         return restApi.get(baseUrl + SITE_URI_TEMPLATE, builder -> builder.build(Map.of("site", site.getName())),
                 SiteBean.class);
     }
 
     @Override
-    public SiteResources sites(SiteName site) throws RestClientException {
+    public SiteResources sites(Sites site) throws RestClientException {
         return new DefaultSiteResources(this, site.getName());
     }
 
@@ -110,7 +110,7 @@ public class DefaultAuthenticatedRestClient implements AuthenticatedRestClient {
     }
 
     @Override
-    public RoleBean role(RoleName role) throws RestClientException {
+    public RoleBean role(Roles role) throws RestClientException {
         Objects.requireNonNull(role, "role cannot be null");
         return restApi.get(baseUrl + ROLE_URI_TEMPLATE, builder -> builder.build(Map.of("role", role.getName())),
                 RoleBean.class);

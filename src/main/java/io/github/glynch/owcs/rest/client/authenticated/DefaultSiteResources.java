@@ -8,7 +8,7 @@ import com.fatwire.rest.beans.EnabledTypesBean;
 import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClient.SiteResources;
 import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClient.SiteTypeResources;
 import io.github.glynch.owcs.rest.client.exceptions.RestClientException;
-import io.github.glynch.owcs.rest.client.support.Type;
+import io.github.glynch.owcs.rest.client.support.Types;
 
 public class DefaultSiteResources implements SiteResources {
 
@@ -28,12 +28,12 @@ public class DefaultSiteResources implements SiteResources {
     }
 
     @Override
-    public AssetTypeBean type(Type type) throws RestClientException {
+    public AssetTypeBean type(Types type) throws RestClientException {
         return client.type(type);
     }
 
     @Override
-    public SiteTypeResources types(Type type) throws RestClientException {
+    public SiteTypeResources types(Types type) throws RestClientException {
         return new DefaultSiteTypeResources(client, site, type.getName());
     }
 

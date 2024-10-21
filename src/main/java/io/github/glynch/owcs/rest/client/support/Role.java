@@ -1,6 +1,6 @@
 package io.github.glynch.owcs.rest.client.support;
 
-public enum Role implements RoleName {
+public enum Role implements Roles {
 
     ADVANCED_USER("AdvancedUser");
 

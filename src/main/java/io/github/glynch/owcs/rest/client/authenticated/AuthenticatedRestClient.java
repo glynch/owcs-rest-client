@@ -10,6 +10,7 @@ import com.fatwire.rest.beans.ApplicationsBean;
 import com.fatwire.rest.beans.AssetBean;
 import com.fatwire.rest.beans.AssetTypeBean;
 import com.fatwire.rest.beans.AssetTypesBean;
+import com.fatwire.rest.beans.AssociationsBean;
 import com.fatwire.rest.beans.DeviceBean;
 import com.fatwire.rest.beans.EnabledTypesBean;
 import com.fatwire.rest.beans.GroupBean;
@@ -29,11 +30,10 @@ import com.fatwire.rest.beans.UsersBean;
 import io.github.glynch.owcs.rest.client.api.AuthenticatedRestApi;
 import io.github.glynch.owcs.rest.client.exceptions.RestClientException;
 import io.github.glynch.owcs.rest.client.sso.TokenProvider;
-import io.github.glynch.owcs.rest.client.support.IndexName;
-import io.github.glynch.owcs.rest.client.support.RoleName;
-import io.github.glynch.owcs.rest.client.support.SiteName;
-import io.github.glynch.owcs.rest.client.support.Type;
-import io.github.glynch.owcs.rest.client.support.TypeName;
+import io.github.glynch.owcs.rest.client.support.Indexes;
+import io.github.glynch.owcs.rest.client.support.Roles;
+import io.github.glynch.owcs.rest.client.support.Sites;
+import io.github.glynch.owcs.rest.client.support.Types;
 
 public interface AuthenticatedRestClient {
 
@@ -93,23 +93,23 @@ public interface AuthenticatedRestClient {
 
     AssetTypesBean types() throws RestClientException;
 
-    TypeResources types(TypeName type) throws RestClientException;
+    TypeResources types(Types type) throws RestClientException;
 
-    AssetTypeBean type(TypeName type) throws RestClientException;
+    AssetTypeBean type(Types type) throws RestClientException;
 
     IndexConfigsBean indexes() throws RestClientException;
 
-    IndexConfigBean index(IndexName index) throws RestClientException;
+    IndexConfigBean index(Indexes index) throws RestClientException;
 
     SitesBean sites() throws RestClientException;
 
-    SiteBean site(SiteName site) throws RestClientException;
+    SiteBean site(Sites site) throws RestClientException;
 
-    SiteResources sites(SiteName site) throws RestClientException;
+    SiteResources sites(Sites site) throws RestClientException;
 
     RolesBean roles() throws RestClientException;
 
-    RoleBean role(RoleName role) throws RestClientException;
+    RoleBean role(Roles role) throws RestClientException;
 
     ApplicationsBean applications() throws RestClientException;
 
@@ -154,21 +154,31 @@ public interface AuthenticatedRestClient {
 
         EnabledTypesBean types() throws RestClientException;
 
-        AssetTypeBean type(Type type) throws RestClientException;
+        AssetTypeBean type(Types type) throws RestClientException;
 
-        SiteTypeResources types(Type type) throws RestClientException;
+        SiteTypeResources types(Types type) throws RestClientException;
 
     }
 
     interface SiteTypeResources {
 
-        String SITE_TYPE_ASSET_URI_TEMPLATE = "/REST/sites/{site}/types/{type}/assets/{id}";
-
-        AssetBean asset(long id) throws RestClientException;
-
+        SiteTypeAssetResources assets() throws RestClientException;
     }
 
     interface SiteTypeAssetResources {
+
+        String SITE_TYPE_ASSET_URI_TEMPLATE = "/REST/sites/{site}/types/{type}/assets/{id}";
+        String SITE_TYPE_ASSET_ASSOCIATIONS_URI_TEMPLATE = "/REST/sites/{site}/types/{type}/assets/{id}/associations";
+
+        AssetBean asset(long id) throws RestClientException;
+
+        AssetBean put(AssetBean assetBean) throws RestClientException;
+
+        AssetBean post(AssetBean assetBean) throws RestClientException;
+
+        void delete(long id) throws RestClientException;
+
+        AssociationsBean associations(long id) throws RestClientException;
 
     }
 

@@ -4,7 +4,7 @@ import java.net.URI;
 import java.util.function.Function;
 
 import io.github.glynch.owcs.rest.client.exceptions.RestClientException;
-import io.github.glynch.owcs.rest.client.support.UriBuilder;
+import io.github.glynch.owcs.rest.support.UriBuilder;
 import okhttp3.MediaType;
 import okhttp3.Request;
 import okhttp3.Response;

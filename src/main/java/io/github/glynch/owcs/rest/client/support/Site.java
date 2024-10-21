@@ -1,6 +1,6 @@
 package io.github.glynch.owcs.rest.client.support;
 
-public enum Site implements SiteName {
+public enum Site implements Sites {
     AVISPORTS("avisports"), ADMIN_SITE("AdminSite");
 
     private final String name;

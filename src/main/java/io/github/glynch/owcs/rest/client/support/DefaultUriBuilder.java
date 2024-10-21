@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
+import io.github.glynch.owcs.rest.support.UriBuilder;
+
 public class DefaultUriBuilder implements UriBuilder {
 
     private static final Pattern REPLACE_PATTERN = Pattern.compile("\\{([^/]+)\\}");

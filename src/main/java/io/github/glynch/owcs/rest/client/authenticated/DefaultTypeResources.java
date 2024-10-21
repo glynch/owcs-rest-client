@@ -22,10 +22,10 @@ public class DefaultTypeResources implements TypeResources {
     }
 
     @Override
-    public AssetTypeBean put(AssetTypeBean assetType) throws RestClientException {
+    public AssetTypeBean put(AssetTypeBean assetTypeBean) throws RestClientException {
         return client.restApi().put(client.baseUrl() + TYPE_URI_TEMPLATE,
                 builder -> builder.build(Map.of("type", type)),
-                assetType,
+                assetTypeBean,
                 AssetTypeBean.class);
     }
 

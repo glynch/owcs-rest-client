@@ -1,6 +1,6 @@
 package io.github.glynch.owcs.rest.client.support;
 
-public interface RoleName {
+public interface Roles {
 
     String getName();
 
