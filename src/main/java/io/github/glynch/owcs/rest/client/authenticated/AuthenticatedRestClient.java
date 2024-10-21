@@ -162,23 +162,24 @@ public interface AuthenticatedRestClient {
 
     interface SiteTypeResources {
 
-        SiteTypeAssetResources assets() throws RestClientException;
+        String SITE_TYPE_ASSET_URI_TEMPLATE = "/REST/sites/{site}/types/{type}/assets/{id}";
+
+        AssetBean asset(long id) throws RestClientException;
+
+        SiteTypeAssetResources assets(long id) throws RestClientException;
     }
 
     interface SiteTypeAssetResources {
 
-        String SITE_TYPE_ASSET_URI_TEMPLATE = "/REST/sites/{site}/types/{type}/assets/{id}";
         String SITE_TYPE_ASSET_ASSOCIATIONS_URI_TEMPLATE = "/REST/sites/{site}/types/{type}/assets/{id}/associations";
-
-        AssetBean asset(long id) throws RestClientException;
 
         AssetBean put(AssetBean assetBean) throws RestClientException;
 
         AssetBean post(AssetBean assetBean) throws RestClientException;
 
-        void delete(long id) throws RestClientException;
+        void delete() throws RestClientException;
 
-        AssociationsBean associations(long id) throws RestClientException;
+        AssociationsBean associations() throws RestClientException;
 
     }
 

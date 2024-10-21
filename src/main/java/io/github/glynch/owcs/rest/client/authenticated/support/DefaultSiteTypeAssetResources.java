@@ -1,5 +1,7 @@
 package io.github.glynch.owcs.rest.client.authenticated.support;
 
+import static io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClient.SiteTypeResources.SITE_TYPE_ASSET_URI_TEMPLATE;
+
 import java.util.Map;
 
 import com.fatwire.rest.beans.AssetBean;
@@ -14,22 +16,17 @@ public class DefaultSiteTypeAssetResources implements SiteTypeAssetResources {
     private final AuthenticatedRestClient client;
     private final String site;
     private final String type;
+    private final long id;
 
-    public DefaultSiteTypeAssetResources(AuthenticatedRestClient client, String site, String type) {
+    public DefaultSiteTypeAssetResources(AuthenticatedRestClient client, String site, String type, long id) {
         this.client = client;
         this.site = site;
         this.type = type;
+        this.id = id;
     }
 
     @Override
-    public AssetBean asset(long id) throws RestClientException {
-        return client.restApi().get(client.baseUrl() + SITE_TYPE_ASSET_URI_TEMPLATE,
-                builder -> builder.build(Map.of("site", site, "type", type, "id", id)),
-                AssetBean.class);
-    }
-
-    @Override
-    public AssociationsBean associations(long id) throws RestClientException {
+    public AssociationsBean associations() throws RestClientException {
         return client.restApi().get(client.baseUrl() + SITE_TYPE_ASSET_ASSOCIATIONS_URI_TEMPLATE,
                 builder -> builder.build(Map.of("site", site, "type", type, "id", id)),
                 AssociationsBean.class);
@@ -52,7 +49,7 @@ public class DefaultSiteTypeAssetResources implements SiteTypeAssetResources {
     }
 
     @Override
-    public void delete(long id) throws RestClientException {
+    public void delete() throws RestClientException {
         client.restApi().delete(client.baseUrl() + SITE_TYPE_ASSET_URI_TEMPLATE,
                 builder -> builder.build(Map.of("site", site, "type", type, "id", id)));
     }
