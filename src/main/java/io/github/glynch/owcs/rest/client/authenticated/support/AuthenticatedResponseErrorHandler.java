@@ -8,7 +8,7 @@ import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClientRe
 import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestError;
 import io.github.glynch.owcs.rest.client.exceptions.RestClientException;
 import io.github.glynch.owcs.rest.client.exceptions.RestClientResponseException;
-import io.github.glynch.owcs.rest.client.support.ResponseErrorHandler;
+import io.github.glynch.owcs.rest.support.ResponseErrorHandler;
 import okhttp3.Response;
 
 public class AuthenticatedResponseErrorHandler implements ResponseErrorHandler {

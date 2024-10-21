@@ -1,11 +1,11 @@
-package io.github.glynch.owcs.rest.client.support;
+package io.github.glynch.owcs.rest.support;
 
-public enum Site implements Sites {
-    AVISPORTS("avisports"), ADMIN_SITE("AdminSite");
+public enum Type implements Types {
+    AVIARTICLE("AVIArticle");
 
     private final String name;
 
-    private Site(String name) {
+    private Type(String name) {
         this.name = name;
     }
 

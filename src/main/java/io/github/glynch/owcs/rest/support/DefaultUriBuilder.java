@@ -1,12 +1,11 @@
-package io.github.glynch.owcs.rest.client.support;
+package io.github.glynch.owcs.rest.support;
 
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.regex.Pattern;
-
-import io.github.glynch.owcs.rest.support.UriBuilder;
 
 public class DefaultUriBuilder implements UriBuilder {
 
@@ -16,6 +15,7 @@ public class DefaultUriBuilder implements UriBuilder {
     private final String uriTemplate;
 
     public DefaultUriBuilder(String uriTemplate) {
+        Objects.requireNonNull(uriTemplate, "uriTemplate is required");
         this.uriTemplate = uriTemplate;
         var matcher = VARIABLES_PATTERN.matcher(uriTemplate);
         while (matcher.find()) {

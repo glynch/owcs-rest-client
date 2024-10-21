@@ -1,4 +1,4 @@
-package io.github.glynch.owcs.rest.client.support;
+package io.github.glynch.owcs.rest.support;
 
 public enum Role implements Roles {
 

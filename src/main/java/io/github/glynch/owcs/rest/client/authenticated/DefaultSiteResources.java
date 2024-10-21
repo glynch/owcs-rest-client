@@ -8,7 +8,7 @@ import com.fatwire.rest.beans.EnabledTypesBean;
 import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClient.SiteResources;
 import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClient.SiteTypeResources;
 import io.github.glynch.owcs.rest.client.exceptions.RestClientException;
-import io.github.glynch.owcs.rest.client.support.Types;
+import io.github.glynch.owcs.rest.support.Types;
 
 public class DefaultSiteResources implements SiteResources {
 

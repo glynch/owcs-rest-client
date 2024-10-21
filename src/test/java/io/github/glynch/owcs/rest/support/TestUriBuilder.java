@@ -1,4 +1,4 @@
-package io.github.glynch.owcs.rest.client.support;
+package io.github.glynch.owcs.rest.support;
 
 import static io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClient.TYPE_URI_TEMPLATE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -8,7 +8,7 @@ import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
-import io.github.glynch.owcs.rest.support.UriBuilder;
+import io.github.glynch.owcs.rest.support.DefaultUriBuilder;
 
 public class TestUriBuilder {
 

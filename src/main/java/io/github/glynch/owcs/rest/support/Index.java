@@ -1,11 +1,11 @@
-package io.github.glynch.owcs.rest.client.support;
+package io.github.glynch.owcs.rest.support;
 
-public enum Type implements Types {
-    AVIARTICLE("AVIArticle");
+public enum Index implements Indexes {
+    GLOBAL("Global");
 
     private final String name;
 
-    private Type(String name) {
+    private Index(String name) {
         this.name = name;
     }
 

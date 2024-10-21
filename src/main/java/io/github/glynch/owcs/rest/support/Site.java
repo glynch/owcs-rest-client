@@ -1,11 +1,11 @@
-package io.github.glynch.owcs.rest.client.support;
+package io.github.glynch.owcs.rest.support;
 
-public enum Index implements Indexes {
-    GLOBAL("Global");
+public enum Site implements Sites {
+    AVISPORTS("avisports"), ADMIN_SITE("AdminSite");
 
     private final String name;
 
-    private Index(String name) {
+    private Site(String name) {
         this.name = name;
     }
 

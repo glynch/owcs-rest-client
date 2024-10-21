@@ -30,10 +30,10 @@ import com.fatwire.rest.beans.UsersBean;
 import io.github.glynch.owcs.rest.client.api.AuthenticatedRestApi;
 import io.github.glynch.owcs.rest.client.exceptions.RestClientException;
 import io.github.glynch.owcs.rest.client.sso.TokenProvider;
-import io.github.glynch.owcs.rest.client.support.Indexes;
-import io.github.glynch.owcs.rest.client.support.Roles;
-import io.github.glynch.owcs.rest.client.support.Sites;
-import io.github.glynch.owcs.rest.client.support.Types;
+import io.github.glynch.owcs.rest.support.Indexes;
+import io.github.glynch.owcs.rest.support.Roles;
+import io.github.glynch.owcs.rest.support.Sites;
+import io.github.glynch.owcs.rest.support.Types;
 
 public interface AuthenticatedRestClient {
 
