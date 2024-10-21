@@ -6,7 +6,6 @@ import java.util.function.Function;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import io.github.glynch.owcs.rest.client.api.exceptions.RestApiException;
 import io.github.glynch.owcs.rest.client.authenticated.support.AuthenticatedResponseErrorHandler;
 import io.github.glynch.owcs.rest.client.exceptions.RestClientException;
 import io.github.glynch.owcs.rest.client.sso.TokenProvider;
@@ -38,7 +37,7 @@ public class DefaultAuthenticatedRestApi extends DefaultRestApi implements Authe
     }
 
     @Override
-    public Response execute(Request request) throws RestApiException {
+    public Response execute(Request request) throws RestClientException {
         Request.Builder builder = new Request.Builder(request);
         builder.header(TokenProvider.X_CSRF_TOKEN,
                 tokenProvider.getToken(baseUrl, username, password));
@@ -72,7 +71,7 @@ public class DefaultAuthenticatedRestApi extends DefaultRestApi implements Authe
     }
 
     @Override
-    public <T> T post(String path, T body, Class<T> type) throws RestApiException {
+    public <T> T post(String path, T body, Class<T> type) throws RestClientException {
         Request request = new Request.Builder()
                 .url(path)
                 .post(json(body))
@@ -83,14 +82,14 @@ public class DefaultAuthenticatedRestApi extends DefaultRestApi implements Authe
 
     @Override
     public <T> T post(String uriTemplate, Function<UriBuilder, URI> uriFunction, T body, Class<T> type)
-            throws RestApiException {
+            throws RestClientException {
         UriBuilder builder = new DefaultUriBuilder(uriTemplate);
         URI uri = uriFunction.apply(builder);
         return post(uri.toString(), body, type);
     }
 
     @Override
-    public void delete(String path) throws RestApiException {
+    public void delete(String path) throws RestClientException {
         Request request = new Request.Builder()
                 .url(path)
                 .delete()
@@ -99,21 +98,20 @@ public class DefaultAuthenticatedRestApi extends DefaultRestApi implements Authe
     }
 
     @Override
-    public void delete(String uriTemplate, Function<UriBuilder, URI> uriFunction) throws RestApiException {
+    public void delete(String uriTemplate, Function<UriBuilder, URI> uriFunction) throws RestClientException {
         UriBuilder builder = new DefaultUriBuilder(uriTemplate);
         URI uri = uriFunction.apply(builder);
         delete(uri.toString());
     }
 
-    private RequestBody json(Object body) throws RestApiException {
+    private RequestBody json(Object body) throws RestClientException {
         RequestBody requestBody = null;
         try {
             requestBody = RequestBody.create(objectMapper.writeValueAsString(body),
                     APPLICATION_JSON);
         } catch (JsonProcessingException e) {
-            throw new RestApiException(e.getMessage());
+            throw new RestClientException(e.getMessage());
         }
         return requestBody;
     }
-
 }

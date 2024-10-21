@@ -8,13 +8,13 @@ public class Main {
 
     public static void main(String[] args) {
 
-        AuthenticatedRestClient client = RestClient.builder("http://localhost:7003/sites")
+        AuthenticatedRestClient client2 = RestClient.builder("http://localhost:7003/sites")
                 .authenticated("fwadmin", "xceladmin").cachingTokenProvider().build();
 
         // AuthenticatedRestClient client =
         // RestClient.authenticated("http://localhost:7003/sites", "fwadmin",
         // "xceladmin");
-        AuthenticatedRestClient client2 = RestClient.authenticated("http://localhost:7003/sites", "fwadmin",
+        AuthenticatedRestClient client = RestClient.authenticated("http://localhost:7003/sites", "fwadmin",
                 "xceladmin");
 
         V1RestClient v1Client = RestClient.builder("http://localhost:7003/sites").build();

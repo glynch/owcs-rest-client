@@ -6,8 +6,6 @@ import java.util.function.Function;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import io.github.glynch.owcs.rest.client.api.exceptions.RestApiException;
-import io.github.glynch.owcs.rest.client.api.exceptions.RuntimeIOException;
 import io.github.glynch.owcs.rest.client.exceptions.RestClientException;
 import io.github.glynch.owcs.rest.client.exceptions.RestClientRequestException;
 import io.github.glynch.owcs.rest.client.support.DefaultUriBuilder;
@@ -24,14 +22,14 @@ public class DefaultRestApi implements RestApi {
     private final ResponseErrorHandler errorHandler;
 
     public DefaultRestApi(OkHttpClient client, ObjectMapper objectMapper, ResponseErrorHandler errorHandler)
-            throws RestApiException {
+            throws RestClientException {
         this.client = client;
         this.objectMapper = objectMapper;
         this.errorHandler = errorHandler;
     }
 
     @Override
-    public Response execute(Request request) throws RuntimeIOException {
+    public Response execute(Request request) throws RestClientException {
         Response response = null;
         try {
             response = client.newCall(request).execute();
@@ -58,7 +56,7 @@ public class DefaultRestApi implements RestApi {
     }
 
     @Override
-    public <T> T get(String url, Class<T> type) {
+    public <T> T get(String url, Class<T> type) throws RestClientException {
         Request request = new Request.Builder()
                 .url(url)
                 .header("Accept", "application/json")
@@ -69,7 +67,8 @@ public class DefaultRestApi implements RestApi {
     }
 
     @Override
-    public <T> T get(String uriTemplate, Function<UriBuilder, URI> uriFunction, Class<T> type) {
+    public <T> T get(String uriTemplate, Function<UriBuilder, URI> uriFunction, Class<T> type)
+            throws RestClientException {
         URI uri = uriFunction.apply(new DefaultUriBuilder(uriTemplate));
         return get(uri.toString(), type);
     }

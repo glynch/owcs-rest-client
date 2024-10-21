@@ -4,10 +4,10 @@ import java.io.IOException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.github.glynch.owcs.rest.client.api.V1RestError;
 import io.github.glynch.owcs.rest.client.api.exceptions.ErrorHandler;
-import io.github.glynch.owcs.rest.client.api.exceptions.RestApiException;
-import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestError;
 import io.github.glynch.owcs.rest.client.exceptions.RestClientException;
+import io.github.glynch.owcs.rest.client.v1.support.V1RestClientResponseException;
 import okhttp3.Response;
 
 public class V1ResponseErrorHandler implements ErrorHandler {
@@ -21,12 +21,12 @@ public class V1ResponseErrorHandler implements ErrorHandler {
     @Override
     public void handleError(Response response) throws RestClientException {
         try {
-            AuthenticatedRestError error = objectMapper.readValue(response.body().string(),
-                    AuthenticatedRestError.class);
-            throw new RestApiException(
+            V1RestError error = objectMapper.readValue(response.body().string(),
+                    V1RestError.class);
+            throw new V1RestClientResponseException(
                     error);
         } catch (IOException e) {
-            throw new RestApiException("Failed to parse error response", e);
+            throw new RestClientException("Failed to parse error response", e);
         }
     }
 

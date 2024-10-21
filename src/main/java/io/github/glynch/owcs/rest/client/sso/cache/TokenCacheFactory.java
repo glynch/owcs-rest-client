@@ -1,6 +1,7 @@
 package io.github.glynch.owcs.rest.client.sso.cache;
 
 import java.util.Objects;
+import java.util.UUID;
 
 import javax.cache.Cache;
 import javax.cache.CacheManager;
@@ -29,7 +30,11 @@ public class TokenCacheFactory {
     }
 
     public static Cache<String, String> defaultTokenCache() {
-        return createTokenCache("tokens", Duration.TEN_MINUTES);
+        return createTokenCache(getCacheName(), Duration.TEN_MINUTES);
+    }
+
+    private static String getCacheName() {
+        return "tokens-" + UUID.randomUUID();
     }
 
 }
