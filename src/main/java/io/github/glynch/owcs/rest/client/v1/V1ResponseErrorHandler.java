@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import io.github.glynch.owcs.rest.client.api.V1RestError;
 import io.github.glynch.owcs.rest.client.api.exceptions.ErrorHandler;
 import io.github.glynch.owcs.rest.client.exceptions.RestClientException;
 import io.github.glynch.owcs.rest.client.v1.support.V1RestClientResponseException;
