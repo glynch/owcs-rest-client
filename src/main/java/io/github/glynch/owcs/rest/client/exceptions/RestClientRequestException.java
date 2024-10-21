@@ -1,36 +1,36 @@
 package io.github.glynch.owcs.rest.client.exceptions;
 
-import io.github.glynch.owcs.rest.client.api.V1RestError;
+import okhttp3.Request;
 
 public class RestClientRequestException extends RestClientException {
 
     private static final long serialVersionUID = 1L;
 
-    private final V1RestError error;
+    private final String method;
+    private final String url;
 
-    public RestClientRequestException(V1RestError error) {
-        super(error.toString());
-        this.error = error;
+    public RestClientRequestException(Request request, Throwable cause) {
+        super(buildMessage(request), cause);
+        this.method = request.method();
+        this.url = request.url().toString();
     }
 
-    public int getHttpStatus() {
-        return error.httpStatus();
+    public RestClientRequestException(Request request) {
+        super(buildMessage(request));
+        this.method = request.method();
+        this.url = request.url().toString();
     }
 
-    public String getProblemInstance() {
-        return error.problemInstance();
+    private static String buildMessage(Request request) {
+        return String.format("Request failed: %s %s", request.method(), request.url());
     }
 
-    public String getDetail() {
-        return error.detail();
+    public String getMethod() {
+        return method;
     }
 
-    public String getTitle() {
-        return error.title();
-    }
-
-    public V1RestError getError() {
-        return error;
+    public String getUrl() {
+        return url;
     }
 
 }

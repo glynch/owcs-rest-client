@@ -3,65 +3,56 @@ package io.github.glynch.owcs.rest.client.api;
 import java.io.IOException;
 import java.net.URI;
 import java.util.function.Function;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.github.glynch.owcs.rest.client.api.exceptions.RestApiException;
+import io.github.glynch.owcs.rest.client.api.exceptions.RuntimeIOException;
+import io.github.glynch.owcs.rest.client.exceptions.RestClientException;
+import io.github.glynch.owcs.rest.client.exceptions.RestClientRequestException;
 import io.github.glynch.owcs.rest.client.support.DefaultUriBuilder;
+import io.github.glynch.owcs.rest.client.support.ResponseErrorHandler;
 import io.github.glynch.owcs.rest.client.support.UriBuilder;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class DefaultRestApi implements RestApi {
 
-    private static final String LINK_HEADER = "Link";
-    private static final Pattern LINK_PATTERN = Pattern.compile("<([^>]+)>");
     private final OkHttpClient client;
     private final ObjectMapper objectMapper;
+    private final ResponseErrorHandler errorHandler;
 
-    public DefaultRestApi(OkHttpClient client, ObjectMapper objectMapper) throws RestApiException {
+    public DefaultRestApi(OkHttpClient client, ObjectMapper objectMapper, ResponseErrorHandler errorHandler)
+            throws RestApiException {
         this.client = client;
         this.objectMapper = objectMapper;
-    }
-
-    public void handleError(Response response) throws RestApiException {
-        try {
-            RestError error = objectMapper.readValue(response.body().string(), RestError.class);
-            throw new RestApiException(
-                    error);
-        } catch (IOException e) {
-            throw new RestApiException("Failed to parse error response", e);
-        }
+        this.errorHandler = errorHandler;
     }
 
     @Override
-    public Response execute(Request request) throws RestApiException {
+    public Response execute(Request request) throws RuntimeIOException {
         Response response = null;
         try {
             response = client.newCall(request).execute();
-            if (response.isSuccessful()) {
-                return response;
-            } else {
-                handleError(response);
-            }
-        } catch (Exception e) {
-            throw new RestApiException(e.getMessage());
+        } catch (IOException e) {
+            throw new RestClientRequestException(request, e);
         }
         return response;
     }
 
     @Override
-    public <T> T execute(Request request, Class<T> type) {
+    public <T> T execute(Request request, Class<T> type) throws RestClientException {
+        Response response = execute(request);
         T data = null;
         try {
-            Response response = execute(request);
-            data = objectMapper.readValue(response.body().string(), type);
+            if (response.isSuccessful()) {
+                data = objectMapper.readValue(response.body().string(), type);
+            } else {
+                errorHandler.handleError(response);
+            }
         } catch (IOException e) {
-            throw new RestApiException(e.getMessage());
+            throw new RestClientRequestException(request);
         }
         return data;
     }
@@ -78,25 +69,9 @@ public class DefaultRestApi implements RestApi {
     }
 
     @Override
-    public <T> T get(String uriTemplate, Function<UriBuilder, URI> uriFunction, Class<T> clazz) {
-        UriBuilder builder = new DefaultUriBuilder(uriTemplate);
-        URI uri = uriFunction.apply(builder);
-        return get(uri.toString(), clazz);
-    }
-
-    @Override
-    public String options(String url) {
-        Request request = new Request.Builder()
-                .url(url)
-                .method("OPTIONS", RequestBody.create("", null))
-                .build();
-
-        Response response = execute(request);
-
-        String link = response.header(LINK_HEADER);
-        Matcher matcher = LINK_PATTERN.matcher(link);
-
-        return matcher.find() ? matcher.group(1) : null;
+    public <T> T get(String uriTemplate, Function<UriBuilder, URI> uriFunction, Class<T> type) {
+        URI uri = uriFunction.apply(new DefaultUriBuilder(uriTemplate));
+        return get(uri.toString(), type);
     }
 
 }

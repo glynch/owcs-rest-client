@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.github.glynch.owcs.rest.client.api.DefaultAuthenticatedRestApi;
 import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClient.Builder;
+import io.github.glynch.owcs.rest.client.authenticated.support.AuthenticatedResponseErrorHandler;
 import io.github.glynch.owcs.rest.client.sso.CachingTokenProvider;
 import io.github.glynch.owcs.rest.client.sso.DefaultTicketEncryptor;
 import io.github.glynch.owcs.rest.client.sso.DefaultTicketProvider;
@@ -65,7 +66,9 @@ public class DefaultAuthenticatedRestClientBuilder implements AuthenticatedRestC
         if (cache != null) {
             tokenProvider = new CachingTokenProvider(cache, tokenProvider);
         }
+        AuthenticatedResponseErrorHandler errorHandler = new AuthenticatedResponseErrorHandler(objectMapper);
         DefaultAuthenticatedRestApi restApi = new DefaultAuthenticatedRestApi(client, objectMapper, tokenProvider,
+                errorHandler,
                 baseUrl, username,
                 password);
         return new DefaultAuthenticatedRestClient(restApi, baseUrl);

@@ -7,6 +7,9 @@ import io.github.glynch.owcs.rest.client.v1.V1RestClient;
 
 public abstract class RestClient {
 
+    private RestClient() {
+    }
+
     public static Builder builder(String baseUrl) {
         return new DefaultRestClientBuilder(baseUrl);
     }

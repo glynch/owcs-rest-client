@@ -18,13 +18,14 @@ public class CachingTokenProvider implements TokenProvider {
 
     @Override
     public String getToken(String baseUrl, String username, String password) throws SSOException {
-        String token = cache.get(getCacheKey(baseUrl, username, password));
+        String cacheKey = getCacheKey(baseUrl, username, password);
+        String token = cache.get(cacheKey);
         if (token == null) {
-            LOGGER.trace("Cache miss for token");
+            LOGGER.trace("Cache miss for {} using username {}", baseUrl, username);
             token = delegate.getToken(baseUrl, username, password);
-            cache.put(getCacheKey(baseUrl, username, password), token);
+            cache.put(cacheKey, token);
         } else {
-            LOGGER.trace("Cache hit for token: {}", token);
+            LOGGER.trace("Cache hit for {} using username ({)}", baseUrl, username, token);
         }
 
         return token;

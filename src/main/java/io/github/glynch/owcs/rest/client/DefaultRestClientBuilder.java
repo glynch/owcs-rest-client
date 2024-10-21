@@ -46,8 +46,10 @@ import io.github.glynch.owcs.rest.client.mixins.RolesBeanMixin;
 import io.github.glynch.owcs.rest.client.mixins.SitesBeanMixin;
 import io.github.glynch.owcs.rest.client.mixins.StructMixin;
 import io.github.glynch.owcs.rest.client.mixins.UserLocalesBeanMixin;
+import io.github.glynch.owcs.rest.client.support.ResponseErrorHandler;
 import io.github.glynch.owcs.rest.client.v1.DefaultV1RestClient;
 import io.github.glynch.owcs.rest.client.v1.V1RestClient;
+import io.github.glynch.owcs.rest.client.v1.support.DefaultResponseErrorHandler;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 
@@ -135,7 +137,8 @@ public class DefaultRestClientBuilder implements RestClient.Builder {
 
     @Override
     public V1RestClient build() {
-        return new DefaultV1RestClient(new DefaultRestApi(builder.build(), objectMapper), baseUrl);
+        ResponseErrorHandler errorHandler = new DefaultResponseErrorHandler(objectMapper);
+        return new DefaultV1RestClient(new DefaultRestApi(builder.build(), objectMapper, errorHandler), baseUrl);
     }
 
 }

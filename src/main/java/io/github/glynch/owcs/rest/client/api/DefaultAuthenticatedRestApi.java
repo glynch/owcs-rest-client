@@ -7,6 +7,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.github.glynch.owcs.rest.client.api.exceptions.RestApiException;
+import io.github.glynch.owcs.rest.client.authenticated.support.AuthenticatedResponseErrorHandler;
+import io.github.glynch.owcs.rest.client.exceptions.RestClientException;
 import io.github.glynch.owcs.rest.client.sso.TokenProvider;
 import io.github.glynch.owcs.rest.client.support.DefaultUriBuilder;
 import io.github.glynch.owcs.rest.client.support.UriBuilder;
@@ -17,16 +19,17 @@ import okhttp3.Response;
 
 public class DefaultAuthenticatedRestApi extends DefaultRestApi implements AuthenticatedRestApi {
 
-    private final TokenProvider tokenProvider;
     private final ObjectMapper objectMapper;
+    private final TokenProvider tokenProvider;
     private final String baseUrl;
     private final String username;
     private final String password;
 
     public DefaultAuthenticatedRestApi(OkHttpClient client, ObjectMapper objectMapper, TokenProvider tokenProvider,
+            AuthenticatedResponseErrorHandler errorHandler,
             String baseUrl,
             String username, String password) {
-        super(client, objectMapper);
+        super(client, objectMapper, errorHandler);
         this.objectMapper = objectMapper;
         this.tokenProvider = tokenProvider;
         this.baseUrl = baseUrl;
@@ -43,7 +46,7 @@ public class DefaultAuthenticatedRestApi extends DefaultRestApi implements Authe
     }
 
     @Override
-    public <T> T execute(Request request, Class<T> type) throws RestApiException {
+    public <T> T execute(Request request, Class<T> type) throws RestClientException {
         Request.Builder builder = new Request.Builder(request);
         builder.header(TokenProvider.X_CSRF_TOKEN,
                 tokenProvider.getToken(baseUrl, username, password));
@@ -51,7 +54,7 @@ public class DefaultAuthenticatedRestApi extends DefaultRestApi implements Authe
     }
 
     @Override
-    public <T> T put(String path, T body, Class<T> type) throws RestApiException {
+    public <T> T put(String path, T body, Class<T> type) throws RestClientException {
         Request request = new Request.Builder()
                 .url(path)
                 .put(json(body))
@@ -62,7 +65,7 @@ public class DefaultAuthenticatedRestApi extends DefaultRestApi implements Authe
 
     @Override
     public <T> T put(String uriTemplate, Function<UriBuilder, URI> uriFunction, T body, Class<T> type)
-            throws RestApiException {
+            throws RestClientException {
         UriBuilder builder = new DefaultUriBuilder(uriTemplate);
         URI uri = uriFunction.apply(builder);
         return put(uri.toString(), body, type);
