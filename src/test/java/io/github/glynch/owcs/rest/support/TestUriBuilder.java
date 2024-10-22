@@ -8,12 +8,10 @@ import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
-import io.github.glynch.owcs.rest.support.DefaultUriBuilder;
-
 public class TestUriBuilder {
 
     @Test
-    void testUriBuilder() {
+    void testUriBuilderFromMapSingleVariable() {
         UriBuilder uriBuilder = new DefaultUriBuilder(TYPE_URI_TEMPLATE);
         URI uri = uriBuilder.build(Map.of("type", "AVIArticle"));
         assertEquals("/REST/types/AVIArticle", uri.toString());

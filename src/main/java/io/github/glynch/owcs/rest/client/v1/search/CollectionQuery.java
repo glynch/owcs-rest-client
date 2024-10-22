@@ -1,5 +1,7 @@
 package io.github.glynch.owcs.rest.client.v1.search;
 
+import org.apache.commons.collections4.MultiValuedMap;
+
 public interface CollectionQuery {
 
     int assetDepth();
@@ -9,5 +11,7 @@ public interface CollectionQuery {
     int offset();
 
     String profileName();
+
+    MultiValuedMap<String, String> queryParams();
 
 }

@@ -43,6 +43,8 @@ public interface V1RestClient {
         SiteCollectionResources contentQuery();
 
         SiteCollectionResources advCols();
+
+        SiteRecommendationResources recommendation(String name);
     }
 
     interface SiteTypeResources {
@@ -53,6 +55,7 @@ public interface V1RestClient {
         CollectionResourceMap id(long id) throws RestClientException;
 
         ResourceDescriptionMap metaDataCatalog(long id) throws RestClientException;
+
     }
 
     interface SiteCollectionResources {
@@ -65,6 +68,19 @@ public interface V1RestClient {
         ResourceDescriptionMap metaDataCatalog(long id) throws RestClientException;
 
         URI options(long id) throws RestClientException;
+
+    }
+
+    interface SiteRecommendationResources {
+        String SITE_RECOMMENDATION_ITEMS_URI_TEMPLATE = "/REST/resources/v1/aggregates/{site}/engage/recommendation/{name}/items";
+        String SITE_RECOMMENDATION_ITEMS_METADATA_CATALOG_URI_TEMPLATE = "/REST/resources/v1/metadata-catalog/aggregates/{site}/engage/recommendation/{name}/items";
+
+        CollectionResourceMap items();
+
+        URI options();
+
+        ResourceDescriptionMap metaDataCatalog();
+
     }
 
 }

@@ -4,6 +4,7 @@ import java.util.Objects;
 
 import io.github.glynch.owcs.rest.client.exceptions.RestClientException;
 import io.github.glynch.owcs.rest.client.v1.V1RestClient.SiteCollectionResources;
+import io.github.glynch.owcs.rest.client.v1.V1RestClient.SiteRecommendationResources;
 import io.github.glynch.owcs.rest.client.v1.V1RestClient.SiteResources;
 import io.github.glynch.owcs.rest.client.v1.V1RestClient.SiteTypeResources;
 import io.github.glynch.owcs.rest.support.Type;
@@ -33,6 +34,11 @@ public class DefaultSiteResources implements SiteResources {
     @Override
     public SiteCollectionResources advCols() {
         return new DefaultSiteCollectionResources(client, site, Type.ADVCOLS.getName());
+    }
+
+    @Override
+    public SiteRecommendationResources recommendation(String name) {
+        return new DefaultSiteRecommendationResources(client, site, name);
     }
 
 }
