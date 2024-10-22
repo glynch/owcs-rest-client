@@ -16,6 +16,8 @@ public class DefaultRecommendationQuery extends DefaultCollectionQuery implement
 
     public static class DefaultRecommendationQueryBuilder implements RecommendationQuery.Builder {
 
+        CollectionQuery.Builder builder = CollectionQuery.builder();
+
         private final MultiValuedMap<String, String> queryParams = new ArrayListValuedHashMap<>();
 
         public DefaultRecommendationQueryBuilder() {
@@ -23,68 +25,61 @@ public class DefaultRecommendationQuery extends DefaultCollectionQuery implement
 
         @Override
         public RecommendationQuery.Builder assetDepth(int assetDepth) {
-            this.queryParams.put(ASSETDEPTH, String.valueOf(assetDepth));
+            builder.assetDepth(assetDepth);
             return this;
         }
 
         @Override
         public RecommendationQuery.Builder all() {
-            this.queryParams.put(ASSETDEPTH, "all");
+            builder.all();
             return this;
         }
 
         @Override
         public RecommendationQuery.Builder links(Link... links) {
-            if (links != null && links.length > 0) {
-                for (Link link : links) {
-                    this.queryParams.put(LINKS, link.toString());
-                }
-            }
+            builder.links(links);
             return this;
         }
 
         @Override
         public RecommendationQuery.Builder profileName(String profileName) {
-            this.queryParams.put(PROFILENAME, profileName);
+            builder.profileName(profileName);
             return this;
         }
 
         @Override
         public RecommendationQuery.Builder segments(String... segments) {
-            if (segments != null && segments.length > 0) {
-                for (String segment : segments) {
-                    this.queryParams.put(SEGMENTS, segment);
-                }
-            }
+            builder.segments(segments);
             return this;
         }
 
         @Override
         public RecommendationQuery.Builder limit(Integer limit) {
-            this.queryParams.put(LIMIT, String.valueOf(limit));
+            builder.limit(limit);
             return this;
         }
 
         @Override
         public RecommendationQuery.Builder offset(Integer offset) {
-            this.queryParams.put(OFFSET, String.valueOf(offset));
+            builder.offset(offset);
             return this;
         }
 
         @Override
         public RecommendationQuery.Builder totalResults(Boolean totalResults) {
-            this.queryParams.put(TOTAL_RESULTS, String.valueOf(totalResults));
+            builder.totalResults(totalResults);
             return this;
         }
 
         @Override
         public RecommendationQuery.Builder visitorId(Long visitorId) {
-            this.queryParams.put(VISITOR_ID, String.valueOf(visitorId));
+            queryParams.put(VISITOR_ID, String.valueOf(visitorId));
             return this;
         }
 
         @Override
         public RecommendationQuery build() {
+            queryParams.putAll(builder.build().queryParams());
             return new DefaultRecommendationQuery(queryParams);
         }
 

@@ -28,45 +28,38 @@ public class DefaultCollectionQuery extends AbstractBaseQuery implements Collect
     public static class DefaultCollectionQueryBulder implements CollectionQuery.Builder {
 
         private final MultiValuedMap<String, String> queryParams = new ArrayListValuedHashMap<>();
+        AssetQuery.Builder builder = AssetQuery.builder();
 
         public DefaultCollectionQueryBulder() {
         }
 
         @Override
         public CollectionQuery.Builder assetDepth(int assetDepth) {
-            this.queryParams.put(ASSETDEPTH, String.valueOf(assetDepth));
+            builder.assetDepth(assetDepth);
             return this;
         }
 
         @Override
         public CollectionQuery.Builder all() {
-            this.queryParams.put(ASSETDEPTH, "all");
+            builder.all();
             return this;
         }
 
         @Override
         public CollectionQuery.Builder links(Link... links) {
-            if (links != null && links.length > 0) {
-                for (Link link : links) {
-                    this.queryParams.put(LINKS, link.toString());
-                }
-            }
+            builder.links(links);
             return this;
         }
 
         @Override
         public CollectionQuery.Builder profileName(String profileName) {
-            this.queryParams.put(PROFILENAME, profileName);
+            builder.profileName(profileName);
             return this;
         }
 
         @Override
         public CollectionQuery.Builder segments(String... segments) {
-            if (segments != null && segments.length > 0) {
-                for (String segment : segments) {
-                    this.queryParams.put(SEGMENTS, segment);
-                }
-            }
+            builder.segments(segments);
             return this;
         }
 
@@ -90,6 +83,7 @@ public class DefaultCollectionQuery extends AbstractBaseQuery implements Collect
 
         @Override
         public CollectionQuery build() {
+            queryParams.putAll(builder.build().queryParams());
             return new DefaultCollectionQuery(queryParams);
         }
 

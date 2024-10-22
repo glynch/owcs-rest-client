@@ -1,5 +1,7 @@
 package io.github.glynch.owcs.rest.client.v1.search;
 
+import java.util.Objects;
+
 import org.apache.commons.collections4.MultiValuedMap;
 import org.apache.commons.collections4.multimap.ArrayListValuedHashMap;
 
@@ -30,26 +32,25 @@ public class DefaultAssetQuery extends AbstractBaseQuery implements AssetQuery {
 
         @Override
         public AssetQuery.Builder links(Link... links) {
-            if (links != null && links.length > 0) {
-                for (Link link : links) {
-                    this.queryParams.put(LINKS, link.toString());
-                }
+            Objects.requireNonNull(links, "links must not be null");
+            for (Link link : links) {
+                this.queryParams.put(LINKS, link.toString());
             }
             return this;
         }
 
         @Override
         public AssetQuery.Builder profileName(String profileName) {
+            Objects.requireNonNull(profileName, "profileName must not be null");
             this.queryParams.put(PROFILENAME, profileName);
             return this;
         }
 
         @Override
         public AssetQuery.Builder segments(String... segments) {
-            if (segments != null && segments.length > 0) {
-                for (String segment : segments) {
-                    this.queryParams.put(SEGMENTS, segment);
-                }
+            Objects.requireNonNull(segments, "segments must not be null");
+            for (String segment : segments) {
+                this.queryParams.put(SEGMENTS, segment);
             }
             return this;
         }
