@@ -95,6 +95,12 @@ public interface AuthenticatedRestClient {
     String TIMEZONE_URI_TEMPLATE = "/REST/timezone";
     String CURRENT_DEVICE_URI_TEMPLATE = "/REST/currentdevice";
 
+    /**
+     * Get the resources for the given version.
+     * 
+     * @param version
+     * @return the resources for the given version
+     */
     Map<String, ?> resources(Versions version);
 
     AssetsBean search(String query) throws RestClientException;

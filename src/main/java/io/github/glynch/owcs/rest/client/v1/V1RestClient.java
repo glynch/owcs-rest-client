@@ -1,5 +1,52 @@
 package io.github.glynch.owcs.rest.client.v1;
 
+import java.util.Map;
+
+import io.github.glynch.owcs.rest.client.api.RestApi;
+import io.github.glynch.owcs.rest.client.exceptions.RestClientException;
+import io.github.glynch.owcs.rest.support.Sites;
+import io.github.glynch.owcs.rest.support.Types;
+import io.github.glynch.owcs.rest.support.Versions;
+import oracle.fatwire.rest.standard.beans.CollectionResourceMap;
+import oracle.fatwire.rest.v1.maps.ResourceDescriptionMap;
+
 public interface V1RestClient {
+
+    String baseUrl();
+
+    RestApi restApi();
+
+    String RESOURCES_URI_TEMPLATE = "/REST/resources";
+    String RESOURCES_VERSION_URI_TEMPLATE = "/REST/resources/{version}";
+
+    Map<String, ?> resources() throws RestClientException;
+
+    Map<String, ?> resource(Versions version) throws RestClientException;
+
+    ResourceResources resources(Versions version) throws RestClientException;
+
+    SiteResources sites(Sites site);
+
+    interface ResourceResources {
+
+        String RESOURCES_VERSION_METADATA_CATALOG_URI_TEMPLATE = "/REST/resources/{version}/metadata-catalog";
+
+        Map<String, ?> metaDataCatalog() throws RestClientException;
+    }
+
+    interface SiteResources {
+
+        SiteTypeResources types(Types type) throws RestClientException;
+    }
+
+    interface SiteTypeResources {
+
+        String SITE_TYPE_ASSET_URI_TEMPLATE = "/REST/resources/v1/aggregates/{site}/{type}/{id}";
+        String SITE_TYPE_ASSET_METADATA_CATALOG_URI_TEMPLATE = "/REST/resources/v1/metadata-catalog/aggregates/{site}/{type}/{id}";
+
+        CollectionResourceMap id(long id) throws RestClientException;
+
+        ResourceDescriptionMap metaDataCatalog(long id) throws RestClientException;
+    }
 
 }
