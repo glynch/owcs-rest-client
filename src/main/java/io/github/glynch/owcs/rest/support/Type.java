@@ -3,7 +3,12 @@ package io.github.glynch.owcs.rest.support;
 import java.util.stream.Stream;
 
 public enum Type implements Types {
-    AVIARTICLE("AVIArticle");
+    AVIARTICLE("AVIArticle"),
+    AVIIMAGE("AVIImage"),
+    ARTICLECATEGORY("ArticleCategory"),
+    CONTENTQUERY("ContentQuery"),
+    ADVCOLS("AdvCols"),
+    PAGE("Page"),;
 
     private final String name;
 

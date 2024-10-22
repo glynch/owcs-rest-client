@@ -2,7 +2,10 @@ package io.github.glynch.owcs.rest.client.api;
 
 import java.io.IOException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.function.Function;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,9 +17,13 @@ import io.github.glynch.owcs.rest.support.ResponseErrorHandler;
 import io.github.glynch.owcs.rest.support.UriBuilder;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class DefaultRestApi implements RestApi {
+
+    private static final String LINK_HEADER = "Link";
+    private static final Pattern LINK_PATTERN = Pattern.compile("<([^>]+)>");
 
     private final OkHttpClient client;
     private final ObjectMapper objectMapper;
@@ -74,6 +81,34 @@ public class DefaultRestApi implements RestApi {
             throws RestClientException {
         URI uri = uriFunction.apply(new DefaultUriBuilder(uriTemplate));
         return get(uri.toString(), type);
+    }
+
+    @Override
+    public URI options(String url) throws RestClientException {
+
+        Request request = new Request.Builder()
+                .url(url)
+                .method("OPTIONS", RequestBody.create("", null))
+                .build();
+
+        Response response = execute(request);
+
+        String link = response.header(LINK_HEADER);
+        Matcher matcher = LINK_PATTERN.matcher(link);
+
+        try {
+            return matcher.find() ? new URI(matcher.group(1)) : null;
+        } catch (URISyntaxException e) {
+            throw new RestClientRequestException(request, e);
+        }
+
+    }
+
+    @Override
+    public URI options(String uriTemplate, Function<UriBuilder, URI> uriFunction)
+            throws RestClientException {
+        URI uri = uriFunction.apply(new DefaultUriBuilder(uriTemplate));
+        return options(uri.toString());
     }
 
 }

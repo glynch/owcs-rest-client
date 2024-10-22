@@ -1,11 +1,12 @@
-package io.github.glynch.owcs.rest.client.v1.support;
+package io.github.glynch.owcs.rest.client.v1;
 
 import java.util.Objects;
 
 import io.github.glynch.owcs.rest.client.exceptions.RestClientException;
-import io.github.glynch.owcs.rest.client.v1.V1RestClient;
+import io.github.glynch.owcs.rest.client.v1.V1RestClient.SiteCollectionResources;
 import io.github.glynch.owcs.rest.client.v1.V1RestClient.SiteResources;
 import io.github.glynch.owcs.rest.client.v1.V1RestClient.SiteTypeResources;
+import io.github.glynch.owcs.rest.support.Type;
 import io.github.glynch.owcs.rest.support.Types;
 
 public class DefaultSiteResources implements SiteResources {
@@ -22,6 +23,16 @@ public class DefaultSiteResources implements SiteResources {
     public SiteTypeResources types(Types type) throws RestClientException {
         Objects.requireNonNull(type, "type is required");
         return new DefaultSiteTypeResources(client, site, type.getName());
+    }
+
+    @Override
+    public SiteCollectionResources contentQuery() {
+        return new DefaultSiteCollectionResources(client, site, Type.CONTENTQUERY.getName());
+    }
+
+    @Override
+    public SiteCollectionResources advCols() {
+        return new DefaultSiteCollectionResources(client, site, Type.ADVCOLS.getName());
     }
 
 }

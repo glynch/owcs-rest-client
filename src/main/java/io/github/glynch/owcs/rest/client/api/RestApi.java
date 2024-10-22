@@ -22,4 +22,9 @@ public interface RestApi {
 
     <T> T get(String uriTemplate, Function<UriBuilder, URI> uriFunction, Class<T> type) throws RestClientException;
 
+    URI options(String url) throws RestClientException;
+
+    URI options(String uriTemplate, Function<UriBuilder, URI> uriFunction)
+            throws RestClientException;
+
 }

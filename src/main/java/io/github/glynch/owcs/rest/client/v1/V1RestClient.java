@@ -1,9 +1,11 @@
 package io.github.glynch.owcs.rest.client.v1;
 
+import java.net.URI;
 import java.util.Map;
 
 import io.github.glynch.owcs.rest.client.api.RestApi;
 import io.github.glynch.owcs.rest.client.exceptions.RestClientException;
+import io.github.glynch.owcs.rest.client.v1.search.CollectionQuery;
 import io.github.glynch.owcs.rest.support.Sites;
 import io.github.glynch.owcs.rest.support.Types;
 import io.github.glynch.owcs.rest.support.Versions;
@@ -23,7 +25,7 @@ public interface V1RestClient {
 
     Map<String, ?> resource(Versions version) throws RestClientException;
 
-    ResourceResources resources(Versions version) throws RestClientException;
+    ResourceResources resources(Versions version);
 
     SiteResources sites(Sites site);
 
@@ -36,7 +38,11 @@ public interface V1RestClient {
 
     interface SiteResources {
 
-        SiteTypeResources types(Types type) throws RestClientException;
+        SiteTypeResources types(Types type);
+
+        SiteCollectionResources contentQuery();
+
+        SiteCollectionResources advCols();
     }
 
     interface SiteTypeResources {
@@ -47,6 +53,18 @@ public interface V1RestClient {
         CollectionResourceMap id(long id) throws RestClientException;
 
         ResourceDescriptionMap metaDataCatalog(long id) throws RestClientException;
+    }
+
+    interface SiteCollectionResources {
+
+        String SITE_COLLECTION_ITEMS_URI_TEMPLATE = "/REST/resources/v1/aggregates/{site}/{type}/{id}/items";
+        String SITE_COLLECTION_ITEMS_METADATA_CATALOG_URI_TEMPLATE = "/REST/resources/v1/metadata-catalog/aggregates/{site}/{type}/{id}/items";
+
+        CollectionResourceMap items(long id, CollectionQuery query) throws RestClientException;
+
+        ResourceDescriptionMap metaDataCatalog(long id) throws RestClientException;
+
+        URI options(long id) throws RestClientException;
     }
 
 }

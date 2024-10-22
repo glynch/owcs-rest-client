@@ -1,9 +1,8 @@
-package io.github.glynch.owcs.rest.client.v1.support;
+package io.github.glynch.owcs.rest.client.v1;
 
 import java.util.Map;
 
 import io.github.glynch.owcs.rest.client.exceptions.RestClientException;
-import io.github.glynch.owcs.rest.client.v1.V1RestClient;
 import io.github.glynch.owcs.rest.client.v1.V1RestClient.SiteTypeResources;
 import oracle.fatwire.rest.standard.beans.CollectionResourceMap;
 import oracle.fatwire.rest.v1.maps.ResourceDescriptionMap;

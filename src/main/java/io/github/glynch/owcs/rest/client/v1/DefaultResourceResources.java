@@ -1,8 +1,7 @@
-package io.github.glynch.owcs.rest.client.v1.support;
+package io.github.glynch.owcs.rest.client.v1;
 
 import java.util.Map;
 
-import io.github.glynch.owcs.rest.client.v1.V1RestClient;
 import io.github.glynch.owcs.rest.client.v1.V1RestClient.ResourceResources;
 
 public class DefaultResourceResources implements ResourceResources {

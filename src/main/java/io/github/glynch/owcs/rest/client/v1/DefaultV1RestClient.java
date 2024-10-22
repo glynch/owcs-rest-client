@@ -5,8 +5,6 @@ import java.util.Objects;
 
 import io.github.glynch.owcs.rest.client.api.RestApi;
 import io.github.glynch.owcs.rest.client.exceptions.RestClientException;
-import io.github.glynch.owcs.rest.client.v1.support.DefaultResourceResources;
-import io.github.glynch.owcs.rest.client.v1.support.DefaultSiteResources;
 import io.github.glynch.owcs.rest.support.Sites;
 import io.github.glynch.owcs.rest.support.Versions;
 
