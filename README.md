@@ -1,5 +1,7 @@
 # Oracle WebCenter Sites Rest Client
 
+This is a work in profress and can change frequently.
+
 [Rest API](https://docs.oracle.com/middleware/12213/related-docs/WBCSR/wemrestresources.htm#i1019996)
 
 [Aggregated REST API](https://docs.oracle.com/en/middleware/webcenter/sites/12.2.1.3/wcsrt/index.html)
