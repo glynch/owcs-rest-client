@@ -37,9 +37,9 @@ import io.github.glynch.owcs.rest.client.sso.TokenProvider;
 import io.github.glynch.owcs.rest.support.Indexes;
 import io.github.glynch.owcs.rest.support.Roles;
 import io.github.glynch.owcs.rest.support.Sites;
-import io.github.glynch.owcs.rest.support.Subtype;
+import io.github.glynch.owcs.rest.support.Subtypes;
 import io.github.glynch.owcs.rest.support.Types;
-import io.github.glynch.owcs.rest.support.Version;
+import io.github.glynch.owcs.rest.support.Versions;
 
 public interface AuthenticatedRestClient {
 
@@ -95,7 +95,7 @@ public interface AuthenticatedRestClient {
     String TIMEZONE_URI_TEMPLATE = "/REST/timezone";
     String CURRENT_DEVICE_URI_TEMPLATE = "/REST/currentdevice";
 
-    Map<String, ?> resources(Version version);
+    Map<String, ?> resources(Versions version);
 
     AssetsBean search(String query) throws RestClientException;
 
@@ -152,7 +152,7 @@ public interface AuthenticatedRestClient {
 
         AssetTypesBean subtypes() throws RestClientException;
 
-        AssetTypeBean subtype(Subtype subtype) throws RestClientException;
+        AssetTypeBean subtype(Subtypes subtype) throws RestClientException;
 
     }
 

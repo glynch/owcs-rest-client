@@ -32,7 +32,7 @@ import io.github.glynch.owcs.rest.support.Indexes;
 import io.github.glynch.owcs.rest.support.Roles;
 import io.github.glynch.owcs.rest.support.Sites;
 import io.github.glynch.owcs.rest.support.Types;
-import io.github.glynch.owcs.rest.support.Version;
+import io.github.glynch.owcs.rest.support.Versions;
 
 public class DefaultAuthenticatedRestClient implements AuthenticatedRestClient {
 
@@ -56,7 +56,7 @@ public class DefaultAuthenticatedRestClient implements AuthenticatedRestClient {
 
     @SuppressWarnings("unchecked")
     @Override
-    public Map<String, ?> resources(Version version) {
+    public Map<String, ?> resources(Versions version) {
         Objects.requireNonNull(version, "version cannot be null");
         return restApi.get(baseUrl + RESOURCES_VERSION_URI_TEMPLATE,
                 builder -> builder.build(Map.of("version", version.getName())),

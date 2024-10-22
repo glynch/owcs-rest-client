@@ -10,7 +10,7 @@ import com.fatwire.rest.beans.AssetTypesBean;
 
 import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClient.TypeResources;
 import io.github.glynch.owcs.rest.client.exceptions.RestClientException;
-import io.github.glynch.owcs.rest.support.Subtype;
+import io.github.glynch.owcs.rest.support.Subtypes;
 
 public class DefaultTypeResources implements TypeResources {
 
@@ -43,7 +43,7 @@ public class DefaultTypeResources implements TypeResources {
     }
 
     @Override
-    public AssetTypeBean subtype(Subtype subtype) throws RestClientException {
+    public AssetTypeBean subtype(Subtypes subtype) throws RestClientException {
         Objects.requireNonNull(subtype, "subtype is required");
         return client.restApi().get(client.baseUrl() + TYPE_SUBTYPE_URI_TEMPLATE,
                 builder -> builder.build(Map.of("type", type, "subtype", subtype.getName())),

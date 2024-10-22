@@ -10,7 +10,7 @@ See [Examples](https://github.com/glynch/owcs-rest-client/blob/main/RESOURCES.md
 
 ## Running locally
 
-You will need to install `sites-rest-api.jar` and into your maven respository.
+You will need to install `sites-rest-api.jar` into your maven respository.
 
 For example
 
