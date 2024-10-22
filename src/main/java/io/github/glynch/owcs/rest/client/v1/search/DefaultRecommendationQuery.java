@@ -3,6 +3,9 @@ package io.github.glynch.owcs.rest.client.v1.search;
 import org.apache.commons.collections4.MultiValuedMap;
 import org.apache.commons.collections4.multimap.ArrayListValuedHashMap;
 
+import io.github.glynch.owcs.rest.support.Fields;
+import io.github.glynch.owcs.rest.support.Types;
+
 public class DefaultRecommendationQuery extends DefaultCollectionQuery implements RecommendationQuery {
 
     public DefaultRecommendationQuery(MultiValuedMap<String, String> queryParams) {
@@ -38,6 +41,42 @@ public class DefaultRecommendationQuery extends DefaultCollectionQuery implement
         @Override
         public RecommendationQuery.Builder links(Link... links) {
             builder.links(links);
+            return this;
+        }
+
+        @Override
+        public RecommendationQuery.Builder expand(Types... types) {
+            builder.expand(types);
+            return this;
+        }
+
+        @Override
+        public RecommendationQuery.Builder exclude(Types... types) {
+            builder.exclude(types);
+            return this;
+        }
+
+        @Override
+        public RecommendationQuery.Builder fields(Fields... fields) {
+            builder.fields(fields);
+            return this;
+        }
+
+        @Override
+        public RecommendationQuery.Builder excludeFields(Fields... fields) {
+            builder.excludeFields(fields);
+            return this;
+        }
+
+        @Override
+        public RecommendationQuery.Builder fields(Types type, Fields... fields) {
+            builder.fields(type, fields);
+            return this;
+        }
+
+        @Override
+        public RecommendationQuery.Builder excludeFields(Types type, Fields... fields) {
+            builder.excludeFields(type, fields);
             return this;
         }
 

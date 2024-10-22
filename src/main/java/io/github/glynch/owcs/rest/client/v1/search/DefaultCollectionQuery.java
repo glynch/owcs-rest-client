@@ -3,6 +3,9 @@ package io.github.glynch.owcs.rest.client.v1.search;
 import org.apache.commons.collections4.MultiValuedMap;
 import org.apache.commons.collections4.multimap.ArrayListValuedHashMap;
 
+import io.github.glynch.owcs.rest.support.Fields;
+import io.github.glynch.owcs.rest.support.Types;
+
 public class DefaultCollectionQuery extends AbstractBaseQuery implements CollectionQuery {
 
     public DefaultCollectionQuery(
@@ -48,6 +51,42 @@ public class DefaultCollectionQuery extends AbstractBaseQuery implements Collect
         @Override
         public CollectionQuery.Builder links(Link... links) {
             builder.links(links);
+            return this;
+        }
+
+        @Override
+        public Builder expand(Types... types) {
+            builder.expand(types);
+            return this;
+        }
+
+        @Override
+        public Builder exclude(Types... types) {
+            builder.exclude(types);
+            return this;
+        }
+
+        @Override
+        public Builder fields(Fields... fields) {
+            builder.fields(fields);
+            return this;
+        }
+
+        @Override
+        public Builder excludeFields(Fields... fields) {
+            builder.excludeFields(fields);
+            return this;
+        }
+
+        @Override
+        public Builder fields(Types type, Fields... fields) {
+            builder.fields(type, fields);
+            return this;
+        }
+
+        @Override
+        public Builder excludeFields(Types type, Fields... fields) {
+            builder.excludeFields(type, fields);
             return this;
         }
 

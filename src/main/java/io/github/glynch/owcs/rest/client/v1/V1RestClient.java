@@ -91,4 +91,9 @@ public interface V1RestClient {
 
     }
 
+    interface TypeResources {
+
+        CollectionResourceMap search() throws RestClientException;
+    }
+
 }

@@ -1,9 +1,14 @@
 package io.github.glynch.owcs.rest.client.v1.search;
 
+import java.util.Arrays;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import org.apache.commons.collections4.MultiValuedMap;
 import org.apache.commons.collections4.multimap.ArrayListValuedHashMap;
+
+import io.github.glynch.owcs.rest.support.Fields;
+import io.github.glynch.owcs.rest.support.Types;
 
 public class DefaultAssetQuery extends AbstractBaseQuery implements AssetQuery {
 
@@ -40,6 +45,68 @@ public class DefaultAssetQuery extends AbstractBaseQuery implements AssetQuery {
         }
 
         @Override
+        public Builder expand(Types... types) {
+            Objects.requireNonNull(types, "types must not be null");
+            for (Types type : types) {
+                this.queryParams.put(EXPAND, type.getName());
+            }
+            return this;
+        }
+
+        @Override
+        public Builder exclude(Types... types) {
+            Objects.requireNonNull(types, "types must not be null");
+            for (Types type : types) {
+                this.queryParams.put(EXPAND, "!" + type.getName());
+            }
+            return this;
+        }
+
+        @Override
+        public Builder fields(Fields... fields) {
+            if (fields != null && fields.length > 0) {
+                StringBuilder sb = new StringBuilder();
+                sb.append(Arrays.stream(fields).map(String::valueOf).collect(Collectors.joining(",")));
+                this.queryParams.put(FIELDS, sb.toString());
+            }
+
+            return this;
+        }
+
+        @Override
+        public Builder excludeFields(Fields... fields) {
+            if (fields != null && fields.length > 0) {
+                StringBuilder sb = new StringBuilder("!");
+                sb.append(Arrays.stream(fields).map(String::valueOf).collect(Collectors.joining(",")));
+                this.queryParams.put(FIELDS, sb.toString());
+            }
+
+            return this;
+        }
+
+        @Override
+        public Builder fields(Types type, Fields... fields) {
+            if (type != null && fields != null && fields.length > 0) {
+                StringBuilder sb = new StringBuilder(type.getName()).append("(");
+                sb.append(Arrays.stream(fields).map(String::valueOf).collect(Collectors.joining(",")));
+                sb.append(")");
+                this.queryParams.put(FIELDS, sb.toString());
+            }
+            return this;
+        }
+
+        @Override
+        public Builder excludeFields(Types type, Fields... fields) {
+            if (type != null && fields != null && fields.length > 0) {
+                StringBuilder sb = new StringBuilder("!").append(type.getName()).append("(");
+                sb.append(Arrays.stream(fields).map(String::valueOf).collect(Collectors.joining(",")));
+                sb.append(")");
+                this.queryParams.put(FIELDS, sb.toString());
+            }
+            return this;
+        }
+
+        @Override
         public AssetQuery.Builder profileName(String profileName) {
             Objects.requireNonNull(profileName, "profileName must not be null");
             this.queryParams.put(PROFILENAME, profileName);
@@ -59,6 +126,7 @@ public class DefaultAssetQuery extends AbstractBaseQuery implements AssetQuery {
         public AssetQuery build() {
             return new DefaultAssetQuery(queryParams);
         }
+
     }
 
 }

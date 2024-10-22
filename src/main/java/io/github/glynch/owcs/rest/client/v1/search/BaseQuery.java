@@ -8,6 +8,8 @@ public interface BaseQuery {
     String LINKS = "links";
     String PROFILENAME = "profileName";
     String SEGMENTS = "segments";
+    String FIELDS = "fields";
+    String EXPAND = "expand";
 
     String assetDepth();
 
@@ -16,6 +18,8 @@ public interface BaseQuery {
     String profileName();
 
     String[] segments();
+
+    String[] expand();
 
     MultiValuedMap<String, String> queryParams();
 

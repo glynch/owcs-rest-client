@@ -23,6 +23,10 @@ public enum Link {
         return value;
     }
 
+    public static Link[] all() {
+        return values();
+    }
+
     public static Link of(String link) {
         return Arrays.stream(values()).filter(value -> StringUtils.equals(value.getValue(), link)).findFirst()
                 .orElse(null);

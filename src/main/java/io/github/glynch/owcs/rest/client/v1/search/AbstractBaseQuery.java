@@ -32,6 +32,11 @@ public abstract class AbstractBaseQuery implements BaseQuery {
     }
 
     @Override
+    public String[] expand() {
+        return queryParams.get(EXPAND).toArray(new String[0]);
+    }
+
+    @Override
     public MultiValuedMap<String, String> queryParams() {
         return queryParams;
     }

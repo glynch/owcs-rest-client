@@ -23,7 +23,7 @@ public class DefaultSiteTypeResources implements SiteTypeResources {
     @Override
     public CollectionResourceMap id(long id, AssetQuery query) throws RestClientException {
         return client.restApi().get(client.baseUrl() + SITE_TYPE_ASSET_URI_TEMPLATE,
-                builder -> builder.build(Map.of("site", site, "type", type, "id", id)),
+                builder -> builder.queryParams(query.queryParams()).build(Map.of("site", site, "type", type, "id", id)),
                 CollectionResourceMap.class);
     }
 
