@@ -10,6 +10,8 @@ import com.fatwire.rest.beans.ApplicationsBean;
 import com.fatwire.rest.beans.AssetBean;
 import com.fatwire.rest.beans.AssetTypeBean;
 import com.fatwire.rest.beans.AssetTypesBean;
+import com.fatwire.rest.beans.AssetsBean;
+import com.fatwire.rest.beans.AssociationBean;
 import com.fatwire.rest.beans.AssociationsBean;
 import com.fatwire.rest.beans.DeviceBean;
 import com.fatwire.rest.beans.EnabledTypesBean;
@@ -17,9 +19,11 @@ import com.fatwire.rest.beans.GroupBean;
 import com.fatwire.rest.beans.GroupsBean;
 import com.fatwire.rest.beans.IndexConfigBean;
 import com.fatwire.rest.beans.IndexConfigsBean;
+import com.fatwire.rest.beans.NavigationBean;
 import com.fatwire.rest.beans.RoleBean;
 import com.fatwire.rest.beans.RolesBean;
 import com.fatwire.rest.beans.SiteBean;
+import com.fatwire.rest.beans.SiteUserBean;
 import com.fatwire.rest.beans.SitesBean;
 import com.fatwire.rest.beans.TimezoneBean;
 import com.fatwire.rest.beans.UserBean;
@@ -33,7 +37,9 @@ import io.github.glynch.owcs.rest.client.sso.TokenProvider;
 import io.github.glynch.owcs.rest.support.Indexes;
 import io.github.glynch.owcs.rest.support.Roles;
 import io.github.glynch.owcs.rest.support.Sites;
+import io.github.glynch.owcs.rest.support.Subtype;
 import io.github.glynch.owcs.rest.support.Types;
+import io.github.glynch.owcs.rest.support.Version;
 
 public interface AuthenticatedRestClient {
 
@@ -89,7 +95,9 @@ public interface AuthenticatedRestClient {
     String TIMEZONE_URI_TEMPLATE = "/REST/timezone";
     String CURRENT_DEVICE_URI_TEMPLATE = "/REST/currentdevice";
 
-    Map<String, ?> resources(String version);
+    Map<String, ?> resources(Version version);
+
+    AssetsBean search(String query) throws RestClientException;
 
     AssetTypesBean types() throws RestClientException;
 
@@ -144,19 +152,36 @@ public interface AuthenticatedRestClient {
 
         AssetTypesBean subtypes() throws RestClientException;
 
-        AssetTypeBean subtype(String subtype) throws RestClientException;
+        AssetTypeBean subtype(Subtype subtype) throws RestClientException;
 
     }
 
     interface SiteResources {
 
         String SITE_TYPES_URI_TEMPLATE = "/REST/sites/{site}/types";
+        String SITE_NAVIGATION_URI_TEMPLATE = "/REST/sites/{site}/navigation";
+        String SITE_USERS_URI_TEMPLATE = "/REST/sites/{site}/users";
+        String SITE_USER_URI_TEMPLATE = "/REST/sites/{site}/users/{user}";
+        String SITE_RECOMMENDATION_URI_TEMPLATE = "/REST/sites/{site}/engage/recommendation/{recommendation}";
+        String SITE_SEGMENTS_URI_TEMPLATE = "/REST/sites/{site}/engage/segments";
 
         EnabledTypesBean types() throws RestClientException;
 
         AssetTypeBean type(Types type) throws RestClientException;
 
         SiteTypeResources types(Types type) throws RestClientException;
+
+        AssetsBean search(String query) throws RestClientException;
+
+        NavigationBean navigation() throws RestClientException;
+
+        NavigationBean navigation(long id) throws RestClientException;
+
+        SiteUserBean users() throws RestClientException;
+
+        SiteUserBean user(String name) throws RestClientException;
+
+        AssetsBean recommendation(String recommendation) throws RestClientException;
 
     }
 
@@ -172,6 +197,7 @@ public interface AuthenticatedRestClient {
     interface SiteTypeAssetResources {
 
         String SITE_TYPE_ASSET_ASSOCIATIONS_URI_TEMPLATE = "/REST/sites/{site}/types/{type}/assets/{id}/associations";
+        String SITE_TYPE_ASSET_ASSOCIATION_URI_TEMPLATE = "/REST/sites/{site}/types/{type}/assets/{id}/associations/{association}";
 
         AssetBean put(AssetBean assetBean) throws RestClientException;
 
@@ -180,6 +206,8 @@ public interface AuthenticatedRestClient {
         void delete() throws RestClientException;
 
         AssociationsBean associations() throws RestClientException;
+
+        AssociationBean association(String association) throws RestClientException;
 
     }
 

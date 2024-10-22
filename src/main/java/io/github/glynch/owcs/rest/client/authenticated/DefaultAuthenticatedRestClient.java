@@ -3,11 +3,14 @@ package io.github.glynch.owcs.rest.client.authenticated;
 import java.util.Map;
 import java.util.Objects;
 
+import org.apache.commons.lang3.NotImplementedException;
+
 import com.fatwire.rest.beans.AclsBean;
 import com.fatwire.rest.beans.ApplicationBean;
 import com.fatwire.rest.beans.ApplicationsBean;
 import com.fatwire.rest.beans.AssetTypeBean;
 import com.fatwire.rest.beans.AssetTypesBean;
+import com.fatwire.rest.beans.AssetsBean;
 import com.fatwire.rest.beans.DeviceBean;
 import com.fatwire.rest.beans.GroupBean;
 import com.fatwire.rest.beans.GroupsBean;
@@ -29,6 +32,7 @@ import io.github.glynch.owcs.rest.support.Indexes;
 import io.github.glynch.owcs.rest.support.Roles;
 import io.github.glynch.owcs.rest.support.Sites;
 import io.github.glynch.owcs.rest.support.Types;
+import io.github.glynch.owcs.rest.support.Version;
 
 public class DefaultAuthenticatedRestClient implements AuthenticatedRestClient {
 
@@ -52,11 +56,16 @@ public class DefaultAuthenticatedRestClient implements AuthenticatedRestClient {
 
     @SuppressWarnings("unchecked")
     @Override
-    public Map<String, ?> resources(String version) {
+    public Map<String, ?> resources(Version version) {
         Objects.requireNonNull(version, "version cannot be null");
         return restApi.get(baseUrl + RESOURCES_VERSION_URI_TEMPLATE,
-                builder -> builder.build(Map.of("version", version)),
+                builder -> builder.build(Map.of("version", version.getName())),
                 Map.class);
+    }
+
+    @Override
+    public AssetsBean search(String query) throws RestClientException {
+        throw new NotImplementedException("search not implemented");
     }
 
     @Override

@@ -1,5 +1,7 @@
 package io.github.glynch.owcs.rest.support;
 
+import java.util.stream.Stream;
+
 public enum Site implements Sites {
     AVISPORTS("avisports"), ADMIN_SITE("AdminSite");
 
@@ -12,6 +14,10 @@ public enum Site implements Sites {
     @Override
     public String getName() {
         return name;
+    }
+
+    public static Site of(String name) {
+        return Stream.of(values()).filter(site -> site.name.equals(name)).findFirst().orElse(null);
     }
 
     @Override
