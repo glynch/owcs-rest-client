@@ -10,12 +10,16 @@ A fluent rest client that supports legacy authenticated REST resources, as well 
 
 See [Examples](https://github.com/glynch/owcs-rest-client/blob/main/RESOURCES.md)
 
-## Running locally
+## Build
 
-You will need to install `sites-rest-api.jar` into your maven respository.
+To build this project you will need to install `sites-rest-api.jar` into your maven respository.
 
 For example
 
 ```bash
     mvn install:install-file -Dfile=<JSK_HOME>/JSK-12.2.1.3.0-2016-03-31/apache-tomcat-7.0.65-sites/webapps/sites/WEB-INF/lib/sites-rest-api.jar -DgroupId=com.oracle.wcsites -DartifactId=sites-rest-api -Dversion=12.2.1.3.0 -Dpackaging=jar
+```
+
+```bash
+    ./mvnw clean package
 ```

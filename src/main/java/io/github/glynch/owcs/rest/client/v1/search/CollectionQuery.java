@@ -1,17 +1,42 @@
 package io.github.glynch.owcs.rest.client.v1.search;
 
-import org.apache.commons.collections4.MultiValuedMap;
+import io.github.glynch.owcs.rest.client.v1.search.DefaultCollectionQuery.DefaultCollectionQueryBulder;
 
-public interface CollectionQuery {
+/**
+ * See <a href=
+ * "https://docs.oracle.com/en/middleware/webcenter/sites/12.2.1.3/wcsrt/op-resources-v1-aggregates-sitename-collectionassettype-assetid-items-get.html">REST
+ * API</a>
+ */
+public interface CollectionQuery extends BaseQuery {
 
-    int assetDepth();
+    static Builder builder() {
+        return new DefaultCollectionQueryBulder();
+    }
 
-    int limit();
+    Integer limit();
 
-    int offset();
+    Integer offset();
 
-    String profileName();
+    Boolean totalResults();
 
-    MultiValuedMap<String, String> queryParams();
+    interface Builder {
+
+        Builder assetDepth(String assetDepth);
+
+        Builder links(Link... links);
+
+        Builder profileName(String profileName);
+
+        Builder segments(String... segments);
+
+        Builder limit(Integer limit);
+
+        Builder offset(Integer offset);
+
+        Builder totalResults(Boolean totalResults);
+
+        CollectionQuery build();
+
+    }
 
 }

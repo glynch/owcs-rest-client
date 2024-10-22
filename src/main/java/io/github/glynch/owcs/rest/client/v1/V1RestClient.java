@@ -5,7 +5,9 @@ import java.util.Map;
 
 import io.github.glynch.owcs.rest.client.api.RestApi;
 import io.github.glynch.owcs.rest.client.exceptions.RestClientException;
+import io.github.glynch.owcs.rest.client.v1.search.AssetQuery;
 import io.github.glynch.owcs.rest.client.v1.search.CollectionQuery;
+import io.github.glynch.owcs.rest.client.v1.search.RecommendationQuery;
 import io.github.glynch.owcs.rest.support.Sites;
 import io.github.glynch.owcs.rest.support.Types;
 import io.github.glynch.owcs.rest.support.Versions;
@@ -52,6 +54,8 @@ public interface V1RestClient {
         String SITE_TYPE_ASSET_URI_TEMPLATE = "/REST/resources/v1/aggregates/{site}/{type}/{id}";
         String SITE_TYPE_ASSET_METADATA_CATALOG_URI_TEMPLATE = "/REST/resources/v1/metadata-catalog/aggregates/{site}/{type}/{id}";
 
+        CollectionResourceMap id(long id, AssetQuery query) throws RestClientException;
+
         CollectionResourceMap id(long id) throws RestClientException;
 
         ResourceDescriptionMap metaDataCatalog(long id) throws RestClientException;
@@ -65,6 +69,8 @@ public interface V1RestClient {
 
         CollectionResourceMap items(long id, CollectionQuery query) throws RestClientException;
 
+        CollectionResourceMap items(long id) throws RestClientException;
+
         ResourceDescriptionMap metaDataCatalog(long id) throws RestClientException;
 
         URI options(long id) throws RestClientException;
@@ -75,11 +81,13 @@ public interface V1RestClient {
         String SITE_RECOMMENDATION_ITEMS_URI_TEMPLATE = "/REST/resources/v1/aggregates/{site}/engage/recommendation/{name}/items";
         String SITE_RECOMMENDATION_ITEMS_METADATA_CATALOG_URI_TEMPLATE = "/REST/resources/v1/metadata-catalog/aggregates/{site}/engage/recommendation/{name}/items";
 
-        CollectionResourceMap items();
+        CollectionResourceMap items(RecommendationQuery query) throws RestClientException;
 
-        URI options();
+        CollectionResourceMap items() throws RestClientException;
 
-        ResourceDescriptionMap metaDataCatalog();
+        URI options() throws RestClientException;
+
+        ResourceDescriptionMap metaDataCatalog() throws RestClientException;
 
     }
 

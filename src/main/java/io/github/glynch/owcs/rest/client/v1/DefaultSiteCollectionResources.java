@@ -29,6 +29,10 @@ public class DefaultSiteCollectionResources implements SiteCollectionResources {
                 CollectionResourceMap.class);
     }
 
+    public CollectionResourceMap items(long id) throws RestClientException {
+        return items(id, CollectionQuery.builder().build());
+    }
+
     @Override
     public ResourceDescriptionMap metaDataCatalog(long id) throws RestClientException {
         return client.restApi().get(client.baseUrl() + SITE_COLLECTION_ITEMS_METADATA_CATALOG_URI_TEMPLATE,

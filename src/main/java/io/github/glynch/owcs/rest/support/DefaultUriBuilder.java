@@ -105,6 +105,7 @@ public class DefaultUriBuilder implements UriBuilder {
 
     @Override
     public UriBuilder queryParams(MultiValuedMap<String, String> params) {
+        System.out.println("params: " + params);
         if (encode) {
             params.entries().forEach(entry -> {
                 String key = entry.getKey();

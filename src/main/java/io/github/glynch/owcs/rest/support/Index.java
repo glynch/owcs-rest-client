@@ -3,7 +3,9 @@ package io.github.glynch.owcs.rest.support;
 import java.util.stream.Stream;
 
 public enum Index implements Indexes {
-    GLOBAL("Global");
+    GLOBAL("Global"),
+    AVIARTICLE("AVIArticle"),
+    PAGE("Page"),;
 
     private final String name;
 

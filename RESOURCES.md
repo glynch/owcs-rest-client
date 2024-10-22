@@ -26,14 +26,14 @@ Short cut using all defaults
 #### /REST/types/{type}
 
 ```java
-    AssetTypeBean assetTypeBean = client.types("AVIArticle").get();
+    AssetTypeBean assetTypeBean = client.types(Type.AVIARTICLE).get();
 ```
 
 Create an asset type.
 
 ```java
     AssetTypeBean assetTypeBean = ....
-    assetTypeBean = client.types("AVIArticle").put(assetTypeBean);
+    assetTypeBean = client.types(TYPE.AVIARTICLE).put(assetTypeBean);
 ```
 
 ## Create a v1 aggregated REST client
