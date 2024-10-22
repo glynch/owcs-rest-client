@@ -4,6 +4,11 @@ import org.apache.commons.collections4.MultiValuedMap;
 
 public interface BaseQuery {
 
+    String ASSETDEPTH = "assetDepth";
+    String LINKS = "links";
+    String PROFILENAME = "profileName";
+    String SEGMENTS = "segments";
+
     String assetDepth();
 
     Link[] links();

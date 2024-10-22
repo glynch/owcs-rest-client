@@ -9,6 +9,10 @@ import io.github.glynch.owcs.rest.client.v1.search.DefaultCollectionQuery.Defaul
  */
 public interface CollectionQuery extends BaseQuery {
 
+    String LIMIT = "limit";
+    String OFFSET = "offset";
+    String TOTAL_RESULTS = "totalResults";
+
     static Builder builder() {
         return new DefaultCollectionQueryBulder();
     }
@@ -21,7 +25,9 @@ public interface CollectionQuery extends BaseQuery {
 
     interface Builder {
 
-        Builder assetDepth(String assetDepth);
+        Builder assetDepth(int assetDepth);
+
+        Builder all();
 
         Builder links(Link... links);
 

@@ -10,7 +10,9 @@ public interface AssetQuery extends BaseQuery {
 
     interface Builder {
 
-        Builder assetDepth(String assetDepth);
+        Builder assetDepth(int assetDepth);
+
+        Builder all();
 
         Builder links(Link... links);
 

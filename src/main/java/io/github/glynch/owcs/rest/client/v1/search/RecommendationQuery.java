@@ -4,6 +4,8 @@ import io.github.glynch.owcs.rest.client.v1.search.DefaultRecommendationQuery.De
 
 public interface RecommendationQuery extends CollectionQuery {
 
+    String VISITOR_ID = "visitorId";
+
     static Builder builder() {
         return new DefaultRecommendationQueryBuilder();
     }
@@ -11,7 +13,9 @@ public interface RecommendationQuery extends CollectionQuery {
     Long visitorId();
 
     interface Builder {
-        Builder assetDepth(String assetDepth);
+        Builder assetDepth(int assetDepth);
+
+        Builder all();
 
         Builder links(Link... links);
 

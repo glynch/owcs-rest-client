@@ -5,53 +5,30 @@ import org.apache.commons.collections4.multimap.ArrayListValuedHashMap;
 
 public abstract class AbstractBaseQuery implements BaseQuery {
 
-    private final String assetDepth;
-    private final Link[] links;
-    private final String profileName;
-    private final String[] segments;
     private final MultiValuedMap<String, String> queryParams = new ArrayListValuedHashMap<>();
 
-    public AbstractBaseQuery(String assetDepth, Link[] links, String profileName, String[] segments) {
-        this.assetDepth = assetDepth;
-        this.links = links;
-        this.profileName = profileName;
-        this.segments = segments;
-        if (segments != null && segments.length > 0) {
-            for (String segment : segments) {
-                this.queryParams.put("segment", segment);
-            }
-        }
-        if (links != null && links.length > 0) {
-            for (Link link : links) {
-                this.queryParams.put("link", link.toString());
-            }
-        }
-        if (assetDepth != null) {
-            this.queryParams.put("assetDepth", assetDepth);
-        }
-        if (profileName != null) {
-            this.queryParams.put("profileName", profileName);
-        }
+    public AbstractBaseQuery(MultiValuedMap<String, String> queryParams) {
+        this.queryParams.putAll(queryParams);
     }
 
     @Override
     public String assetDepth() {
-        return assetDepth;
+        return queryParams.get(ASSETDEPTH).stream().findFirst().orElse(null);
     }
 
     @Override
     public Link[] links() {
-        return links;
+        return queryParams.get(LINKS).stream().map(Link::of).toArray(Link[]::new);
     }
 
     @Override
     public String profileName() {
-        return profileName;
+        return queryParams.get(PROFILENAME).stream().findFirst().orElse(null);
     }
 
     @Override
     public String[] segments() {
-        return segments;
+        return queryParams.get(SEGMENTS).toArray(new String[0]);
     }
 
     @Override

@@ -1,48 +1,62 @@
 package io.github.glynch.owcs.rest.client.v1.search;
 
+import org.apache.commons.collections4.MultiValuedMap;
+import org.apache.commons.collections4.multimap.ArrayListValuedHashMap;
+
 public class DefaultAssetQuery extends AbstractBaseQuery implements AssetQuery {
 
-    public DefaultAssetQuery(String assetDepth, Link[] links, String profileName, String[] segments) {
-        super(assetDepth, links, profileName, segments);
+    public DefaultAssetQuery(MultiValuedMap<String, String> queryParams) {
+        super(queryParams);
     }
 
     public static class DefaultAssetQueryBuilder implements AssetQuery.Builder {
 
-        private String assetDepth;
-        private Link[] links;
-        private String profileName;
-        private String[] segments;
+        private final MultiValuedMap<String, String> queryParams = new ArrayListValuedHashMap<>();
 
         public DefaultAssetQueryBuilder() {
         }
 
         @Override
-        public AssetQuery.Builder assetDepth(String assetDepth) {
-            this.assetDepth = assetDepth;
+        public AssetQuery.Builder assetDepth(int assetDepth) {
+            this.queryParams.put(ASSETDEPTH, String.valueOf(assetDepth));
+            return this;
+        }
+
+        @Override
+        public AssetQuery.Builder all() {
+            this.queryParams.put(ASSETDEPTH, "all");
             return this;
         }
 
         @Override
         public AssetQuery.Builder links(Link... links) {
-            this.links = links;
+            if (links != null && links.length > 0) {
+                for (Link link : links) {
+                    this.queryParams.put(LINKS, link.toString());
+                }
+            }
             return this;
         }
 
         @Override
         public AssetQuery.Builder profileName(String profileName) {
-            this.profileName = profileName;
+            this.queryParams.put(PROFILENAME, profileName);
             return this;
         }
 
         @Override
         public AssetQuery.Builder segments(String... segments) {
-            this.segments = segments;
+            if (segments != null && segments.length > 0) {
+                for (String segment : segments) {
+                    this.queryParams.put(SEGMENTS, segment);
+                }
+            }
             return this;
         }
 
         @Override
         public AssetQuery build() {
-            return new DefaultAssetQuery(assetDepth, links, profileName, segments);
+            return new DefaultAssetQuery(queryParams);
         }
     }
 

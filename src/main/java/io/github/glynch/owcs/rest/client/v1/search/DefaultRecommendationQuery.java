@@ -1,90 +1,91 @@
 package io.github.glynch.owcs.rest.client.v1.search;
 
+import org.apache.commons.collections4.MultiValuedMap;
+import org.apache.commons.collections4.multimap.ArrayListValuedHashMap;
+
 public class DefaultRecommendationQuery extends DefaultCollectionQuery implements RecommendationQuery {
 
-    private final Long visitorId;
-
-    public DefaultRecommendationQuery(String assetDepth, Link[] links, String profileName, String[] segments,
-            Integer limit,
-            Integer offset, Boolean totalResults, Long visitorId) {
-        super(assetDepth, links, profileName, segments, limit, offset, totalResults);
-        this.visitorId = visitorId;
-        if (visitorId != null) {
-            queryParams().put("visitorId", String.valueOf(visitorId));
-        }
+    public DefaultRecommendationQuery(MultiValuedMap<String, String> queryParams) {
+        super(queryParams);
     }
 
     @Override
     public Long visitorId() {
-        return visitorId;
+        return queryParams().get(VISITOR_ID).stream().findFirst().map(Long::valueOf).orElse(null);
     }
 
     public static class DefaultRecommendationQueryBuilder implements RecommendationQuery.Builder {
 
-        private String assetDepth;
-        private Link[] links;
-        private String profileName;
-        private String[] segments;
-        private Integer limit;
-        private Integer offset;
-        private Boolean totalResults;
-        private Long visitorId;
+        private final MultiValuedMap<String, String> queryParams = new ArrayListValuedHashMap<>();
 
         public DefaultRecommendationQueryBuilder() {
         }
 
         @Override
-        public RecommendationQuery.Builder assetDepth(String assetDepth) {
-            this.assetDepth = assetDepth;
+        public RecommendationQuery.Builder assetDepth(int assetDepth) {
+            this.queryParams.put(ASSETDEPTH, String.valueOf(assetDepth));
+            return this;
+        }
+
+        @Override
+        public RecommendationQuery.Builder all() {
+            this.queryParams.put(ASSETDEPTH, "all");
             return this;
         }
 
         @Override
         public RecommendationQuery.Builder links(Link... links) {
-            this.links = links;
+            if (links != null && links.length > 0) {
+                for (Link link : links) {
+                    this.queryParams.put(LINKS, link.toString());
+                }
+            }
             return this;
         }
 
         @Override
         public RecommendationQuery.Builder profileName(String profileName) {
-            this.profileName = profileName;
+            this.queryParams.put(PROFILENAME, profileName);
             return this;
         }
 
         @Override
         public RecommendationQuery.Builder segments(String... segments) {
-            this.segments = segments;
+            if (segments != null && segments.length > 0) {
+                for (String segment : segments) {
+                    this.queryParams.put(SEGMENTS, segment);
+                }
+            }
             return this;
         }
 
         @Override
         public RecommendationQuery.Builder limit(Integer limit) {
-            this.limit = limit;
+            this.queryParams.put(LIMIT, String.valueOf(limit));
             return this;
         }
 
         @Override
         public RecommendationQuery.Builder offset(Integer offset) {
-            this.offset = offset;
+            this.queryParams.put(OFFSET, String.valueOf(offset));
             return this;
         }
 
         @Override
         public RecommendationQuery.Builder totalResults(Boolean totalResults) {
-            this.totalResults = totalResults;
+            this.queryParams.put(TOTAL_RESULTS, String.valueOf(totalResults));
             return this;
         }
 
         @Override
         public RecommendationQuery.Builder visitorId(Long visitorId) {
-            this.visitorId = visitorId;
+            this.queryParams.put(VISITOR_ID, String.valueOf(visitorId));
             return this;
         }
 
         @Override
         public RecommendationQuery build() {
-            return new DefaultRecommendationQuery(assetDepth, links, profileName, segments, limit, offset, totalResults,
-                    visitorId);
+            return new DefaultRecommendationQuery(queryParams);
         }
 
     }
