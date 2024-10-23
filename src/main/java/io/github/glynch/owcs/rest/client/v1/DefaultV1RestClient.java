@@ -5,8 +5,10 @@ import java.util.Objects;
 
 import io.github.glynch.owcs.rest.client.api.RestApi;
 import io.github.glynch.owcs.rest.client.exceptions.RestClientException;
+import io.github.glynch.owcs.rest.client.v1.search.V1SearchQuery;
 import io.github.glynch.owcs.rest.support.Sites;
 import io.github.glynch.owcs.rest.support.Versions;
+import oracle.fatwire.rest.standard.beans.CollectionResourceMap;
 
 public class DefaultV1RestClient implements V1RestClient {
 
@@ -53,6 +55,19 @@ public class DefaultV1RestClient implements V1RestClient {
     public SiteResources sites(Sites site) {
         Objects.requireNonNull(site, "site is required");
         return new DefaultSiteResources(this, site.getName());
+    }
+
+    @Override
+    public CollectionResourceMap search(V1SearchQuery query) throws RestClientException {
+        Objects.requireNonNull(query, "query is required");
+        return restApi.get(baseUrl + SEARCH_URI_TEMPLATE,
+                builder -> builder.queryParams(query.queryParams()).build(),
+                CollectionResourceMap.class);
+    }
+
+    @Override
+    public CollectionResourceMap search(String query) throws RestClientException {
+        return search(V1SearchQuery.builder().q(query).build());
     }
 
 }

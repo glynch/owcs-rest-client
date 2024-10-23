@@ -8,6 +8,7 @@ import io.github.glynch.owcs.rest.client.exceptions.RestClientException;
 import io.github.glynch.owcs.rest.client.v1.search.AssetQuery;
 import io.github.glynch.owcs.rest.client.v1.search.CollectionQuery;
 import io.github.glynch.owcs.rest.client.v1.search.RecommendationQuery;
+import io.github.glynch.owcs.rest.client.v1.search.V1SearchQuery;
 import io.github.glynch.owcs.rest.support.Sites;
 import io.github.glynch.owcs.rest.support.Types;
 import io.github.glynch.owcs.rest.support.Versions;
@@ -22,6 +23,7 @@ public interface V1RestClient {
 
     String RESOURCES_URI_TEMPLATE = "/REST/resources";
     String RESOURCES_VERSION_URI_TEMPLATE = "/REST/resources/{version}";
+    String SEARCH_URI_TEMPLATE = "/REST/resources/v1/search/assets";
 
     Map<String, ?> resources() throws RestClientException;
 
@@ -30,6 +32,10 @@ public interface V1RestClient {
     ResourceResources resources(Versions version);
 
     SiteResources sites(Sites site);
+
+    CollectionResourceMap search(V1SearchQuery query) throws RestClientException;
+
+    CollectionResourceMap search(String query) throws RestClientException;
 
     interface ResourceResources {
 
