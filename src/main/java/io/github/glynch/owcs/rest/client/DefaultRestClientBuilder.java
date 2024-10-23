@@ -98,8 +98,6 @@ public class DefaultRestClientBuilder implements RestClient.Builder {
         objectMapper.setMixIns(mixins);
     }
 
-    // deserializerByType(LayoutTypeEnum.class, new LayoutTypeEnumDeserializer())
-
     private static final HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
     private final String baseUrl;
     private final OkHttpClient.Builder builder = new OkHttpClient.Builder();

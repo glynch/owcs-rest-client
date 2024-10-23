@@ -6,6 +6,7 @@ import java.util.Objects;
 import io.github.glynch.owcs.rest.client.api.RestApi;
 import io.github.glynch.owcs.rest.client.exceptions.RestClientException;
 import io.github.glynch.owcs.rest.client.v1.search.V1SearchQuery;
+import io.github.glynch.owcs.rest.client.v1.support.DefaultSearchResources;
 import io.github.glynch.owcs.rest.support.Sites;
 import io.github.glynch.owcs.rest.support.Versions;
 import oracle.fatwire.rest.standard.beans.CollectionResourceMap;
@@ -68,6 +69,11 @@ public class DefaultV1RestClient implements V1RestClient {
     @Override
     public CollectionResourceMap search(String query) throws RestClientException {
         return search(V1SearchQuery.builder().q(query).build());
+    }
+
+    @Override
+    public SearchResources search() throws RestClientException {
+        return new DefaultSearchResources(this);
     }
 
 }

@@ -53,6 +53,11 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>jakarta.xml.bind</groupId>
+			<artifactId>jakarta.xml.bind-api</artifactId>
+			<version>2.3.3</version>
+		</dependency>
+		<dependency>
 			<groupId>com.oracle.wcsites</groupId>
 			<artifactId>sites-rest-api</artifactId>
 			<version>${owcs.version}</version>

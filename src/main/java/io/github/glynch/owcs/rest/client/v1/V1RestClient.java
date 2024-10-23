@@ -24,6 +24,7 @@ public interface V1RestClient {
     String RESOURCES_URI_TEMPLATE = "/REST/resources";
     String RESOURCES_VERSION_URI_TEMPLATE = "/REST/resources/{version}";
     String SEARCH_URI_TEMPLATE = "/REST/resources/v1/search/assets";
+    String SEARCH_METADATA_CATALOG_URI_TEMPLATE = "/REST/resources/v1/metadata-catalog/search/assets";
 
     Map<String, ?> resources() throws RestClientException;
 
@@ -36,6 +37,8 @@ public interface V1RestClient {
     CollectionResourceMap search(V1SearchQuery query) throws RestClientException;
 
     CollectionResourceMap search(String query) throws RestClientException;
+
+    SearchResources search() throws RestClientException;
 
     interface ResourceResources {
 
@@ -100,6 +103,16 @@ public interface V1RestClient {
     interface TypeResources {
 
         CollectionResourceMap search() throws RestClientException;
+    }
+
+    interface SearchResources {
+
+        String SEARCH_METADATA_CATALOG_URI_TEMPLATE = "/REST/resources/v1/metadata-catalog/search/assets";
+
+        URI options() throws RestClientException;
+
+        Map<String, ?> metaDataCatalog() throws RestClientException;
+
     }
 
 }
