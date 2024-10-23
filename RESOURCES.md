@@ -15,7 +15,7 @@ Short cut using all defaults
     AuthenticatedRestClient client = RestClient.authenticated("http://localhost:7003/sites", "fwadmin", "xceladmin");
 ```
 
-## AssetType Resources
+## AssetType
 
 ### /REST/types
 
@@ -56,7 +56,7 @@ Short cut using all defaults
     EnabledTypesBean enabledTypesBean = client.sites(Site.AVISPORTS).types();
 ```
 
-## Asset Resources
+## Asset
 
 ### /REST/sites/{site}/types/{type}/assets/{id}
 
@@ -102,12 +102,30 @@ Short cut using all defaults
 
 ## Index
 
+### /REST/indexes
+
 ```java
      IndexConfigsBean indexConfigsBean = client.indexes();
 ```
 
+### /REST/indexes/{index}
+
 ```java
      IndexConfigBean indexConfigBean = client.index(Index.GLOBAL);
+```
+
+## Site Resoures
+
+### /REST/sites
+
+```java
+    SitesBean sitesBean = client.sites();
+```
+
+### /REST/sites/{site}
+
+```java
+   SiteBean siteBean = client.site(Site.AVISPORTS);
 ```
 
 ## Create a v1 aggregated REST client
