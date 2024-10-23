@@ -69,7 +69,7 @@ Create an asset type.
 
 **UPDATE**
 
-````java
+```java
     AssetBean assetBean = client.sites(Site.AVISPORTS).types(Type.AVIARTICLE).asset(1328196047241L);
     client.sites(Site.AVISPORTS).types(Type.AVIARTICLE).assets(1328196047241L).post(assetBean);
 ```
@@ -87,7 +87,7 @@ Using the builder so you can configure the client with `readTimeout`, `connectTi
 ```java
     V1RestClient client = RestClient.builder("http://localhost:7003/sites").trace().readTimeout(Duration.ofSeconds(5)).build();
 
-````
+```
 
 Short cut using all defaults
 
