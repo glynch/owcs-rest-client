@@ -15,6 +15,8 @@ Short cut using all defaults
     AuthenticatedRestClient client = RestClient.authenticated("http://localhost:7003/sites", "fwadmin", "xceladmin");
 ```
 
+## AssetType Resources
+
 ### /REST/types
 
 ```java
@@ -23,11 +25,13 @@ Short cut using all defaults
 
 ### /REST/types/{type}
 
+**READ**
+
 ```java
     AssetTypeBean assetTypeBean = client.type(Type.AVIARTICLE);
 ```
 
-Create an asset type.
+**CREATE**
 
 ```java
     AssetTypeBean assetTypeBean = ....
@@ -51,6 +55,8 @@ Create an asset type.
 ```java
     EnabledTypesBean enabledTypesBean = client.sites(Site.AVISPORTS).types();
 ```
+
+## Asset Resources
 
 ### /REST/sites/{site}/types/{type}/assets/{id}
 
@@ -78,6 +84,30 @@ Create an asset type.
 
 ```java
     client.sites(Site.AVISPORTS).types(Type.AVIARTICLE).assets(1328196047241L).delete();
+```
+
+### /REST/sites/{site}/types/{type}/assets/{id}/associations
+
+```java
+    AssociationsBean associationsBean = client.sites(Site.AVISPORTS).types(Type.AVIARTICLE)
+                                .assets(1328196047241L).associations();
+```
+
+### /REST/sites/{site}/types/{type}/assets/{id}/associations/{association}
+
+```java
+     AssociationBean associationBean = client.sites(Site.AVISPORTS).types(Type.AVIARTICLE)
+                                .assets(1328196047241L).association("association");
+```
+
+## Index
+
+```java
+     IndexConfigsBean indexConfigsBean = client.indexes();
+```
+
+```java
+     IndexConfigBean indexConfigBean = client.index(Index.GLOBAL);
 ```
 
 ## Create a v1 aggregated REST client
