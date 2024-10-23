@@ -1,6 +1,6 @@
 # Authenticated Resources
 
-## Create an authenticated REST client
+## Create an `AuthenticatedRestClient` client
 
 Using the builder so you can configure things like `readTimeout`, `tokenProvider` etc
 
@@ -128,20 +128,68 @@ Short cut using all defaults
    SiteBean siteBean = client.site(Site.AVISPORTS);
 ```
 
-## Create a v1 aggregated REST client
+## Site Plan Navigation
 
-Using the builder so you can configure the client with `readTimeout`, `connectTimeout`, `trace` etc
+### /REST/sites/{site}/navigation
 
 ```java
-    V1RestClient client = RestClient.builder("http://localhost:7003/sites").trace().readTimeout(Duration.ofSeconds(5)).build();
-
+    NavigationBean navigationBean = client.sites(Site.AVISPORTS).navigation();
 ```
 
-Short cut using all defaults
+### /REST/sites/{sitename}/navigation/{id}
 
 ```java
-    V1RestClient client = RestClient.v1("http://localhost:7003/sites");
+    NavigationBean navigationBean = client.sites(Site.AVISPORTS).navigation(1322052581735L);
+```
 
+## Role
+
+### /REST/roles
+
+```java
+    RolesBean rolesBean = client.roles();
+```
+
+### /REST/roles/{role}
+
+```java
+    RoleBean roleBean = client.role(Role.ADVANCED_USER);
+```
+
+## Application
+
+### /REST/applications
+
+```java
+    ApplicationsBean applicationsBean = client.applications();
+```
+
+### /REST/applications/{id}
+
+**GET**
+
+```java
+     ApplicationBean applicationBean = client.application(1253211458856L);
+```
+
+## User
+
+### /REST/users (All Users)
+
+```java
+    UsersBean usersBean = client.users();
+```
+
+### /REST/users/{user} (Selected User)
+
+```java
+     UserBean userBean = client.user(User.FWADMIN);
+```
+
+### /REST/sites/{site}/users (All Site Users)
+
+```java
+    SiteUserBean siteUserBean = client.sites(Site.AVISPORTS).users();
 ```
 
 ## Exceptions

@@ -1,4 +1,4 @@
-package io.github.glynch.owcs.rest.client.v1.support;
+package io.github.glynch.owcs.rest.client.v1;
 
 import static io.github.glynch.owcs.rest.client.v1.V1RestClient.SEARCH_URI_TEMPLATE;
 
@@ -6,7 +6,6 @@ import java.net.URI;
 import java.util.Map;
 
 import io.github.glynch.owcs.rest.client.exceptions.RestClientException;
-import io.github.glynch.owcs.rest.client.v1.V1RestClient;
 import io.github.glynch.owcs.rest.client.v1.V1RestClient.SearchResources;
 
 public class DefaultSearchResources implements SearchResources {

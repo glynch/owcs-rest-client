@@ -39,6 +39,7 @@ import io.github.glynch.owcs.rest.support.Roles;
 import io.github.glynch.owcs.rest.support.Sites;
 import io.github.glynch.owcs.rest.support.Subtypes;
 import io.github.glynch.owcs.rest.support.Types;
+import io.github.glynch.owcs.rest.support.Users;
 import io.github.glynch.owcs.rest.support.Versions;
 
 public interface AuthenticatedRestClient {
@@ -131,7 +132,7 @@ public interface AuthenticatedRestClient {
 
     UsersBean users() throws RestClientException;
 
-    UserBean user(String user) throws RestClientException;
+    UserBean user(Users user) throws RestClientException;
 
     UserLocalesBean userLocales() throws RestClientException;
 
@@ -185,7 +186,7 @@ public interface AuthenticatedRestClient {
 
         SiteUserBean users() throws RestClientException;
 
-        SiteUserBean user(String name) throws RestClientException;
+        SiteUserBean user(Users user) throws RestClientException;
 
         AssetsBean recommendation(String recommendation) throws RestClientException;
 

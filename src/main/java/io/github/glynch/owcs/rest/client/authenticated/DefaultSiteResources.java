@@ -12,6 +12,7 @@ import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClient.S
 import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClient.SiteTypeResources;
 import io.github.glynch.owcs.rest.client.exceptions.RestClientException;
 import io.github.glynch.owcs.rest.support.Types;
+import io.github.glynch.owcs.rest.support.Users;
 
 public class DefaultSiteResources implements SiteResources {
 
@@ -68,9 +69,9 @@ public class DefaultSiteResources implements SiteResources {
     }
 
     @Override
-    public SiteUserBean user(String user) throws RestClientException {
+    public SiteUserBean user(Users user) throws RestClientException {
         return client.restApi().get(client.baseUrl() + SITE_USER_URI_TEMPLATE,
-                builder -> builder.build(Map.of("site", site, "user", user)),
+                builder -> builder.build(Map.of("site", site, "user", user.getName())),
                 SiteUserBean.class);
     }
 

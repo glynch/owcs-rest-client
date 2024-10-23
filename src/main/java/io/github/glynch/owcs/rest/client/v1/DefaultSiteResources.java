@@ -6,9 +6,12 @@ import io.github.glynch.owcs.rest.client.exceptions.RestClientException;
 import io.github.glynch.owcs.rest.client.v1.V1RestClient.SiteCollectionResources;
 import io.github.glynch.owcs.rest.client.v1.V1RestClient.SiteRecommendationResources;
 import io.github.glynch.owcs.rest.client.v1.V1RestClient.SiteResources;
+import io.github.glynch.owcs.rest.client.v1.V1RestClient.SiteSearchResources;
 import io.github.glynch.owcs.rest.client.v1.V1RestClient.SiteTypeResources;
+import io.github.glynch.owcs.rest.client.v1.search.V1SearchQuery;
 import io.github.glynch.owcs.rest.support.Type;
 import io.github.glynch.owcs.rest.support.Types;
+import oracle.fatwire.rest.standard.beans.CollectionResourceMap;
 
 public class DefaultSiteResources implements SiteResources {
 
@@ -39,6 +42,24 @@ public class DefaultSiteResources implements SiteResources {
     @Override
     public SiteRecommendationResources recommendation(String name) {
         return new DefaultSiteRecommendationResources(client, site, name);
+    }
+
+    @Override
+    public CollectionResourceMap search(V1SearchQuery query) throws RestClientException {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'search'");
+    }
+
+    @Override
+    public CollectionResourceMap search(String query) throws RestClientException {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'search'");
+    }
+
+    @Override
+    public SiteSearchResources search() throws RestClientException {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'search'");
     }
 
 }

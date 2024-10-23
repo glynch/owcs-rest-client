@@ -32,6 +32,7 @@ import io.github.glynch.owcs.rest.support.Indexes;
 import io.github.glynch.owcs.rest.support.Roles;
 import io.github.glynch.owcs.rest.support.Sites;
 import io.github.glynch.owcs.rest.support.Types;
+import io.github.glynch.owcs.rest.support.Users;
 import io.github.glynch.owcs.rest.support.Versions;
 
 public class DefaultAuthenticatedRestClient implements AuthenticatedRestClient {
@@ -143,9 +144,9 @@ public class DefaultAuthenticatedRestClient implements AuthenticatedRestClient {
     }
 
     @Override
-    public UserBean user(String user) throws RestClientException {
+    public UserBean user(Users user) throws RestClientException {
         Objects.requireNonNull(user, "user cannot be null");
-        return restApi.get(baseUrl + USER_URI_TEMPLATES, builder -> builder.build(Map.of("user", user)),
+        return restApi.get(baseUrl + USER_URI_TEMPLATES, builder -> builder.build(Map.of("user", user.getName())),
                 UserBean.class);
     }
 

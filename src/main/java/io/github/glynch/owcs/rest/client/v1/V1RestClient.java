@@ -56,6 +56,12 @@ public interface V1RestClient {
         SiteCollectionResources advCols();
 
         SiteRecommendationResources recommendation(String name);
+
+        CollectionResourceMap search(V1SearchQuery query) throws RestClientException;
+
+        CollectionResourceMap search(String query) throws RestClientException;
+
+        SiteSearchResources search() throws RestClientException;
     }
 
     interface SiteTypeResources {
@@ -113,6 +119,12 @@ public interface V1RestClient {
 
         Map<String, ?> metaDataCatalog() throws RestClientException;
 
+    }
+
+    interface SiteSearchResources {
+        URI options() throws RestClientException;
+
+        Map<String, ?> metaDataCatalog() throws RestClientException;
     }
 
 }
