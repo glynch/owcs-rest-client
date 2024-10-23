@@ -15,18 +15,16 @@ Short cut using all defaults
     AuthenticatedRestClient client = RestClient.authenticated("http://localhost:7003/sites", "fwadmin", "xceladmin");
 ```
 
-### Types
-
-#### /REST/types
+### /REST/types
 
 ```java
     AssetTypesBean assetTypesBean = client.types();
 ```
 
-#### /REST/types/{type}
+### /REST/types/{type}
 
 ```java
-    AssetTypeBean assetTypeBean = client.types(Type.AVIARTICLE).get();
+    AssetTypeBean assetTypeBean = client.type(Type.AVIARTICLE);
 ```
 
 Create an asset type.
@@ -36,6 +34,52 @@ Create an asset type.
     assetTypeBean = client.types(TYPE.AVIARTICLE).put(assetTypeBean);
 ```
 
+### /REST/types/{type}/subtypes
+
+```java
+    AssetTypesBean assetTypesBean = client.types(Type.AVIARTICLE).subtypes();
+```
+
+### /REST/types/{type}/subtypes/{subtype}
+
+```java
+    AssetTypeBean assetTypeBean = client.types(Type.AVIARTICLE).subtype(Subtype.Article);
+```
+
+### /REST/sites/{site}/types
+
+```java
+    EnabledTypesBean enabledTypesBean = client.sites(Site.AVISPORTS).types();
+```
+
+### /REST/sites/{site}/types/{type}/assets/{id}
+
+**READ**
+
+```java
+    AssetBean assetBean = client.sites(Site.AVISPORTS).types(Type.AVIARTICLE).asset(1328196047241L);
+```
+
+**CREATE**
+
+```java
+    AssetBean assetBean = ...
+    client.sites(Site.AVISPORTS).types(Type.AVIARTICLE).assets(0).put(assetBean);
+```
+
+**UPDATE**
+
+````java
+    AssetBean assetBean = client.sites(Site.AVISPORTS).types(Type.AVIARTICLE).asset(1328196047241L);
+    client.sites(Site.AVISPORTS).types(Type.AVIARTICLE).assets(1328196047241L).post(assetBean);
+```
+
+**DELETE**
+
+```java
+    client.sites(Site.AVISPORTS).types(Type.AVIARTICLE).assets(1328196047241L).delete();
+```
+
 ## Create a v1 aggregated REST client
 
 Using the builder so you can configure the client with `readTimeout`, `connectTimeout`, `trace` etc
@@ -43,7 +87,7 @@ Using the builder so you can configure the client with `readTimeout`, `connectTi
 ```java
     V1RestClient client = RestClient.builder("http://localhost:7003/sites").trace().readTimeout(Duration.ofSeconds(5)).build();
 
-```
+````
 
 Short cut using all defaults
 
