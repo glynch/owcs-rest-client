@@ -1,6 +1,7 @@
 package io.github.glynch.owcs.rest.client.api;
 
 import java.net.URI;
+import java.util.Map;
 import java.util.function.Function;
 
 import io.github.glynch.owcs.rest.client.exceptions.RestClientException;
@@ -25,6 +26,11 @@ public interface RestApi {
     URI options(String url) throws RestClientException;
 
     URI options(String uriTemplate, Function<UriBuilder, URI> uriFunction)
+            throws RestClientException;
+
+    Map<String, String> head(String url) throws RestClientException;
+
+    Map<String, String> head(String uriTemplate, Function<UriBuilder, URI> uriFunction)
             throws RestClientException;
 
 }

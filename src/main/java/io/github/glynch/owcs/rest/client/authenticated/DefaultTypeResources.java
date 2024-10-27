@@ -5,10 +5,13 @@ import static io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestC
 import java.util.Map;
 import java.util.Objects;
 
+import org.apache.commons.lang3.NotImplementedException;
+
 import com.fatwire.rest.beans.AssetTypeBean;
 import com.fatwire.rest.beans.AssetTypesBean;
 
 import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClient.TypeResources;
+import io.github.glynch.owcs.rest.client.authenticated.search.SearchQuery;
 import io.github.glynch.owcs.rest.client.exceptions.RestClientException;
 import io.github.glynch.owcs.rest.support.Subtypes;
 
@@ -23,10 +26,9 @@ public class DefaultTypeResources implements TypeResources {
     }
 
     @Override
-    public AssetTypeBean put(AssetTypeBean assetTypeBean) throws RestClientException {
-        return client.restApi().put(client.baseUrl() + TYPE_URI_TEMPLATE,
+    public AssetTypeBean get() throws RestClientException {
+        return client.restApi().get(client.baseUrl() + TYPE_URI_TEMPLATE,
                 builder -> builder.build(Map.of("type", type)),
-                assetTypeBean,
                 AssetTypeBean.class);
     }
 
@@ -48,6 +50,11 @@ public class DefaultTypeResources implements TypeResources {
         return client.restApi().get(client.baseUrl() + TYPE_SUBTYPE_URI_TEMPLATE,
                 builder -> builder.build(Map.of("type", type, "subtype", subtype.getName())),
                 AssetTypeBean.class);
+    }
+
+    @Override
+    public AssetTypesBean search(SearchQuery query) throws RestClientException {
+        throw new NotImplementedException("Unimplemented method 'search'");
     }
 
 }

@@ -1,6 +1,6 @@
 # V1 Aggregated Resources
 
-## Create a `V1RestCLient` client
+## Create a `V1RestClient` client
 
 Using the builder so you can configure the client with `readTimeout`, `connectTimeout`, `trace` etc
 

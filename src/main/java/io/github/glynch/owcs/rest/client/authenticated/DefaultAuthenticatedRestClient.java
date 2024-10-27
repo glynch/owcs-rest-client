@@ -3,8 +3,6 @@ package io.github.glynch.owcs.rest.client.authenticated;
 import java.util.Map;
 import java.util.Objects;
 
-import org.apache.commons.lang3.NotImplementedException;
-
 import com.fatwire.rest.beans.AclsBean;
 import com.fatwire.rest.beans.ApplicationBean;
 import com.fatwire.rest.beans.ApplicationsBean;
@@ -16,6 +14,7 @@ import com.fatwire.rest.beans.GroupBean;
 import com.fatwire.rest.beans.GroupsBean;
 import com.fatwire.rest.beans.IndexConfigBean;
 import com.fatwire.rest.beans.IndexConfigsBean;
+import com.fatwire.rest.beans.ListKeyValuePairs;
 import com.fatwire.rest.beans.RoleBean;
 import com.fatwire.rest.beans.RolesBean;
 import com.fatwire.rest.beans.SiteBean;
@@ -27,6 +26,8 @@ import com.fatwire.rest.beans.UserLocalesBean;
 import com.fatwire.rest.beans.UsersBean;
 
 import io.github.glynch.owcs.rest.client.api.AuthenticatedRestApi;
+import io.github.glynch.owcs.rest.client.authenticated.search.LuceneSearchQuery;
+import io.github.glynch.owcs.rest.client.authenticated.search.VisitorHistoryQuery;
 import io.github.glynch.owcs.rest.client.exceptions.RestClientException;
 import io.github.glynch.owcs.rest.support.Indexes;
 import io.github.glynch.owcs.rest.support.Roles;
@@ -65,8 +66,10 @@ public class DefaultAuthenticatedRestClient implements AuthenticatedRestClient {
     }
 
     @Override
-    public AssetsBean search(String query) throws RestClientException {
-        throw new NotImplementedException("search not implemented");
+    public AssetsBean search(LuceneSearchQuery query) throws RestClientException {
+        Objects.requireNonNull(query, "query cannot be null");
+        return restApi.get(baseUrl + GLOBAL_SEARCH_URI_TEMPLATE,
+                builder -> builder.queryParams(query.queryParams()).build(), AssetsBean.class);
     }
 
     @Override
@@ -75,14 +78,19 @@ public class DefaultAuthenticatedRestClient implements AuthenticatedRestClient {
     }
 
     @Override
-    public AssetTypeBean type(Types type) throws RestClientException {
-        return restApi.get(baseUrl + TYPE_URI_TEMPLATE, builder -> builder.build(Map.of("type", type.getName())),
-                AssetTypeBean.class);
+    public TypeResources type(Types type) throws RestClientException {
+        Objects.requireNonNull(type, "type cannot be null");
+        return new DefaultTypeResources(this, type.getName());
     }
 
     @Override
-    public TypeResources types(Types type) throws RestClientException {
-        return new DefaultTypeResources(this, type.getName());
+    public AssetTypeBean put(AssetTypeBean assetTypeBean) throws RestClientException {
+        Objects.requireNonNull(assetTypeBean, "assetTypeBean cannot be null");
+        Objects.requireNonNull(assetTypeBean.getName(), "assetTypeBean.name cannot be null");
+        return restApi.put(baseUrl + TYPE_URI_TEMPLATE,
+                builder -> builder.build(Map.of("type", assetTypeBean.getName())),
+                assetTypeBean,
+                AssetTypeBean.class);
     }
 
     @Override
@@ -98,20 +106,29 @@ public class DefaultAuthenticatedRestClient implements AuthenticatedRestClient {
     }
 
     @Override
+    public SiteResources site(Sites site) throws RestClientException {
+        return new DefaultSiteResources(this, site.getName());
+    }
+
+    @Override
     public SitesBean sites() throws RestClientException {
         return restApi.get(baseUrl + SITES_URI_TEMPLATE, SitesBean.class);
     }
 
     @Override
-    public SiteBean site(Sites site) throws RestClientException {
-        Objects.requireNonNull(site, "site cannot be null");
-        return restApi.get(baseUrl + SITE_URI_TEMPLATE, builder -> builder.build(Map.of("site", site.getName())),
+    public SiteBean put(SiteBean siteBean) throws RestClientException {
+        Objects.requireNonNull(siteBean, "siteBean cannot be null");
+        return restApi.put(baseUrl + SITE_URI_TEMPLATE, builder -> builder.build(Map.of("site", 0)),
+                siteBean,
                 SiteBean.class);
     }
 
     @Override
-    public SiteResources sites(Sites site) throws RestClientException {
-        return new DefaultSiteResources(this, site.getName());
+    public SiteBean post(SiteBean siteBean) throws RestClientException {
+        Objects.requireNonNull(siteBean, "siteBean cannot be null");
+        return restApi.post(baseUrl + SITE_URI_TEMPLATE, builder -> builder.build(Map.of("site", siteBean.getId())),
+                siteBean,
+                SiteBean.class);
     }
 
     @Override
@@ -132,9 +149,25 @@ public class DefaultAuthenticatedRestClient implements AuthenticatedRestClient {
     }
 
     @Override
-    public ApplicationBean application(long id) throws RestClientException {
-        Objects.requireNonNull(id, "id cannot be null");
-        return restApi.get(baseUrl + APPLICATION_URI_TEMPLATE, builder -> builder.build(Map.of("id", id)),
+    public ApplicationResources application(long id) throws RestClientException {
+        return new DefaultApplicationResources(this, id);
+    }
+
+    @Override
+    public ApplicationBean put(ApplicationBean application) throws RestClientException {
+        Objects.requireNonNull(application, "application cannot be null");
+        return restApi.put(baseUrl + APPLICATION_URI_TEMPLATE,
+                builder -> builder.build(Map.of("id", 0)),
+                application,
+                ApplicationBean.class);
+    }
+
+    @Override
+    public ApplicationBean post(ApplicationBean application) throws RestClientException {
+        Objects.requireNonNull(application, "application cannot be null");
+        return restApi.post(baseUrl + APPLICATION_URI_TEMPLATE,
+                builder -> builder.build(Map.of("id", application.getId())),
+                application,
                 ApplicationBean.class);
     }
 
@@ -144,9 +177,24 @@ public class DefaultAuthenticatedRestClient implements AuthenticatedRestClient {
     }
 
     @Override
-    public UserBean user(Users user) throws RestClientException {
+    public UserResources user(Users user) throws RestClientException {
         Objects.requireNonNull(user, "user cannot be null");
-        return restApi.get(baseUrl + USER_URI_TEMPLATES, builder -> builder.build(Map.of("user", user.getName())),
+        return new DefaultUserResources(this, user.getName());
+    }
+
+    @Override
+    public UserBean put(UserBean user) throws RestClientException {
+        Objects.requireNonNull(user, "user cannot be null");
+        return restApi.put(baseUrl + USER_URI_TEMPLATE, builder -> builder.build(Map.of("user", user.getName())),
+                user,
+                UserBean.class);
+    }
+
+    @Override
+    public UserBean post(UserBean user) throws RestClientException {
+        Objects.requireNonNull(user, "user cannot be null");
+        return restApi.post(baseUrl + USER_URI_TEMPLATE, builder -> builder.build(Map.of("user", user.getName())),
+                user,
                 UserBean.class);
     }
 
@@ -185,6 +233,12 @@ public class DefaultAuthenticatedRestClient implements AuthenticatedRestClient {
     @Override
     public DeviceBean currentDevice() throws RestClientException {
         return restApi.get(baseUrl + CURRENT_DEVICE_URI_TEMPLATE, DeviceBean.class);
+    }
+
+    @Override
+    public ListKeyValuePairs visitorHistory(VisitorHistoryQuery query) throws RestClientException {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'visitorHistory'");
     }
 
 }

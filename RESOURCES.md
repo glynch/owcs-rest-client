@@ -125,7 +125,21 @@ Short cut using all defaults
 ### /REST/sites/{site}
 
 ```java
-   SiteBean siteBean = client.site(Site.AVISPORTS);
+   SiteBean siteBean = client.site(Site.AVISPORTS).get();
+```
+
+```java
+    SiteBean siteBean = ...
+    siteBean = client.site(Site.AVISPORTS).put(siteBean);
+```
+
+```java
+    SiteBean siteBean = ...
+    siteBean = client.site(Site.AVISPORTS).post(siteBean);
+```
+
+```java
+    client.site(Site.AVISPORTS).delete();
 ```
 
 ## Site Plan Navigation

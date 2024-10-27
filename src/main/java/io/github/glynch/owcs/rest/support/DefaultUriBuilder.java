@@ -104,15 +104,19 @@ public class DefaultUriBuilder implements UriBuilder {
     }
 
     @Override
-    public UriBuilder queryParams(MultiValuedMap<String, String> params) {
+    public UriBuilder queryParams(MultiValuedMap<String, String> queryParams) {
         if (encode) {
-            params.entries().forEach(entry -> {
+            queryParams.entries().forEach(entry -> {
                 String key = entry.getKey();
                 String value = entry.getValue();
-                this.queryParams.put(key, encode(value));
+                if (value != null) {
+                    this.queryParams.put(key, encode(value));
+                } else {
+                    this.queryParams.put(key, null);
+                }
             });
         } else {
-            queryParams.putAll(params);
+            queryParams.putAll(queryParams);
         }
         return this;
     }
@@ -135,10 +139,15 @@ public class DefaultUriBuilder implements UriBuilder {
         StringBuilder output = new StringBuilder();
         for (Map.Entry<String, Collection<String>> entry : queryParams.asMap().entrySet()) {
             String name = entry.getKey();
-            String values = entry.getValue().stream()
-                    .collect(Collectors.joining(","));
-            output.append(output.indexOf("?") == -1 ? "?" : "&")
-                    .append(name).append("=").append(values);
+            String values = entry.getValue().stream().filter(value -> value != null).collect(Collectors.joining(","));
+            if (values == null || values.isEmpty()) {
+                output.append(output.indexOf("?") == -1 ? "?" : "&")
+                        .append(name);
+            } else {
+                output.append(output.indexOf("?") == -1 ? "?" : "&")
+                        .append(name).append("=").append(values);
+            }
+
         }
         return output.toString();
     }

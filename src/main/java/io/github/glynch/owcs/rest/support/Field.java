@@ -6,7 +6,11 @@ public enum Field implements Fields {
 
     ID("id"),
     NAME("name"),
-    DESCRIPTION("description"),;
+    DESCRIPTION("description"),
+    UPDATEDDATE("updateddate"),
+    CREATEDDATE("createddate"),
+    UPDATEDBY("updatedby"),
+    CREATEDBY("createdby"),;
 
     private final String name;
 

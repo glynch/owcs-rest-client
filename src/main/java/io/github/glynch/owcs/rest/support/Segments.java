@@ -1,6 +1,6 @@
 package io.github.glynch.owcs.rest.support;
 
-public interface Fields {
+public interface Segments {
 
     String getName();
 

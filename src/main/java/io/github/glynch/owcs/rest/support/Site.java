@@ -3,7 +3,8 @@ package io.github.glynch.owcs.rest.support;
 import java.util.stream.Stream;
 
 public enum Site implements Sites {
-    AVISPORTS("avisports"), ADMIN_SITE("AdminSite");
+    AVISPORTS("avisports"), ADMIN_SITE("AdminSite"),
+    TEST("TestSite");
 
     private final String name;
 

@@ -1,15 +1,19 @@
 package io.github.glynch.owcs.rest.client.authenticated;
 
 import java.util.Map;
+import java.util.Objects;
 
-import com.fatwire.rest.beans.AssetTypeBean;
 import com.fatwire.rest.beans.AssetsBean;
 import com.fatwire.rest.beans.EnabledTypesBean;
 import com.fatwire.rest.beans.NavigationBean;
+import com.fatwire.rest.beans.SiteBean;
 import com.fatwire.rest.beans.SiteUserBean;
 
 import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClient.SiteResources;
 import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClient.SiteTypeResources;
+import io.github.glynch.owcs.rest.client.authenticated.search.LuceneSearchQuery;
+import io.github.glynch.owcs.rest.client.authenticated.search.RecommendationQuery;
+import io.github.glynch.owcs.rest.client.authenticated.search.SegmentsQuery;
 import io.github.glynch.owcs.rest.client.exceptions.RestClientException;
 import io.github.glynch.owcs.rest.support.Types;
 import io.github.glynch.owcs.rest.support.Users;
@@ -25,6 +29,26 @@ public class DefaultSiteResources implements SiteResources {
     }
 
     @Override
+    public SiteBean get() throws RestClientException {
+        Objects.requireNonNull(site, "site cannot be null");
+        return client.restApi().get(client.baseUrl() + SITE_URI_TEMPLATE,
+                builder -> builder.build(Map.of("site", site)),
+                SiteBean.class);
+    }
+
+    @Override
+    public Map<String, String> head() throws RestClientException {
+        return client.restApi().head(client.baseUrl() + SITE_URI_TEMPLATE,
+                builder -> builder.build(Map.of("site", site)));
+    }
+
+    @Override
+    public void delete() throws RestClientException {
+        client.restApi().delete(client.baseUrl() + SITE_URI_TEMPLATE,
+                builder -> builder.build(Map.of("site", site)));
+    }
+
+    @Override
     public EnabledTypesBean types() throws RestClientException {
         return client.restApi().get(client.baseUrl() + SITE_TYPES_URI_TEMPLATE,
                 builder -> builder.build(Map.of("site", site)),
@@ -32,19 +56,9 @@ public class DefaultSiteResources implements SiteResources {
     }
 
     @Override
-    public AssetTypeBean type(Types type) throws RestClientException {
-        return client.type(type);
-    }
-
-    @Override
-    public SiteTypeResources types(Types type) throws RestClientException {
+    public SiteTypeResources type(Types type) throws RestClientException {
+        Objects.requireNonNull(type, "type cannot be null");
         return new DefaultSiteTypeResources(client, site, type.getName());
-    }
-
-    @Override
-    public AssetsBean search(String query) throws RestClientException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'search'");
     }
 
     @Override
@@ -76,8 +90,23 @@ public class DefaultSiteResources implements SiteResources {
     }
 
     @Override
-    public AssetsBean recommendation(String recommendation) throws RestClientException {
-        throw new UnsupportedOperationException("Unimplemented method 'recommendation'");
+    public AssetsBean recommendation(String recommendation, RecommendationQuery query) throws RestClientException {
+        return client.restApi().get(client.baseUrl() + SITE_RECOMMENDATION_URI_TEMPLATE,
+                builder -> builder.build(Map.of("site", site, "recommendation", recommendation)),
+                AssetsBean.class);
+    }
+
+    @Override
+    public AssetsBean search(LuceneSearchQuery query) throws RestClientException {
+        Objects.requireNonNull(query, "query cannot be null");
+        return client.restApi().get(client.baseUrl() + SITE_SEARCH_URI_TEMPLATE,
+                builder -> builder.queryParams(query.queryParams()).build(Map.of("site", site)),
+                AssetsBean.class);
+    }
+
+    @Override
+    public AssetsBean segments(SegmentsQuery query) throws RestClientException {
+        throw new UnsupportedOperationException("Unimplemented method 'segments'");
     }
 
 }

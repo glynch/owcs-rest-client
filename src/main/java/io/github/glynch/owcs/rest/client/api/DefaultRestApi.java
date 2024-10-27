@@ -3,6 +3,8 @@ package io.github.glynch.owcs.rest.client.api;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -109,6 +111,28 @@ public class DefaultRestApi implements RestApi {
             throws RestClientException {
         URI uri = uriFunction.apply(new DefaultUriBuilder(uriTemplate));
         return options(uri.toString());
+    }
+
+    @Override
+    public Map<String, String> head(String url) throws RestClientException {
+        Request request = new Request.Builder()
+                .url(url)
+                .head()
+                .build();
+        Map<String, String> headers = new HashMap<>();
+
+        Response response = execute(request);
+        response.headers().forEach(
+                header -> headers.put(header.getFirst(), header.getSecond()));
+
+        return headers;
+    }
+
+    @Override
+    public Map<String, String> head(String uriTemplate, Function<UriBuilder, URI> uriFunction)
+            throws RestClientException {
+        URI uri = uriFunction.apply(new DefaultUriBuilder(uriTemplate));
+        return head(uri.toString());
     }
 
 }
