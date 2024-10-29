@@ -12,14 +12,10 @@ See [Examples](https://github.com/glynch/owcs-rest-client/blob/main/RESOURCES.md
 
 ## Build
 
-To build this project you will need to install `sites-rest-api.jar` into your maven respository.
+To build this project you will need to install `sites-rest-api.jar, sites-app.jar` and `sites-asset-api.jar` into your maven respository.
 
-For example
-
-```bash
-    mvn install:install-file -Dfile=<JSK_HOME>/JSK-12.2.1.3.0-2016-03-31/apache-tomcat-7.0.65-sites/webapps/sites/WEB-INF/lib/sites-rest-api.jar -DgroupId=com.oracle.wcsites -DartifactId=sites-rest-api -Dversion=12.2.1.3.0 -Dpackaging=jar
-```
+You can use the `install.sh` script
 
 ```bash
-    ./mvnw clean package
+    ./install.sh
 ```

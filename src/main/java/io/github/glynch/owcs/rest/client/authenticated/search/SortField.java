@@ -23,10 +23,10 @@ public interface SortField {
 
     SortField NAME_ASC = asc(Field.NAME);
     SortField NAME_DESC = desc(Field.NAME);
-    SortField UPDATEDDATE_DESC = desc(Field.UPDATEDDATE);
-    SortField UPDATEDDATE_ASC = asc(Field.UPDATEDDATE);
-    SortField CREATEDDATE_DESC = desc(Field.CREATEDDATE);
-    SortField CREATEDDATE_ASC = asc(Field.CREATEDDATE);
+    SortField UPDATEDDATE_DESC = desc(Field.UPDATED_DATE);
+    SortField UPDATEDDATE_ASC = asc(Field.UPDATED_DATE);
+    SortField CREATEDDATE_DESC = desc(Field.CREATED_DATE);
+    SortField CREATEDDATE_ASC = asc(Field.CREATED_DATE);
 
     Fields field();
 

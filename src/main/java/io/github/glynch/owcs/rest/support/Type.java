@@ -7,8 +7,24 @@ public enum Type implements Types {
     AVIIMAGE("AVIImage"),
     ARTICLECATEGORY("ArticleCategory"),
     CONTENTQUERY("ContentQuery"),
-    ADVCOLS("AdvCols"),
-    PAGE("Page"),;
+    RECOMMENDATION("AdvCols"),
+    PAGE("Page"),
+    CSELEMENT("CSElement"),
+    SITEENTRY("SiteEntry"),
+    TEMPLATE("Template"),
+    DEVICE("Device"),
+    DIMENSION("Dimension"),
+    DIMENSION_SET("DimensionSet"),
+    APPLICATION("FW_Application"),
+    VIEW("FW_View"),
+    PAGE_ATTRIBUTE("PageAttribute"),
+    PAGE_DEFINITION("PageDefinition"),
+    PAGE_FILTER("PageFilter"),
+    SLOTS("Slots"),
+    CONTROLLER("WCS_Controller"),
+    WEBROOT("WebRoot"),
+    SITE_NAVIGATION("SiteNavigation"),
+    SEGMENTS("Segments"),;
 
     private final String name;
 

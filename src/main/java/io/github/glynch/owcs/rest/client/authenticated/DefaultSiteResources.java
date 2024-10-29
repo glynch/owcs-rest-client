@@ -3,6 +3,8 @@ package io.github.glynch.owcs.rest.client.authenticated;
 import java.util.Map;
 import java.util.Objects;
 
+import com.fatwire.assetapi.data.AssetId;
+import com.fatwire.rest.beans.AssetBean;
 import com.fatwire.rest.beans.AssetsBean;
 import com.fatwire.rest.beans.EnabledTypesBean;
 import com.fatwire.rest.beans.NavigationBean;
@@ -17,6 +19,7 @@ import io.github.glynch.owcs.rest.client.authenticated.search.SegmentsQuery;
 import io.github.glynch.owcs.rest.client.exceptions.RestClientException;
 import io.github.glynch.owcs.rest.support.Types;
 import io.github.glynch.owcs.rest.support.Users;
+import io.github.glynch.owcs.rest.support.utils.AssetIds;
 
 public class DefaultSiteResources implements SiteResources {
 
@@ -107,6 +110,26 @@ public class DefaultSiteResources implements SiteResources {
     @Override
     public AssetsBean segments(SegmentsQuery query) throws RestClientException {
         throw new UnsupportedOperationException("Unimplemented method 'segments'");
+    }
+
+    @Override
+    public AssetBean put(AssetBean assetBean) throws RestClientException {
+        Objects.requireNonNull(assetBean, "assetBean cannot be null");
+        AssetId assetId = AssetIds.of(assetBean.getId());
+        return client.restApi().put(client.baseUrl() + SiteTypeResources.SITE_TYPE_ASSET_URI_TEMPLATE,
+                builder -> builder.build(Map.of("site", site, "type", assetId.getType(), "id", 0L)),
+                assetBean,
+                AssetBean.class);
+    }
+
+    @Override
+    public AssetBean post(AssetBean assetBean) throws RestClientException {
+        Objects.requireNonNull(assetBean, "assetBean cannot be null");
+        AssetId assetId = AssetIds.of(assetBean.getId());
+        return client.restApi().post(client.baseUrl() + SiteTypeResources.SITE_TYPE_ASSET_URI_TEMPLATE,
+                builder -> builder.build(Map.of("site", site, "type", assetId.getType(), "id", assetId.getId())),
+                assetBean,
+                AssetBean.class);
     }
 
 }

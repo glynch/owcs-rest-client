@@ -28,32 +28,32 @@ Short cut using all defaults
 **READ**
 
 ```java
-    AssetTypeBean assetTypeBean = client.type(Type.AVIARTICLE);
+    AssetTypeBean assetTypeBean = client.type(Type.AVIARTICLE).get();
 ```
 
 **CREATE**
 
 ```java
     AssetTypeBean assetTypeBean = ....
-    assetTypeBean = client.types(TYPE.AVIARTICLE).put(assetTypeBean);
+    assetTypeBean = client.put(assetTypeBean);
 ```
 
 ### /REST/types/{type}/subtypes
 
 ```java
-    AssetTypesBean assetTypesBean = client.types(Type.AVIARTICLE).subtypes();
+    AssetTypesBean assetTypesBean = client.type(Type.AVIARTICLE).subtypes();
 ```
 
 ### /REST/types/{type}/subtypes/{subtype}
 
 ```java
-    AssetTypeBean assetTypeBean = client.types(Type.AVIARTICLE).subtype(Subtype.Article);
+    AssetTypesBean assetTypeBeans = client.type(Type.AVIARTICLE).subtype(Subtype.Article);
 ```
 
 ### /REST/sites/{site}/types
 
 ```java
-    EnabledTypesBean enabledTypesBean = client.sites(Site.AVISPORTS).types();
+    EnabledTypesBean enabledTypesBean = client.site(Site.AVISPORTS).types();
 ```
 
 ## Asset
@@ -63,41 +63,42 @@ Short cut using all defaults
 **READ**
 
 ```java
-    AssetBean assetBean = client.sites(Site.AVISPORTS).types(Type.AVIARTICLE).asset(1328196047241L);
+    AssetBean assetBean = client.site(Site.AVISPORTS).type(Type.AVIARTICLE).id(1328196047241L).get();
 ```
 
 **CREATE**
 
 ```java
     AssetBean assetBean = ...
-    client.sites(Site.AVISPORTS).types(Type.AVIARTICLE).assets(0).put(assetBean);
+    client.site(Site.AVISPORTS).put(assetBean);
 ```
 
 **UPDATE**
 
 ```java
-    AssetBean assetBean = client.sites(Site.AVISPORTS).types(Type.AVIARTICLE).asset(1328196047241L);
-    client.sites(Site.AVISPORTS).types(Type.AVIARTICLE).assets(1328196047241L).post(assetBean);
+    AssetBean assetBean = client.site(Site.AVISPORTS).type(Type.AVIARTICLE).id(1328196047241L).get();
+    ....
+    client.site(Site.AVISPORTS).post(assetBean);
 ```
 
 **DELETE**
 
 ```java
-    client.sites(Site.AVISPORTS).types(Type.AVIARTICLE).assets(1328196047241L).delete();
+    client.site(Site.AVISPORTS).type(Type.AVIARTICLE).id(1328196047241L).delete();
 ```
 
 ### /REST/sites/{site}/types/{type}/assets/{id}/associations
 
 ```java
-    AssociationsBean associationsBean = client.sites(Site.AVISPORTS).types(Type.AVIARTICLE)
-                                .assets(1328196047241L).associations();
+    AssociationsBean associationsBean = client.site(Site.AVISPORTS).type(Type.AVIARTICLE)
+                                .id(1328196047241L).associations();
 ```
 
 ### /REST/sites/{site}/types/{type}/assets/{id}/associations/{association}
 
 ```java
-     AssociationBean associationBean = client.sites(Site.AVISPORTS).types(Type.AVIARTICLE)
-                                .assets(1328196047241L).association("association");
+     AssociationBean associationBean = client.site(Site.AVISPORTS).type(Type.AVIARTICLE)
+                                .id(1328196047241L).association(Association.CONTENT_LIST1);
 ```
 
 ## Index
@@ -124,19 +125,27 @@ Short cut using all defaults
 
 ### /REST/sites/{site}
 
+**Read**
+
 ```java
    SiteBean siteBean = client.site(Site.AVISPORTS).get();
 ```
 
-```java
-    SiteBean siteBean = ...
-    siteBean = client.site(Site.AVISPORTS).put(siteBean);
-```
+**CREATE**
 
 ```java
     SiteBean siteBean = ...
-    siteBean = client.site(Site.AVISPORTS).post(siteBean);
+    siteBean = client.put(siteBean);
 ```
+
+**UPDATE**
+
+```java
+    SiteBean siteBean = ...
+    siteBean = client.post(siteBean);
+```
+
+**DELETE**
 
 ```java
     client.site(Site.AVISPORTS).delete();
@@ -147,13 +156,13 @@ Short cut using all defaults
 ### /REST/sites/{site}/navigation
 
 ```java
-    NavigationBean navigationBean = client.sites(Site.AVISPORTS).navigation();
+    NavigationBean navigationBean = client.site(Site.AVISPORTS).navigation();
 ```
 
 ### /REST/sites/{sitename}/navigation/{id}
 
 ```java
-    NavigationBean navigationBean = client.sites(Site.AVISPORTS).navigation(1322052581735L);
+    NavigationBean navigationBean = client.site(Site.AVISPORTS).navigation(1322052581735L);
 ```
 
 ## Role
@@ -180,10 +189,32 @@ Short cut using all defaults
 
 ### /REST/applications/{id}
 
-**GET**
+**READ**
 
 ```java
-     ApplicationBean applicationBean = client.application(1253211458856L);
+     ApplicationBean applicationBean = client.application(1253211458856L).get();
+```
+
+**CREATE**
+
+```java
+
+    ApplicationBean applicationBean = ...
+    applicationBean = client.put(applicationBean);
+```
+
+**UPDATE**
+
+```java
+    ApplicationBean applicationBean = client.application(1253211458856L).get();
+    ...
+    applicationBean = applicationBean = client.post(applicationBean);
+```
+
+**DELETE**
+
+```java
+    client.application(1253211458856L).delete();;
 ```
 
 ## User
@@ -203,7 +234,7 @@ Short cut using all defaults
 ### /REST/sites/{site}/users (All Site Users)
 
 ```java
-    SiteUserBean siteUserBean = client.sites(Site.AVISPORTS).users();
+    SiteUserBean siteUserBean = client.site(Site.AVISPORTS).users();
 ```
 
 ## Exceptions

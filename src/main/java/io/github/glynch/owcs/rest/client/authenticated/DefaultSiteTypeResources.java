@@ -3,7 +3,6 @@ package io.github.glynch.owcs.rest.client.authenticated;
 import java.util.Map;
 import java.util.Objects;
 
-import com.fatwire.rest.beans.AssetBean;
 import com.fatwire.rest.beans.AssetsBean;
 
 import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClient.SiteTypeAssetResources;
@@ -26,24 +25,6 @@ public class DefaultSiteTypeResources implements SiteTypeResources {
     @Override
     public SiteTypeAssetResources id(long id) throws RestClientException {
         return new DefaultSiteTypeAssetResources(client, site, type, id);
-    }
-
-    @Override
-    public AssetBean put(AssetBean assetBean) throws RestClientException {
-        Objects.requireNonNull(assetBean, "assetBean cannot be null");
-        return client.restApi().put(client.baseUrl() + SITE_TYPE_ASSET_URI_TEMPLATE,
-                builder -> builder.build(Map.of("site", site, "type", type, "id", 0L)),
-                assetBean,
-                AssetBean.class);
-    }
-
-    @Override
-    public AssetBean post(AssetBean assetBean) throws RestClientException {
-        Objects.requireNonNull(assetBean, "assetBean cannot be null");
-        return client.restApi().post(client.baseUrl() + SITE_TYPE_ASSET_URI_TEMPLATE,
-                builder -> builder.build(Map.of("site", site, "type", type, "id", assetBean.getId())),
-                assetBean,
-                AssetBean.class);
     }
 
     @Override

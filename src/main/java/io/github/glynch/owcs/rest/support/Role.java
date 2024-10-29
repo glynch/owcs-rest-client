@@ -4,7 +4,9 @@ import java.util.stream.Stream;
 
 public enum Role implements Roles {
 
-    ADVANCED_USER("AdvancedUser");
+    ADVANCED_USER("AdvancedUser"),
+    GENERAL_ADMIN("GeneralAdmin"),
+    SITE_ADMIN("SiteAdmin"),;
 
     private final String name;
 

@@ -203,6 +203,10 @@ public interface AuthenticatedRestClient {
 
         void delete() throws RestClientException;
 
+        AssetBean put(AssetBean assetBean) throws RestClientException;
+
+        AssetBean post(AssetBean assetBean) throws RestClientException;
+
         EnabledTypesBean types() throws RestClientException;
 
         SiteTypeResources type(Types type) throws RestClientException;
@@ -227,10 +231,6 @@ public interface AuthenticatedRestClient {
         String SITE_TYPE_SEARCH_URI_TEMPLATE = "/REST/sites/{site}/types/{type}/search";
         String SITE_TYPE_URI_TEMPLATE = "/REST/sites/{site}/types/{type}";
         String SITE_TYPE_ASSET_URI_TEMPLATE = "/REST/sites/{site}/types/{type}/assets/{id}";
-
-        AssetBean put(AssetBean assetBean) throws RestClientException;
-
-        AssetBean post(AssetBean assetBean) throws RestClientException;
 
         SiteTypeAssetResources id(long id) throws RestClientException;
 

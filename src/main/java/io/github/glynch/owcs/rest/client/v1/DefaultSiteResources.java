@@ -36,7 +36,7 @@ public class DefaultSiteResources implements SiteResources {
 
     @Override
     public SiteCollectionResources advCols() {
-        return new DefaultSiteCollectionResources(client, site, Type.ADVCOLS.getName());
+        return new DefaultSiteCollectionResources(client, site, Type.RECOMMENDATION.getName());
     }
 
     @Override

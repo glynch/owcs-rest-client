@@ -7,10 +7,13 @@ public enum Field implements Fields {
     ID("id"),
     NAME("name"),
     DESCRIPTION("description"),
-    UPDATEDDATE("updateddate"),
-    CREATEDDATE("createddate"),
-    UPDATEDBY("updatedby"),
-    CREATEDBY("createdby"),;
+    UPDATED_DATE("updateddate"),
+    CREATED_DATE("createddate"),
+    UPDATED_BY("updatedby"),
+    CREATED_BY("createdby"),
+    STATUS("status"),
+    START_DATE("startdate"),
+    END_DATE("enddate"),;
 
     private final String name;
 
