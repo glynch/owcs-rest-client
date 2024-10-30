@@ -1,6 +1,6 @@
 # Oracle WebCenter Sites Rest Client
 
-This is a work in profress and can change frequently.
+This is a work in progress and can change frequently.
 
 [Rest API](https://docs.oracle.com/middleware/12213/related-docs/WBCSR/wemrestresources.htm#i1019996)
 

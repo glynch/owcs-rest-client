@@ -69,7 +69,15 @@ Short cut using all defaults
 **CREATE**
 
 ```java
-    AssetBean assetBean = ...
+    AssetBeanBuilder builder = AssetBeanBuilder.builder("Page", "AVISection",
+                "This is a test Page")
+                .template("SectionLayoutGreen")
+                .sites("avisports")
+                .startDate(new Date())
+                .endDate(new Date())
+                .association("contentList1", AssetIds.of("AVIArticle:1328196049021"),
+                        AssetIds.of("AVIArticle:1328196048989"));
+        AssetBean assetBean = builder.build();
     client.site(Site.AVISPORTS).put(assetBean);
 ```
 
