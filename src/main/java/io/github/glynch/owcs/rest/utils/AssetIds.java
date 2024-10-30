@@ -1,4 +1,4 @@
-package io.github.glynch.owcs.rest.support.utils;
+package io.github.glynch.owcs.rest.utils;
 
 import java.util.regex.Pattern;
 

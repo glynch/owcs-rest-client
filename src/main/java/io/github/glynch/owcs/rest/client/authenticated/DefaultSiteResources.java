@@ -19,7 +19,7 @@ import io.github.glynch.owcs.rest.client.authenticated.search.SegmentsQuery;
 import io.github.glynch.owcs.rest.client.exceptions.RestClientException;
 import io.github.glynch.owcs.rest.support.Types;
 import io.github.glynch.owcs.rest.support.Users;
-import io.github.glynch.owcs.rest.support.utils.AssetIds;
+import io.github.glynch.owcs.rest.utils.AssetIds;
 
 public class DefaultSiteResources implements SiteResources {
 

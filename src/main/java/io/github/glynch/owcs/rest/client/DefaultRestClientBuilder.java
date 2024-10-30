@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
 import com.fatwire.rest.beans.AssetBean;
 import com.fatwire.rest.beans.AssetInfo;
 import com.fatwire.rest.beans.AssetTypesBean;
@@ -91,6 +92,7 @@ public class DefaultRestClientBuilder implements RestClient.Builder {
         simpleModule.addDeserializer(ViewTypeEnum.class, new ViewTypeEnumDeserializer());
         objectMapper.registerModule(javaTimeModule);
         objectMapper.registerModule(simpleModule);
+        objectMapper.registerModule(new JaxbAnnotationModule());
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
