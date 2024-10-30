@@ -117,7 +117,9 @@ public interface AuthenticatedRestClient {
 
     AssetTypesBean types() throws RestClientException;
 
-    TypeResources type(Types type) throws RestClientException;
+    TypeResources type(Types type);
+
+    TypeResources type(String type);
 
     AssetTypeBean put(AssetTypeBean assetType) throws RestClientException;
 
@@ -125,9 +127,13 @@ public interface AuthenticatedRestClient {
 
     IndexConfigBean index(Indexes index) throws RestClientException;
 
+    IndexConfigBean index(String index) throws RestClientException;
+
     SitesBean sites() throws RestClientException;
 
-    SiteResources site(Sites site) throws RestClientException;
+    SiteResources site(Sites site);
+
+    SiteResources site(String site);
 
     SiteBean put(SiteBean siteBean) throws RestClientException;
 
@@ -136,6 +142,8 @@ public interface AuthenticatedRestClient {
     RolesBean roles() throws RestClientException;
 
     RoleBean role(Roles role) throws RestClientException;
+
+    RoleBean role(String role) throws RestClientException;
 
     ApplicationsBean applications() throws RestClientException;
 
@@ -147,7 +155,9 @@ public interface AuthenticatedRestClient {
 
     UsersBean users() throws RestClientException;
 
-    UserResources user(Users user) throws RestClientException;
+    UserResources user(Users user);
+
+    UserResources user(String user);
 
     UserBean put(UserBean user) throws RestClientException;
 
@@ -182,6 +192,8 @@ public interface AuthenticatedRestClient {
 
         AssetTypeBean subtype(Subtypes subtype) throws RestClientException;
 
+        AssetTypeBean subtype(String subtype) throws RestClientException;
+
         AssetTypesBean search(SearchQuery query) throws RestClientException;
 
     }
@@ -209,7 +221,9 @@ public interface AuthenticatedRestClient {
 
         EnabledTypesBean types() throws RestClientException;
 
-        SiteTypeResources type(Types type) throws RestClientException;
+        SiteTypeResources type(Types type);
+
+        SiteTypeResources type(String type);
 
         NavigationBean navigation() throws RestClientException;
 
@@ -218,6 +232,8 @@ public interface AuthenticatedRestClient {
         SiteUserBean users() throws RestClientException;
 
         SiteUserBean user(Users user) throws RestClientException;
+
+        SiteUserBean user(String user) throws RestClientException;
 
         AssetsBean recommendation(String recommendation, RecommendationQuery query) throws RestClientException;
 
@@ -251,6 +267,8 @@ public interface AuthenticatedRestClient {
         AssociationsBean associations() throws RestClientException;
 
         AssociationBean association(Associations association) throws RestClientException;
+
+        AssociationBean association(String association) throws RestClientException;
 
     }
 

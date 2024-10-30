@@ -78,9 +78,15 @@ public class DefaultAuthenticatedRestClient implements AuthenticatedRestClient {
     }
 
     @Override
-    public TypeResources type(Types type) throws RestClientException {
+    public TypeResources type(String type) {
         Objects.requireNonNull(type, "type cannot be null");
-        return new DefaultTypeResources(this, type.getName());
+        return new DefaultTypeResources(this, type);
+    }
+
+    @Override
+    public TypeResources type(Types type) {
+        Objects.requireNonNull(type, "type cannot be null");
+        return type(type.getName());
     }
 
     @Override
@@ -99,15 +105,28 @@ public class DefaultAuthenticatedRestClient implements AuthenticatedRestClient {
     }
 
     @Override
-    public IndexConfigBean index(Indexes index) throws RestClientException {
+    public IndexConfigBean index(String index) throws RestClientException {
         Objects.requireNonNull(index, "index cannot be null");
-        return restApi.get(baseUrl + INDEX_URI_TEMPLATE, builder -> builder.build(Map.of("index", index.getName())),
+        return restApi.get(baseUrl + INDEX_URI_TEMPLATE, builder -> builder.build(Map.of("index", index)),
                 IndexConfigBean.class);
     }
 
     @Override
-    public SiteResources site(Sites site) throws RestClientException {
-        return new DefaultSiteResources(this, site.getName());
+    public IndexConfigBean index(Indexes index) throws RestClientException {
+        Objects.requireNonNull(index, "index cannot be null");
+        return index(index.getName());
+    }
+
+    @Override
+    public SiteResources site(String site) {
+        Objects.requireNonNull(site, "site cannot be null");
+        return new DefaultSiteResources(this, site);
+    }
+
+    @Override
+    public SiteResources site(Sites site) {
+        Objects.requireNonNull(site, "site cannot be null");
+        return site(site.getName());
     }
 
     @Override
@@ -137,10 +156,16 @@ public class DefaultAuthenticatedRestClient implements AuthenticatedRestClient {
     }
 
     @Override
+    public RoleBean role(String role) throws RestClientException {
+        Objects.requireNonNull(role, "role cannot be null");
+        return restApi.get(baseUrl + ROLE_URI_TEMPLATE, builder -> builder.build(Map.of("role", role)),
+                RoleBean.class);
+    }
+
+    @Override
     public RoleBean role(Roles role) throws RestClientException {
         Objects.requireNonNull(role, "role cannot be null");
-        return restApi.get(baseUrl + ROLE_URI_TEMPLATE, builder -> builder.build(Map.of("role", role.getName())),
-                RoleBean.class);
+        return role(role.getName());
     }
 
     @Override
@@ -177,9 +202,15 @@ public class DefaultAuthenticatedRestClient implements AuthenticatedRestClient {
     }
 
     @Override
-    public UserResources user(Users user) throws RestClientException {
+    public UserResources user(String user) {
         Objects.requireNonNull(user, "user cannot be null");
-        return new DefaultUserResources(this, user.getName());
+        return new DefaultUserResources(this, user);
+    }
+
+    @Override
+    public UserResources user(Users user) {
+        Objects.requireNonNull(user, "user cannot be null");
+        return user(user.getName());
     }
 
     @Override

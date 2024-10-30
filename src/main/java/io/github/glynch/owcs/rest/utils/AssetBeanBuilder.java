@@ -1,5 +1,6 @@
 package io.github.glynch.owcs.rest.utils;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -7,6 +8,10 @@ import java.util.Objects;
 import com.fatwire.assetapi.data.AssetId;
 import com.fatwire.rest.beans.AssetBean;
 import com.openmarket.xcelerate.asset.AssetIdImpl;
+
+import io.github.glynch.owcs.rest.support.Association;
+import io.github.glynch.owcs.rest.support.Fields;
+import io.github.glynch.owcs.rest.support.Sites;
 
 public class AssetBeanBuilder {
 
@@ -64,6 +69,12 @@ public class AssetBeanBuilder {
         return this;
     }
 
+    public AssetBeanBuilder sites(Sites... sites) {
+        Objects.requireNonNull(sites, "sites cannot be null");
+        assetBeanFacade.setSites(Arrays.stream(sites).map(Sites::getName).toArray(String[]::new));
+        return this;
+    }
+
     /**
      * Set the template for the asset.
      * 
@@ -91,9 +102,18 @@ public class AssetBeanBuilder {
         return this;
     }
 
+    public AssetBeanBuilder attributes(Fields field, Object... values) {
+        Objects.requireNonNull(values, "values cannot be null");
+        return attributes(field.getName(), values);
+    }
+
     public AssetBeanBuilder attribute(String name, Object value) {
         assetBeanFacade.setAttribute(name, value);
         return this;
+    }
+
+    public AssetBeanBuilder attribute(Fields field, Object value) {
+        return attribute(field.getName(), value);
     }
 
     public AssetBeanBuilder parent(String parentDefName, AssetId... parentIds) {
@@ -104,6 +124,10 @@ public class AssetBeanBuilder {
     public AssetBeanBuilder association(String name, AssetId... assetIds) {
         assetBeanFacade.setAssociations(name, assetIds);
         return this;
+    }
+
+    public AssetBeanBuilder association(Association name, AssetId... assetIds) {
+        return association(name.getName(), assetIds);
     }
 
     public AssetBeanBuilder startDate(Date startDate) {

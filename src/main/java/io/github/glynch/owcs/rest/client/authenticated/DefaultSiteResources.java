@@ -59,7 +59,13 @@ public class DefaultSiteResources implements SiteResources {
     }
 
     @Override
-    public SiteTypeResources type(Types type) throws RestClientException {
+    public SiteTypeResources type(String type) {
+        Objects.requireNonNull(type, "type cannot be null");
+        return new DefaultSiteTypeResources(client, site, type);
+    }
+
+    @Override
+    public SiteTypeResources type(Types type) {
         Objects.requireNonNull(type, "type cannot be null");
         return new DefaultSiteTypeResources(client, site, type.getName());
     }
@@ -86,14 +92,22 @@ public class DefaultSiteResources implements SiteResources {
     }
 
     @Override
-    public SiteUserBean user(Users user) throws RestClientException {
+    public SiteUserBean user(String user) throws RestClientException {
         return client.restApi().get(client.baseUrl() + SITE_USER_URI_TEMPLATE,
-                builder -> builder.build(Map.of("site", site, "user", user.getName())),
+                builder -> builder.build(Map.of("site", site, "user", user)),
                 SiteUserBean.class);
     }
 
     @Override
+    public SiteUserBean user(Users user) throws RestClientException {
+        Objects.requireNonNull(user, "user cannot be null");
+        return user(user.getName());
+    }
+
+    @Override
     public AssetsBean recommendation(String recommendation, RecommendationQuery query) throws RestClientException {
+        Objects.requireNonNull(recommendation, "recommendation cannot be null");
+        Objects.requireNonNull(query, "query cannot be null");
         return client.restApi().get(client.baseUrl() + SITE_RECOMMENDATION_URI_TEMPLATE,
                 builder -> builder.build(Map.of("site", site, "recommendation", recommendation)),
                 AssetsBean.class);
@@ -109,6 +123,7 @@ public class DefaultSiteResources implements SiteResources {
 
     @Override
     public AssetsBean segments(SegmentsQuery query) throws RestClientException {
+        Objects.requireNonNull(query, "query cannot be null");
         throw new UnsupportedOperationException("Unimplemented method 'segments'");
     }
 

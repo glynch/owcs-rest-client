@@ -4,6 +4,7 @@ import static io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestC
 import static io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClient.SiteTypeResources.SITE_TYPE_URI_TEMPLATE;
 
 import java.util.Map;
+import java.util.Objects;
 
 import com.fatwire.rest.beans.AssetBean;
 import com.fatwire.rest.beans.AssociationBean;
@@ -35,11 +36,18 @@ public class DefaultSiteTypeAssetResources implements SiteTypeAssetResources {
     }
 
     @Override
-    public AssociationBean association(Associations association) throws RestClientException {
+    public AssociationBean association(String association) throws RestClientException {
+        Objects.requireNonNull(association, "association cannot be null");
         return client.restApi().get(client.baseUrl() + SITE_TYPE_ASSET_ASSOCIATION_URI_TEMPLATE,
                 builder -> builder
-                        .build(Map.of("site", site, "type", type, "id", id, "association", association.getName())),
+                        .build(Map.of("site", site, "type", type, "id", id, "association", association)),
                 AssociationBean.class);
+    }
+
+    @Override
+    public AssociationBean association(Associations association) throws RestClientException {
+        Objects.requireNonNull(association, "association cannot be null");
+        return association(association.getName());
     }
 
     @Override

@@ -45,11 +45,17 @@ public class DefaultTypeResources implements TypeResources {
     }
 
     @Override
-    public AssetTypeBean subtype(Subtypes subtype) throws RestClientException {
+    public AssetTypeBean subtype(String subtype) throws RestClientException {
         Objects.requireNonNull(subtype, "subtype is required");
         return client.restApi().get(client.baseUrl() + TYPE_SUBTYPE_URI_TEMPLATE,
-                builder -> builder.build(Map.of("type", type, "subtype", subtype.getName())),
+                builder -> builder.build(Map.of("type", type, "subtype", subtype)),
                 AssetTypeBean.class);
+    }
+
+    @Override
+    public AssetTypeBean subtype(Subtypes subtype) throws RestClientException {
+        Objects.requireNonNull(subtype, "subtype is required");
+        return subtype(subtype.getName());
     }
 
     @Override
