@@ -34,8 +34,11 @@ Short cut using all defaults
 **CREATE**
 
 ```java
-    AssetTypeBean assetTypeBean = ....
-    assetTypeBean = client.put(assetTypeBean);
+    AssetTypeBeanBuilder assetTypeBeanBuilder = AssetTypeBeanBuilder.builder("AVIArticle2", "Article2")
+                .description("Article2")
+                .singleValuedAttribute("headline2", "Headline", AttributeTypeEnum.STRING, true, 256);
+
+        client.put(assetTypeBeanBuilder.build());
 ```
 
 ### /REST/types/{type}/subtypes
