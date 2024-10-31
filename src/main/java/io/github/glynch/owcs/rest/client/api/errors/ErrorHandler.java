@@ -1,4 +1,4 @@
-package io.github.glynch.owcs.rest.client.api.exceptions;
+package io.github.glynch.owcs.rest.client.api.errors;
 
 import okhttp3.Response;
 

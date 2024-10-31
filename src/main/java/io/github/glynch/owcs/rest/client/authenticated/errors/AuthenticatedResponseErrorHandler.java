@@ -1,14 +1,13 @@
-package io.github.glynch.owcs.rest.client.authenticated.support;
+package io.github.glynch.owcs.rest.client.authenticated.errors;
 
 import java.io.IOException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClientResponseException;
-import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestError;
+import io.github.glynch.owcs.rest.client.errors.ResponseErrorHandler;
 import io.github.glynch.owcs.rest.client.exceptions.RestClientException;
 import io.github.glynch.owcs.rest.client.exceptions.RestClientResponseException;
-import io.github.glynch.owcs.rest.support.ResponseErrorHandler;
 import okhttp3.Response;
 
 public class AuthenticatedResponseErrorHandler implements ResponseErrorHandler {

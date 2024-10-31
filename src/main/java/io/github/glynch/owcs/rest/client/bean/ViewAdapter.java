@@ -1,4 +1,4 @@
-package io.github.glynch.owcs.rest.utils;
+package io.github.glynch.owcs.rest.client.bean;
 
 import java.util.Objects;
 
@@ -6,6 +6,9 @@ import com.fatwire.assetapi.data.AssetId;
 import com.fatwire.rest.beans.AssetBean;
 import com.fatwire.rest.beans.View;
 import com.fatwire.rest.beans.ViewTypeEnum;
+
+import io.github.glynch.owcs.rest.client.bean.utils.AssetIds;
+import io.github.glynch.owcs.rest.client.bean.utils.AttributeUtils;
 
 public class ViewAdapter extends View {
 

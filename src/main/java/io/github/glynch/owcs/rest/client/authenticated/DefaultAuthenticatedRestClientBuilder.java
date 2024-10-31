@@ -8,7 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.github.glynch.owcs.rest.client.api.DefaultAuthenticatedRestApi;
 import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClient.Builder;
-import io.github.glynch.owcs.rest.client.authenticated.support.AuthenticatedResponseErrorHandler;
+import io.github.glynch.owcs.rest.client.authenticated.errors.AuthenticatedResponseErrorHandler;
 import io.github.glynch.owcs.rest.client.sso.CachingTokenProvider;
 import io.github.glynch.owcs.rest.client.sso.DefaultTicketEncryptor;
 import io.github.glynch.owcs.rest.client.sso.DefaultTicketProvider;

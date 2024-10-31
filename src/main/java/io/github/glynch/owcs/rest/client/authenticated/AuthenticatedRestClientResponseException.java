@@ -1,5 +1,6 @@
 package io.github.glynch.owcs.rest.client.authenticated;
 
+import io.github.glynch.owcs.rest.client.authenticated.errors.AuthenticatedRestError;
 import io.github.glynch.owcs.rest.client.exceptions.RestClientResponseException;
 
 public class AuthenticatedRestClientResponseException extends RestClientResponseException {

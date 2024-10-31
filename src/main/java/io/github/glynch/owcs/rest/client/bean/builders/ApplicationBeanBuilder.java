@@ -1,4 +1,4 @@
-package io.github.glynch.owcs.rest.utils;
+package io.github.glynch.owcs.rest.client.bean.builders;
 
 import java.util.List;
 import java.util.Objects;
@@ -12,12 +12,6 @@ import io.github.glynch.owcs.rest.support.Roles;
 import io.github.glynch.owcs.rest.support.Sites;
 
 public class ApplicationBeanBuilder {
-
-    private static String PARENT_NODE = "parentnode";
-    private static String VIEW_TYPE = "viewtype";
-    private static String SRC_URL = "srcurl";
-    private static String SCRIPT = "script";
-    private static String CONTENT = "content";
 
     private final ApplicationBean applicationBean;
 

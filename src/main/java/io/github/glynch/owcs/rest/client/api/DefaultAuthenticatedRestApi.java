@@ -6,7 +6,7 @@ import java.util.function.Function;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import io.github.glynch.owcs.rest.client.authenticated.support.AuthenticatedResponseErrorHandler;
+import io.github.glynch.owcs.rest.client.authenticated.errors.AuthenticatedResponseErrorHandler;
 import io.github.glynch.owcs.rest.client.exceptions.RestClientException;
 import io.github.glynch.owcs.rest.client.sso.TokenProvider;
 import io.github.glynch.owcs.rest.support.DefaultUriBuilder;

@@ -1,4 +1,4 @@
-package io.github.glynch.owcs.rest.utils;
+package io.github.glynch.owcs.rest.client.bean.builders;
 
 import java.util.Objects;
 

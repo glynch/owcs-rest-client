@@ -1,4 +1,4 @@
-package io.github.glynch.owcs.rest.utils;
+package io.github.glynch.owcs.rest.client.bean;
 
 import java.math.BigDecimal;
 import java.util.Collections;
@@ -16,6 +16,11 @@ import com.fatwire.rest.beans.Attribute;
 import com.fatwire.rest.beans.Blob;
 import com.fatwire.rest.beans.Parent;
 import com.fatwire.rest.beans.Struct;
+
+import io.github.glynch.owcs.rest.client.bean.utils.AssetIds;
+import io.github.glynch.owcs.rest.client.bean.utils.AssociationUtils;
+import io.github.glynch.owcs.rest.client.bean.utils.AttributeUtils;
+import io.github.glynch.owcs.rest.client.bean.utils.ParentUtils;
 
 public class AssetBeanFacade {
 
@@ -36,7 +41,7 @@ public class AssetBeanFacade {
     private final List<Parent> parents;
     private final List<Association> associations;
 
-    AssetBeanFacade(AssetBean assetBean) {
+    public AssetBeanFacade(AssetBean assetBean) {
         this.assetBean = assetBean;
         this.attributes = assetBean.getAttributes();
         this.parents = assetBean.getParents();
@@ -46,7 +51,7 @@ public class AssetBeanFacade {
         this.associations = assetBean.getAssociations().getAssociations();
     }
 
-    AssetBeanFacade() {
+    public AssetBeanFacade() {
         this(new AssetBean());
     }
 

@@ -12,10 +12,10 @@ import java.util.regex.Pattern;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.github.glynch.owcs.rest.client.errors.ResponseErrorHandler;
 import io.github.glynch.owcs.rest.client.exceptions.RestClientException;
 import io.github.glynch.owcs.rest.client.exceptions.RestClientRequestException;
 import io.github.glynch.owcs.rest.support.DefaultUriBuilder;
-import io.github.glynch.owcs.rest.support.ResponseErrorHandler;
 import io.github.glynch.owcs.rest.support.UriBuilder;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -29,7 +29,7 @@ public class DefaultRestApi implements RestApi {
 
     private final OkHttpClient client;
     private final ObjectMapper objectMapper;
-    private final io.github.glynch.owcs.rest.support.ResponseErrorHandler errorHandler;
+    private final io.github.glynch.owcs.rest.client.errors.ResponseErrorHandler errorHandler;
 
     public DefaultRestApi(OkHttpClient client, ObjectMapper objectMapper, ResponseErrorHandler errorHandler)
             throws RestClientException {

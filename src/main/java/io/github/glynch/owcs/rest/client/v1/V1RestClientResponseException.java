@@ -1,6 +1,7 @@
 package io.github.glynch.owcs.rest.client.v1;
 
 import io.github.glynch.owcs.rest.client.exceptions.RestClientResponseException;
+import io.github.glynch.owcs.rest.client.v1.errors.V1RestError;
 
 public class V1RestClientResponseException extends RestClientResponseException {
 

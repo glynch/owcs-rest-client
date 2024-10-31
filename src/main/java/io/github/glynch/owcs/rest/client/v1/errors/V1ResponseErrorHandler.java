@@ -1,13 +1,12 @@
-package io.github.glynch.owcs.rest.client.v1.support;
+package io.github.glynch.owcs.rest.client.v1.errors;
 
 import java.io.IOException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import io.github.glynch.owcs.rest.client.api.exceptions.ErrorHandler;
+import io.github.glynch.owcs.rest.client.api.errors.ErrorHandler;
 import io.github.glynch.owcs.rest.client.exceptions.RestClientException;
 import io.github.glynch.owcs.rest.client.v1.V1RestClientResponseException;
-import io.github.glynch.owcs.rest.client.v1.V1RestError;
 import okhttp3.Response;
 
 public class V1ResponseErrorHandler implements ErrorHandler {

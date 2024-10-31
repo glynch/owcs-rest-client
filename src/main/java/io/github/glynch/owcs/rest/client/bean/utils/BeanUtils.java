@@ -1,4 +1,4 @@
-package io.github.glynch.owcs.rest.utils;
+package io.github.glynch.owcs.rest.client.bean.utils;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -10,8 +10,8 @@ import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
 import com.fatwire.rest.beans.LayoutTypeEnum;
 import com.fatwire.rest.beans.ViewTypeEnum;
 
-import io.github.glynch.owcs.rest.support.LayoutTypeEnumDeserializer;
-import io.github.glynch.owcs.rest.support.ViewTypeEnumDeserializer;
+import io.github.glynch.owcs.rest.client.deserializers.LayoutTypeEnumDeserializer;
+import io.github.glynch.owcs.rest.client.deserializers.ViewTypeEnumDeserializer;
 
 public abstract class BeanUtils {
 

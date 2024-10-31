@@ -1,4 +1,4 @@
-package io.github.glynch.owcs.rest.utils;
+package io.github.glynch.owcs.rest.client.bean.builders;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -9,6 +9,7 @@ import com.fatwire.assetapi.data.AssetId;
 import com.fatwire.rest.beans.AssetBean;
 import com.openmarket.xcelerate.asset.AssetIdImpl;
 
+import io.github.glynch.owcs.rest.client.bean.AssetBeanFacade;
 import io.github.glynch.owcs.rest.support.Association;
 import io.github.glynch.owcs.rest.support.Fields;
 import io.github.glynch.owcs.rest.support.Sites;
