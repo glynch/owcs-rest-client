@@ -8,7 +8,9 @@ This is a work in progress and can change frequently.
 
 A fluent rest client that supports legacy authenticated REST resources, as well as the newer v1 aggregated REST resources.
 
-See [Examples](https://github.com/glynch/owcs-rest-client/blob/main/RESOURCES.md)
+See [Authenticated Examples](https://github.com/glynch/owcs-rest-client/blob/main/RESOURCES.md)
+
+See [V1 Examples](https://github.com/glynch/owcs-rest-client/blob/main/V1RESOURCES.md)
 
 ## Build
 

@@ -145,8 +145,13 @@ Short cut using all defaults
 **CREATE**
 
 ```java
-    SiteBean siteBean = ...
-    siteBean = client.put(siteBean);
+    SiteBeanBuilder siteBeanBuilder = SiteBeanBuilder.builder("testsite")
+                .description("This is the test site")
+                .types("Page", "AVIArticle")
+                .user("fwadmin", "AdvancedUser", "SitesUser", "SiteAdmin", "GeneralAdmin")
+                .user("Bill", "AdvancedUser", "Writer", "Reviewer");
+
+        client.put(siteBeanBuilder.build());
 ```
 
 **UPDATE**
