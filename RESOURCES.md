@@ -207,7 +207,20 @@ Short cut using all defaults
 
 ```java
 
-    ApplicationBean applicationBean = ...
+    AssetBean viewBean = client.site(Site.ADMIN_SITE).type(Type.VIEW).id(1283176967296L).get();
+    ApplicationBeanBuilder applicationBean = ApplicationBeanBuilder
+                .builder("My App", LayoutTypeEnum.FW_WEM_FRAMEWORK_LAYOUT_RENDERER)
+                .description("Description of my app")
+                .shortDescription("Short description of my app")
+                .tooltip("This is a tooltip")
+                .site("AdminSite", "SitesUser")
+                .layoutUrl("wemresources/layout/admin.html")
+                .iconUrl("wemresources/images/icons/apps/Contributor.png")
+                .hoverIconUrl("wemresources/images/icons/apps/Contributor.png")
+                .activeIconUrl("wemresources/images/icons/apps/ContributorClick.png")
+                .systemApplication()
+                .views(new ViewAdapter(viewBean))
+                .build();
     applicationBean = client.put(applicationBean);
 ```
 

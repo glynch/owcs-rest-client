@@ -12,6 +12,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
+import com.fatwire.rest.beans.ApplicationBean;
 import com.fatwire.rest.beans.AssetBean;
 import com.fatwire.rest.beans.AssetInfo;
 import com.fatwire.rest.beans.AssetTypesBean;
@@ -35,6 +36,7 @@ import io.github.glynch.owcs.rest.client.RestClient.Builder;
 import io.github.glynch.owcs.rest.client.api.DefaultRestApi;
 import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClient;
 import io.github.glynch.owcs.rest.client.authenticated.DefaultAuthenticatedRestClientBuilder;
+import io.github.glynch.owcs.rest.client.mixins.ApplicationBeanMixin;
 import io.github.glynch.owcs.rest.client.mixins.AssetBeanMixin;
 import io.github.glynch.owcs.rest.client.mixins.AssetInfoMixin;
 import io.github.glynch.owcs.rest.client.mixins.AssetTypesBeanMixin;
@@ -82,6 +84,7 @@ public class DefaultRestClientBuilder implements RestClient.Builder {
         mixins.put(RolesBean.class, RolesBeanMixin.class);
         mixins.put(IndexConfigsBean.class, IndexConfigsBeanMixin.class);
         mixins.put(UsersBean.class, UsersBeanMixin.class);
+        mixins.put(ApplicationBean.class, ApplicationBeanMixin.class);
     }
     private static final ObjectMapper objectMapper = new ObjectMapper();
     private static final JavaTimeModule javaTimeModule = new JavaTimeModule();

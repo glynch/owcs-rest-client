@@ -6,7 +6,8 @@ public enum Role implements Roles {
 
     ADVANCED_USER("AdvancedUser"),
     GENERAL_ADMIN("GeneralAdmin"),
-    SITE_ADMIN("SiteAdmin"),;
+    SITE_ADMIN("SiteAdmin"),
+    SITES_USER("SitesUser");
 
     private final String name;
 
