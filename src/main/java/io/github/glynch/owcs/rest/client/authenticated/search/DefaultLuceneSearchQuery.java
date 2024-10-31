@@ -4,7 +4,7 @@ import java.util.Objects;
 
 import org.apache.commons.collections4.MultiValuedMap;
 
-import io.github.glynch.owcs.rest.support.Fields;
+import io.github.glynch.owcs.rest.client.types.Fields;
 
 public class DefaultLuceneSearchQuery extends AbstractAssetQuery implements LuceneSearchQuery {
 

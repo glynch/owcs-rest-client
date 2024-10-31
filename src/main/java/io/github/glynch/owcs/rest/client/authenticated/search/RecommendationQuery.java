@@ -1,7 +1,7 @@
 package io.github.glynch.owcs.rest.client.authenticated.search;
 
-import io.github.glynch.owcs.rest.support.Fields;
-import io.github.glynch.owcs.rest.support.Segments;
+import io.github.glynch.owcs.rest.client.types.Fields;
+import io.github.glynch.owcs.rest.client.types.Segments;
 
 public interface RecommendationQuery extends SearchQuery {
 

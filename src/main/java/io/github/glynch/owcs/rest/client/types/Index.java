@@ -1,13 +1,15 @@
-package io.github.glynch.owcs.rest.support;
+package io.github.glynch.owcs.rest.client.types;
 
 import java.util.stream.Stream;
 
-public enum Version implements Versions {
-    V1("v1");
+public enum Index implements Indexes {
+    GLOBAL("Global"),
+    AVIARTICLE("AVIArticle"),
+    PAGE("Page"),;
 
     private final String name;
 
-    Version(String name) {
+    private Index(String name) {
         this.name = name;
     }
 
@@ -16,7 +18,7 @@ public enum Version implements Versions {
         return name;
     }
 
-    public static Version of(String name) {
+    public static Index of(String name) {
         return Stream.of(values()).filter(site -> site.name.equals(name)).findFirst().orElse(null);
     }
 

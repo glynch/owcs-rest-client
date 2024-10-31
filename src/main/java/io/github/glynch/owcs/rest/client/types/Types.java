@@ -1,4 +1,4 @@
-package io.github.glynch.owcs.rest.support;
+package io.github.glynch.owcs.rest.client.types;
 
 /**
  * You should implement this interface to provide custom asset type names.

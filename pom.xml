@@ -42,11 +42,15 @@
 		<logback.version>1.5.6</logback.version>
 		<junit.version>5.10.2</junit.version>
 		<okhttp3.version>4.12.0</okhttp3.version>
+		<commons-collections4.version>4.5.0-M2</commons-collections4.version>
+		<commons-lang3.version>3.17.0</commons-lang3.version>
+		<cache-api.version>1.1.1</cache-api.version>
+		<ehcache.version>3.9.11</ehcache.version>
+		<jakarta-xml-bind-api.version>2.3.3</jakarta-xml-bind-api.version>
 	</properties>
 
 	<build>
 		<plugins>
-
 
 		</plugins>
 	</build>
@@ -55,7 +59,7 @@
 		<dependency>
 			<groupId>jakarta.xml.bind</groupId>
 			<artifactId>jakarta.xml.bind-api</artifactId>
-			<version>2.3.3</version>
+			<version>${jakarta-xml-bind-api.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.oracle.wcsites</groupId>
@@ -100,12 +104,12 @@
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
-			<version>3.17.0</version>
+			<version>${commons-lang3.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-collections4</artifactId>
-			<version>4.5.0-M2</version>
+			<version>${commons-collections4.version}</version>
 		</dependency>
 
 		<dependency>
@@ -121,12 +125,12 @@
 		<dependency>
 			<groupId>javax.cache</groupId>
 			<artifactId>cache-api</artifactId>
-			<version>1.1.1</version>
+			<version>${cache-api.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.ehcache</groupId>
 			<artifactId>ehcache</artifactId>
-			<version>3.9.11</version>
+			<version>${ehcache.version}</version>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
@@ -139,6 +143,12 @@
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-engine</artifactId>
 			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.squareup.okhttp3</groupId>
+			<artifactId>mockwebserver</artifactId>
+			<version>${okhttp.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

@@ -1,7 +1,7 @@
 package io.github.glynch.owcs.rest.client.authenticated.search;
 
 import io.github.glynch.owcs.rest.client.authenticated.search.DefaultDatabaseSearchQuery.DefaultDatabaseSearchQueryBuilder;
-import io.github.glynch.owcs.rest.support.Fields;
+import io.github.glynch.owcs.rest.client.types.Fields;
 
 public interface DatabaseSearchQuery extends AssetQuery {
 

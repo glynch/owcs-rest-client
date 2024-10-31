@@ -2,8 +2,8 @@ package io.github.glynch.owcs.rest.client.authenticated.search;
 
 import java.util.Objects;
 
-import io.github.glynch.owcs.rest.support.Field;
-import io.github.glynch.owcs.rest.support.Fields;
+import io.github.glynch.owcs.rest.client.types.Field;
+import io.github.glynch.owcs.rest.client.types.Fields;
 
 public interface SortField {
 

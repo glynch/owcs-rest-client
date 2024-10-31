@@ -41,14 +41,14 @@ import io.github.glynch.owcs.rest.client.authenticated.search.SegmentsQuery;
 import io.github.glynch.owcs.rest.client.authenticated.search.VisitorHistoryQuery;
 import io.github.glynch.owcs.rest.client.exceptions.RestClientException;
 import io.github.glynch.owcs.rest.client.sso.TokenProvider;
-import io.github.glynch.owcs.rest.support.Associations;
-import io.github.glynch.owcs.rest.support.Indexes;
-import io.github.glynch.owcs.rest.support.Roles;
-import io.github.glynch.owcs.rest.support.Sites;
-import io.github.glynch.owcs.rest.support.Subtypes;
-import io.github.glynch.owcs.rest.support.Types;
-import io.github.glynch.owcs.rest.support.Users;
-import io.github.glynch.owcs.rest.support.Versions;
+import io.github.glynch.owcs.rest.client.types.Associations;
+import io.github.glynch.owcs.rest.client.types.Indexes;
+import io.github.glynch.owcs.rest.client.types.Roles;
+import io.github.glynch.owcs.rest.client.types.Sites;
+import io.github.glynch.owcs.rest.client.types.Subtypes;
+import io.github.glynch.owcs.rest.client.types.Types;
+import io.github.glynch.owcs.rest.client.types.Users;
+import io.github.glynch.owcs.rest.client.types.Versions;
 
 public interface AuthenticatedRestClient {
 

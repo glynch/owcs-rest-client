@@ -10,9 +10,9 @@ import com.fatwire.rest.beans.AssetBean;
 import com.openmarket.xcelerate.asset.AssetIdImpl;
 
 import io.github.glynch.owcs.rest.client.bean.AssetBeanFacade;
-import io.github.glynch.owcs.rest.support.Association;
-import io.github.glynch.owcs.rest.support.Fields;
-import io.github.glynch.owcs.rest.support.Sites;
+import io.github.glynch.owcs.rest.client.types.Association;
+import io.github.glynch.owcs.rest.client.types.Fields;
+import io.github.glynch.owcs.rest.client.types.Sites;
 
 public class AssetBeanBuilder {
 

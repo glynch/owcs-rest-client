@@ -12,7 +12,7 @@ import com.fatwire.rest.beans.AssociationsBean;
 
 import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClient.SiteTypeAssetResources;
 import io.github.glynch.owcs.rest.client.exceptions.RestClientException;
-import io.github.glynch.owcs.rest.support.Associations;
+import io.github.glynch.owcs.rest.client.types.Associations;
 
 public class DefaultSiteTypeAssetResources implements SiteTypeAssetResources {
 

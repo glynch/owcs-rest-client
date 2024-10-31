@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 import com.fatwire.assetapi.data.AssetId;
 import com.openmarket.xcelerate.asset.AssetIdImpl;
 
-import io.github.glynch.owcs.rest.support.Types;
+import io.github.glynch.owcs.rest.client.types.Types;
 
 public abstract class AssetIds {
 

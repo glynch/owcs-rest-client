@@ -8,8 +8,8 @@ import com.fatwire.rest.beans.LayoutTypeEnum;
 import com.fatwire.rest.beans.SiteRoles;
 import com.fatwire.rest.beans.View;
 
-import io.github.glynch.owcs.rest.support.Roles;
-import io.github.glynch.owcs.rest.support.Sites;
+import io.github.glynch.owcs.rest.client.types.Roles;
+import io.github.glynch.owcs.rest.client.types.Sites;
 
 public class ApplicationBeanBuilder {
 

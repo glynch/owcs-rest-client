@@ -1,4 +1,4 @@
-package io.github.glynch.owcs.rest.support;
+package io.github.glynch.owcs.rest.client.types;
 
 public enum Subtype implements Subtypes {
 

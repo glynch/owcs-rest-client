@@ -2,7 +2,7 @@ package io.github.glynch.owcs.rest.client.authenticated.search;
 
 import java.util.Objects;
 
-import io.github.glynch.owcs.rest.support.Fields;
+import io.github.glynch.owcs.rest.client.types.Fields;
 
 public class DefaultCondition implements Condition {
 

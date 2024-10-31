@@ -10,9 +10,9 @@ import com.fatwire.rest.beans.SiteBean;
 import com.fatwire.rest.beans.SiteUser;
 import com.fatwire.rest.beans.SiteUsersBean;
 
-import io.github.glynch.owcs.rest.support.Roles;
-import io.github.glynch.owcs.rest.support.Sites;
-import io.github.glynch.owcs.rest.support.Users;
+import io.github.glynch.owcs.rest.client.types.Roles;
+import io.github.glynch.owcs.rest.client.types.Sites;
+import io.github.glynch.owcs.rest.client.types.Users;
 
 public class SiteBeanBuilder {
 

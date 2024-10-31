@@ -3,8 +3,8 @@ package io.github.glynch.owcs.rest.client.v1.search;
 import org.apache.commons.collections4.MultiValuedMap;
 import org.apache.commons.collections4.multimap.ArrayListValuedHashMap;
 
-import io.github.glynch.owcs.rest.support.Fields;
-import io.github.glynch.owcs.rest.support.Types;
+import io.github.glynch.owcs.rest.client.types.Fields;
+import io.github.glynch.owcs.rest.client.types.Types;
 
 public class DefaultCollectionQuery extends AbstractBaseQuery implements CollectionQuery {
 

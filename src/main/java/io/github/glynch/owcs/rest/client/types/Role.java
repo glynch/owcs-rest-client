@@ -1,13 +1,17 @@
-package io.github.glynch.owcs.rest.support;
+package io.github.glynch.owcs.rest.client.types;
 
 import java.util.stream.Stream;
 
-public enum Site implements Sites {
-    AVISPORTS("avisports"), ADMIN_SITE("AdminSite"),;
+public enum Role implements Roles {
+
+    ADVANCED_USER("AdvancedUser"),
+    GENERAL_ADMIN("GeneralAdmin"),
+    SITE_ADMIN("SiteAdmin"),
+    SITES_USER("SitesUser");
 
     private final String name;
 
-    private Site(String name) {
+    private Role(String name) {
         this.name = name;
     }
 
@@ -16,7 +20,7 @@ public enum Site implements Sites {
         return name;
     }
 
-    public static Site of(String name) {
+    public static Role of(String name) {
         return Stream.of(values()).filter(site -> site.name.equals(name)).findFirst().orElse(null);
     }
 

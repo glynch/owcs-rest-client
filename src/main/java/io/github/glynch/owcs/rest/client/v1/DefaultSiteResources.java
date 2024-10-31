@@ -3,14 +3,14 @@ package io.github.glynch.owcs.rest.client.v1;
 import java.util.Objects;
 
 import io.github.glynch.owcs.rest.client.exceptions.RestClientException;
+import io.github.glynch.owcs.rest.client.types.Type;
+import io.github.glynch.owcs.rest.client.types.Types;
 import io.github.glynch.owcs.rest.client.v1.V1RestClient.SiteCollectionResources;
 import io.github.glynch.owcs.rest.client.v1.V1RestClient.SiteRecommendationResources;
 import io.github.glynch.owcs.rest.client.v1.V1RestClient.SiteResources;
 import io.github.glynch.owcs.rest.client.v1.V1RestClient.SiteSearchResources;
 import io.github.glynch.owcs.rest.client.v1.V1RestClient.SiteTypeResources;
 import io.github.glynch.owcs.rest.client.v1.search.V1SearchQuery;
-import io.github.glynch.owcs.rest.support.Type;
-import io.github.glynch.owcs.rest.support.Types;
 import oracle.fatwire.rest.standard.beans.CollectionResourceMap;
 
 public class DefaultSiteResources implements SiteResources {

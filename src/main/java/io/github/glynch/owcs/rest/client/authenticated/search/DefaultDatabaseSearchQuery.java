@@ -5,7 +5,7 @@ import java.util.Objects;
 import org.apache.commons.collections4.MultiValuedMap;
 import org.apache.commons.lang3.StringUtils;
 
-import io.github.glynch.owcs.rest.support.Fields;
+import io.github.glynch.owcs.rest.client.types.Fields;
 
 public class DefaultDatabaseSearchQuery extends AbstractAssetQuery implements DatabaseSearchQuery {
 

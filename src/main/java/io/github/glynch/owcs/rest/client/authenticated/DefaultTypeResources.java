@@ -13,7 +13,7 @@ import com.fatwire.rest.beans.AssetTypesBean;
 import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClient.TypeResources;
 import io.github.glynch.owcs.rest.client.authenticated.search.SearchQuery;
 import io.github.glynch.owcs.rest.client.exceptions.RestClientException;
-import io.github.glynch.owcs.rest.support.Subtypes;
+import io.github.glynch.owcs.rest.client.types.Subtypes;
 
 public class DefaultTypeResources implements TypeResources {
 

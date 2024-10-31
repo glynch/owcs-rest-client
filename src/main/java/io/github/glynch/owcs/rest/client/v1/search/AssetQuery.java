@@ -1,8 +1,8 @@
 package io.github.glynch.owcs.rest.client.v1.search;
 
+import io.github.glynch.owcs.rest.client.types.Fields;
+import io.github.glynch.owcs.rest.client.types.Types;
 import io.github.glynch.owcs.rest.client.v1.search.DefaultAssetQuery.DefaultAssetQueryBuilder;
-import io.github.glynch.owcs.rest.support.Fields;
-import io.github.glynch.owcs.rest.support.Types;
 
 public interface AssetQuery extends BaseQuery {
 

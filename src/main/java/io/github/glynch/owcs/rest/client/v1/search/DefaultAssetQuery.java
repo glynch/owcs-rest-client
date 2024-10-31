@@ -7,8 +7,8 @@ import java.util.stream.Collectors;
 import org.apache.commons.collections4.MultiValuedMap;
 import org.apache.commons.collections4.multimap.ArrayListValuedHashMap;
 
-import io.github.glynch.owcs.rest.support.Fields;
-import io.github.glynch.owcs.rest.support.Types;
+import io.github.glynch.owcs.rest.client.types.Fields;
+import io.github.glynch.owcs.rest.client.types.Types;
 
 public class DefaultAssetQuery extends AbstractBaseQuery implements AssetQuery {
 
