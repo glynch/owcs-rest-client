@@ -1,0 +1,379 @@
+{
+  "type": [
+    {
+      "href": "http://localhost:7003/sites/REST/types/AVIArticle",
+      "name": "AVIArticle",
+      "subtypes": ["Article", "ArticleImage", "Image"]
+    },
+    {
+      "href": "http://localhost:7003/sites/REST/types/AVIArticle2",
+      "name": "AVIArticle2",
+      "subtypes": []
+    },
+    {
+      "href": "http://localhost:7003/sites/REST/types/AVIImage",
+      "name": "AVIImage",
+      "subtypes": ["Article", "ArticleImage", "Image"]
+    },
+    {
+      "href": "http://localhost:7003/sites/REST/types/AdvCols",
+      "name": "AdvCols",
+      "subtypes": []
+    },
+    {
+      "href": "http://localhost:7003/sites/REST/types/ArticleCategory",
+      "name": "ArticleCategory",
+      "subtypes": ["Category"]
+    },
+    {
+      "href": "http://localhost:7003/sites/REST/types/AttrTypes",
+      "name": "AttrTypes",
+      "subtypes": []
+    },
+    {
+      "href": "http://localhost:7003/sites/REST/types/CSElement",
+      "name": "CSElement",
+      "subtypes": []
+    },
+    {
+      "href": "http://localhost:7003/sites/REST/types/Collection",
+      "name": "Collection",
+      "subtypes": [
+        "WCS_ABTest",
+        "AVIArticle",
+        "ArticleCategory",
+        "AVIArticle2",
+        "FW_BlogAsset",
+        "FW_BlogAuthor",
+        "FW_BlogAuthorParent",
+        "FW_BlogParent",
+        "Collection",
+        "ContentCloud",
+        "ContentQuery",
+        "WCS_Controller",
+        "Device",
+        "DeviceGroup",
+        "Dimension",
+        "EloquaForm",
+        "FileResource",
+        "AVIImage",
+        "Page",
+        "PageFilter",
+        "Query",
+        "AdvCols",
+        "WCS_AccessProviders",
+        "WCS_AggregationTemplates",
+        "WCS_VisitorsConfig",
+        "WCS_IdentityProviders",
+        "WCS_ProfileProviders",
+        "YouTube"
+      ]
+    },
+    {
+      "href": "http://localhost:7003/sites/REST/types/ContentAttribute",
+      "name": "ContentAttribute",
+      "subtypes": []
+    },
+    {
+      "href": "http://localhost:7003/sites/REST/types/ContentCloud",
+      "name": "ContentCloud",
+      "subtypes": []
+    },
+    {
+      "href": "http://localhost:7003/sites/REST/types/ContentDef",
+      "name": "ContentDef",
+      "subtypes": []
+    },
+    {
+      "href": "http://localhost:7003/sites/REST/types/ContentFilter",
+      "name": "ContentFilter",
+      "subtypes": []
+    },
+    {
+      "href": "http://localhost:7003/sites/REST/types/ContentParentDef",
+      "name": "ContentParentDef",
+      "subtypes": []
+    },
+    {
+      "href": "http://localhost:7003/sites/REST/types/ContentQuery",
+      "name": "ContentQuery",
+      "subtypes": []
+    },
+    {
+      "href": "http://localhost:7003/sites/REST/types/Device",
+      "name": "Device",
+      "subtypes": []
+    },
+    {
+      "href": "http://localhost:7003/sites/REST/types/DeviceGroup",
+      "name": "DeviceGroup",
+      "subtypes": []
+    },
+    {
+      "href": "http://localhost:7003/sites/REST/types/Dimension",
+      "name": "Dimension",
+      "subtypes": []
+    },
+    {
+      "href": "http://localhost:7003/sites/REST/types/DimensionSet",
+      "name": "DimensionSet",
+      "subtypes": []
+    },
+    {
+      "href": "http://localhost:7003/sites/REST/types/EloquaForm",
+      "name": "EloquaForm",
+      "subtypes": []
+    },
+    {
+      "href": "http://localhost:7003/sites/REST/types/FW_Application",
+      "name": "FW_Application",
+      "subtypes": []
+    },
+    {
+      "href": "http://localhost:7003/sites/REST/types/FW_BlogAsset",
+      "name": "FW_BlogAsset",
+      "subtypes": ["BlogAssetDef"]
+    },
+    {
+      "href": "http://localhost:7003/sites/REST/types/FW_BlogAssetDef",
+      "name": "FW_BlogAssetDef",
+      "subtypes": []
+    },
+    {
+      "href": "http://localhost:7003/sites/REST/types/FW_BlogAttribute",
+      "name": "FW_BlogAttribute",
+      "subtypes": []
+    },
+    {
+      "href": "http://localhost:7003/sites/REST/types/FW_BlogAuthor",
+      "name": "FW_BlogAuthor",
+      "subtypes": ["BlogAuthorDef"]
+    },
+    {
+      "href": "http://localhost:7003/sites/REST/types/FW_BlogAuthorDef",
+      "name": "FW_BlogAuthorDef",
+      "subtypes": []
+    },
+    {
+      "href": "http://localhost:7003/sites/REST/types/FW_BlogAuthorParent",
+      "name": "FW_BlogAuthorParent",
+      "subtypes": ["BlogAuthorCategory"]
+    },
+    {
+      "href": "http://localhost:7003/sites/REST/types/FW_BlogAuthorParentDef",
+      "name": "FW_BlogAuthorParentDef",
+      "subtypes": []
+    },
+    {
+      "href": "http://localhost:7003/sites/REST/types/FW_BlogFilter",
+      "name": "FW_BlogFilter",
+      "subtypes": []
+    },
+    {
+      "href": "http://localhost:7003/sites/REST/types/FW_BlogParent",
+      "name": "FW_BlogParent",
+      "subtypes": [
+        "BlogCategory",
+        "GrandParentBlogCategory",
+        "ParentBlogCategory"
+      ]
+    },
+    {
+      "href": "http://localhost:7003/sites/REST/types/FW_BlogParentDef",
+      "name": "FW_BlogParentDef",
+      "subtypes": []
+    },
+    {
+      "href": "http://localhost:7003/sites/REST/types/FW_View",
+      "name": "FW_View",
+      "subtypes": []
+    },
+    {
+      "href": "http://localhost:7003/sites/REST/types/FileResource",
+      "name": "FileResource",
+      "subtypes": []
+    },
+    {
+      "href": "http://localhost:7003/sites/REST/types/HFields",
+      "name": "HFields",
+      "subtypes": []
+    },
+    {
+      "href": "http://localhost:7003/sites/REST/types/HistoryVals",
+      "name": "HistoryVals",
+      "subtypes": []
+    },
+    {
+      "href": "http://localhost:7003/sites/REST/types/ImageCategory",
+      "name": "ImageCategory",
+      "subtypes": ["Category"]
+    },
+    {
+      "href": "http://localhost:7003/sites/REST/types/Page",
+      "name": "Page",
+      "subtypes": ["AVIHome", "AVISection", "AVISectionR", "Page"]
+    },
+    {
+      "href": "http://localhost:7003/sites/REST/types/PageAttribute",
+      "name": "PageAttribute",
+      "subtypes": []
+    },
+    {
+      "href": "http://localhost:7003/sites/REST/types/PageDefinition",
+      "name": "PageDefinition",
+      "subtypes": []
+    },
+    {
+      "href": "http://localhost:7003/sites/REST/types/PageFilter",
+      "name": "PageFilter",
+      "subtypes": []
+    },
+    {
+      "href": "http://localhost:7003/sites/REST/types/Promotions",
+      "name": "Promotions",
+      "subtypes": []
+    },
+    {
+      "href": "http://localhost:7003/sites/REST/types/Query",
+      "name": "Query",
+      "subtypes": [
+        "WCS_ABTest",
+        "AVIArticle",
+        "ArticleCategory",
+        "AVIArticle2",
+        "FW_BlogAsset",
+        "FW_BlogAuthor",
+        "FW_BlogAuthorParent",
+        "FW_BlogParent",
+        "Collection",
+        "ContentCloud",
+        "ContentQuery",
+        "WCS_Controller",
+        "Device",
+        "DeviceGroup",
+        "Dimension",
+        "EloquaForm",
+        "FileResource",
+        "AVIImage",
+        "Page",
+        "PageFilter",
+        "Query",
+        "AdvCols",
+        "WCS_AccessProviders",
+        "WCS_AggregationTemplates",
+        "WCS_VisitorsConfig",
+        "WCS_IdentityProviders",
+        "WCS_ProfileProviders",
+        "YouTube"
+      ]
+    },
+    {
+      "href": "http://localhost:7003/sites/REST/types/ScalarVals",
+      "name": "ScalarVals",
+      "subtypes": []
+    },
+    {
+      "href": "http://localhost:7003/sites/REST/types/Segments",
+      "name": "Segments",
+      "subtypes": ["Bluekai", "Sites"]
+    },
+    {
+      "href": "http://localhost:7003/sites/REST/types/SiteEntry",
+      "name": "SiteEntry",
+      "subtypes": []
+    },
+    {
+      "href": "http://localhost:7003/sites/REST/types/SiteNavigation",
+      "name": "SiteNavigation",
+      "subtypes": []
+    },
+    {
+      "href": "http://localhost:7003/sites/REST/types/Slots",
+      "name": "Slots",
+      "subtypes": []
+    },
+    {
+      "href": "http://localhost:7003/sites/REST/types/Template",
+      "name": "Template",
+      "subtypes": [
+        "AVIArticle",
+        "ArticleCategory",
+        "AVIArticle2",
+        "FW_BlogAsset",
+        "FW_BlogAuthor",
+        "FW_BlogAuthorParent",
+        "FW_BlogParent",
+        "Collection",
+        "ContentCloud",
+        "ContentQuery",
+        "EloquaForm",
+        "FW_Application",
+        "FW_View",
+        "FileResource",
+        "AVIImage",
+        "ImageCategory",
+        "Page",
+        "Query",
+        "AdvCols",
+        "SiteNavigation",
+        "Slots",
+        "YouTube"
+      ]
+    },
+    {
+      "href": "http://localhost:7003/sites/REST/types/WCS_ABTest",
+      "name": "WCS_ABTest",
+      "subtypes": []
+    },
+    {
+      "href": "http://localhost:7003/sites/REST/types/WCS_AccessProviders",
+      "name": "WCS_AccessProviders",
+      "subtypes": []
+    },
+    {
+      "href": "http://localhost:7003/sites/REST/types/WCS_AggregationTemplates",
+      "name": "WCS_AggregationTemplates",
+      "subtypes": []
+    },
+    {
+      "href": "http://localhost:7003/sites/REST/types/WCS_Chart",
+      "name": "WCS_Chart",
+      "subtypes": []
+    },
+    {
+      "href": "http://localhost:7003/sites/REST/types/WCS_Controller",
+      "name": "WCS_Controller",
+      "subtypes": []
+    },
+    {
+      "href": "http://localhost:7003/sites/REST/types/WCS_Dashboard",
+      "name": "WCS_Dashboard",
+      "subtypes": []
+    },
+    {
+      "href": "http://localhost:7003/sites/REST/types/WCS_IdentityProviders",
+      "name": "WCS_IdentityProviders",
+      "subtypes": []
+    },
+    {
+      "href": "http://localhost:7003/sites/REST/types/WCS_ProfileProviders",
+      "name": "WCS_ProfileProviders",
+      "subtypes": []
+    },
+    {
+      "href": "http://localhost:7003/sites/REST/types/WCS_VisitorsConfig",
+      "name": "WCS_VisitorsConfig",
+      "subtypes": []
+    },
+    {
+      "href": "http://localhost:7003/sites/REST/types/WebRoot",
+      "name": "WebRoot",
+      "subtypes": []
+    },
+    {
+      "href": "http://localhost:7003/sites/REST/types/YouTube",
+      "name": "YouTube",
+      "subtypes": []
+    }
+  ]
+}
