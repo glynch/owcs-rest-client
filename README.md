@@ -18,6 +18,8 @@ To build this project you will need to install `sites-rest-api.jar, sites-app.ja
 
 You can use the `install.sh` script
 
+Pass in the location of your JSK_HOME
+
 ```bash
-    ./install.sh
+    ./install.sh /Users/glynch/development/owcs/jsk/WCS-JSK-12.2.1.3.0
 ```
