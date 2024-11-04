@@ -27,7 +27,7 @@ public class TestTypesResponse {
     static void setUp() throws IOException {
         server = new MockWebServer();
         server.start();
-        client = RestClient.builder("http://localhost:7003/sites")
+        client = RestClient.builder(server.url("/sites").toString())
                 .trace()
                 .authenticated("fwadmin", "xceladmin")
                 .cachingTokenProvider()
@@ -36,9 +36,16 @@ public class TestTypesResponse {
 
     @Test
     void typesResponse() throws IOException {
+        MockResponse multiTicketResponse = new MockResponse();
+        multiTicketResponse.setBody("multi-ST-1-l5FXR0vjW1amNsULsH5K-cas-localhost-1");
+        MockResponse encryptedTokenResponse = new MockResponse();
+        String encryptedToken = Files.readString(Path.of("src/test/resources/encrypted_token.json"));
+        encryptedTokenResponse.setBody(encryptedToken);
         MockResponse response = new MockResponse();
         String json = Files.readString(Path.of("src/test/resources/responses/types.json"));
         response.setBody(json);
+        server.enqueue(multiTicketResponse);
+        server.enqueue(encryptedTokenResponse);
         server.enqueue(response);
 
         AssetTypesBean types = client.types();
