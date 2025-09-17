@@ -9,7 +9,7 @@
         <appender-ref ref="STDOUT" />
     </root>
 
-    <logger name="io.github" level="OFF" />
+    <logger name="io.github" level="TRACE" />
     <logger name="net.sf.ehcache" level="OFF" />
     <logger name="org.testcontainers" level="OFF" />
 
