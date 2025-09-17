@@ -1,0 +1,236 @@
+{
+  "name": "Foo",
+  "description": "Foo",
+  "subtype": null,
+  "canBeChild": true,
+  "proxyAsset": false,
+  "attributes": [
+    {
+      "name": "name",
+      "description": "Name",
+      "type": "STRING",
+      "isMetaData": true,
+      "isDataMandatory": true,
+      "dataLength": 64,
+      "isMultiple": "SINGLE"
+    },
+    {
+      "name": "description",
+      "description": "Description",
+      "type": "STRING",
+      "isMetaData": true,
+      "isDataMandatory": false,
+      "dataLength": 128,
+      "isMultiple": "SINGLE"
+    },
+    {
+      "name": "status",
+      "description": "Status",
+      "type": "STRING",
+      "isMetaData": true,
+      "isDataMandatory": true,
+      "dataLength": 256,
+      "isMultiple": "SINGLE"
+    },
+    {
+      "name": "createdby",
+      "description": "Created By",
+      "type": "STRING",
+      "isMetaData": true,
+      "isDataMandatory": false,
+      "dataLength": 64,
+      "isMultiple": "SINGLE"
+    },
+    {
+      "name": "createddate",
+      "description": "Created Date",
+      "type": "DATE",
+      "isMetaData": true,
+      "isDataMandatory": false,
+      "dataLength": 256,
+      "isMultiple": "SINGLE"
+    },
+    {
+      "name": "updatedby",
+      "description": "Updated By",
+      "type": "STRING",
+      "isMetaData": true,
+      "isDataMandatory": false,
+      "dataLength": 64,
+      "isMultiple": "SINGLE"
+    },
+    {
+      "name": "updateddate",
+      "description": "Updated Date",
+      "type": "DATE",
+      "isMetaData": true,
+      "isDataMandatory": false,
+      "dataLength": 256,
+      "isMultiple": "SINGLE"
+    },
+    {
+      "name": "startdate",
+      "description": "Start Date",
+      "type": "DATE",
+      "isMetaData": true,
+      "isDataMandatory": false,
+      "dataLength": 256,
+      "isMultiple": "SINGLE"
+    },
+    {
+      "name": "enddate",
+      "description": "End Date",
+      "type": "DATE",
+      "isMetaData": true,
+      "isDataMandatory": false,
+      "dataLength": 256,
+      "isMultiple": "SINGLE"
+    },
+    {
+      "name": "subtype",
+      "description": "Subtype",
+      "type": "STRING",
+      "isMetaData": true,
+      "isDataMandatory": false,
+      "dataLength": 32,
+      "isMultiple": "SINGLE"
+    },
+    {
+      "name": "filename",
+      "description": "Filename",
+      "type": "STRING",
+      "isMetaData": true,
+      "isDataMandatory": false,
+      "dataLength": 64,
+      "isMultiple": "SINGLE"
+    },
+    {
+      "name": "path",
+      "description": "Path",
+      "type": "STRING",
+      "isMetaData": true,
+      "isDataMandatory": false,
+      "dataLength": 255,
+      "isMultiple": "SINGLE"
+    },
+    {
+      "name": "template",
+      "description": "Template",
+      "type": "STRING",
+      "isMetaData": true,
+      "isDataMandatory": false,
+      "dataLength": 256,
+      "isMultiple": "SINGLE"
+    },
+    {
+      "name": "urlexternaldoc",
+      "description": null,
+      "type": "URL",
+      "isMetaData": true,
+      "isDataMandatory": false,
+      "dataLength": 255,
+      "isMultiple": "SINGLE"
+    },
+    {
+      "name": "externaldoctype",
+      "description": null,
+      "type": "STRING",
+      "isMetaData": true,
+      "isDataMandatory": false,
+      "dataLength": 64,
+      "isMultiple": "SINGLE"
+    },
+    {
+      "name": "urlexternaldocxml",
+      "description": null,
+      "type": "URL",
+      "isMetaData": true,
+      "isDataMandatory": false,
+      "dataLength": 255,
+      "isMultiple": "SINGLE"
+    },
+    {
+      "name": "fw_uid",
+      "description": null,
+      "type": "STRING",
+      "isMetaData": true,
+      "isDataMandatory": false,
+      "dataLength": 255,
+      "isMultiple": "SINGLE"
+    },
+    {
+      "name": "Publist",
+      "description": "Publication",
+      "type": "ARRAY",
+      "isMetaData": true,
+      "isDataMandatory": true,
+      "dataLength": 256,
+      "isMultiple": "MULTI"
+    },
+    {
+      "name": "id",
+      "description": "Asset ID",
+      "type": "LONG",
+      "isMetaData": true,
+      "isDataMandatory": true,
+      "dataLength": 256,
+      "isMultiple": "SINGLE"
+    },
+    {
+      "name": "Dimension",
+      "description": "",
+      "type": "ARRAY",
+      "isMetaData": true,
+      "isDataMandatory": false,
+      "dataLength": 256,
+      "isMultiple": "SINGLE"
+    },
+    {
+      "name": "Dimension-parent",
+      "description": "",
+      "type": "ARRAY",
+      "isMetaData": true,
+      "isDataMandatory": false,
+      "dataLength": 256,
+      "isMultiple": "SINGLE"
+    },
+    {
+      "name": "SegRating",
+      "description": "",
+      "type": "ARRAY",
+      "isMetaData": true,
+      "isDataMandatory": false,
+      "dataLength": 256,
+      "isMultiple": "MULTI"
+    },
+    {
+      "name": "fwtags",
+      "description": "FW Tags",
+      "type": "ARRAY",
+      "isMetaData": true,
+      "isDataMandatory": false,
+      "dataLength": 256,
+      "isMultiple": "MULTI"
+    },
+    {
+      "name": "Webreference",
+      "description": "Web References",
+      "type": "STRING",
+      "isMetaData": true,
+      "isDataMandatory": false,
+      "dataLength": 256,
+      "isMultiple": "MULTI"
+    },
+    {
+      "name": "renderid",
+      "description": "",
+      "type": "ASSET",
+      "isMetaData": true,
+      "isDataMandatory": false,
+      "dataLength": 256,
+      "isMultiple": "SINGLE"
+    }
+  ],
+  "parents": [],
+  "associations": []
+}

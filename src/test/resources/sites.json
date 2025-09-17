@@ -1,0 +1,31 @@
+{
+  "total": 4,
+  "startindex": 0,
+  "count": 4,
+  "site": [
+    {
+      "href": "http://localhost:7003/sites/REST/sites/AdminSite",
+      "id": 1253041378564,
+      "name": "AdminSite",
+      "description": "AdminSite"
+    },
+    {
+      "href": "http://localhost:7003/sites/REST/sites/avisports",
+      "id": 1322052581735,
+      "name": "avisports",
+      "description": "avisports"
+    },
+    {
+      "href": "http://localhost:7003/sites/REST/sites/Samples",
+      "id": 1411141409658,
+      "name": "Samples",
+      "description": "A site containing code samples for using Controller asset."
+    },
+    {
+      "href": "http://localhost:7003/sites/REST/sites/TestSite",
+      "id": 1502442353507,
+      "name": "TestSite",
+      "description": "This is a test site"
+    }
+  ]
+}

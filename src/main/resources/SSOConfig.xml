@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+  	
+  <!-- Single Sign On provider -->
+  <bean id="ssoprovider" class="com.fatwire.wem.sso.cas.CASProvider">
+    <property name="config" ref="ssoconfig" />
+  </bean>
+  <!-- Single Sign On filter -->
+  <bean id="ssofilter" class="com.fatwire.wem.sso.cas.filter.CASFilter">
+    <property name="config" ref="ssoconfig" />
+    <property name="provider" ref="ssoprovider" />
+  </bean>
+  <!-- Single Sign On listener -->
+  <bean id="ssolistener" class="com.fatwire.wem.sso.cas.listener.CASListener">
+  </bean>
+  
+  <!-- Auxiliary session listener used by SecureLoginFilter -->
+  <bean id="auxlistener" class="COM.FutureTense.Security.SecureLogin.SecureLoginSessionListener">
+  </bean>
+
+  <!-- Single Sign On configuration -->
+  <bean id="ssoconfig" class="com.fatwire.wem.sso.cas.conf.CASConfig" init-method="init">
+	<!-- Do not proxy tickets, tt's the last server in the call chain -->
+    <property name="proxyTickets" value="false" />
+    <!-- Your application protected resources (relative to applicationUrl) -->
+    <property name="protectedMappingIncludes">
+      <list>
+		<value>wem/fatwire/**</value>
+		<value>/wem/service/**</value>
+		<value>/faces/jspx/**</value>
+		<value>/ContentServer?[pagename=OpenMarket/Xcelerate/UIFramework/ShowMainFrames|fatwire/getAllUserGroups|fatwire/getAllSecurityConfigs|rest/asset,#]</value>
+		<value>Satellite?[pagename=fatwire/insitetemplating/request|OpenMarket/Xcelerate/ControlPanel/Request|OpenMarket/Xcelerate/ControlPanel/EditPanel|fatwire/wem/ui/Ping|fatwire/wem/sso/validateMultiticket|OpenMarket/Xcelerate/UIFramework/ShowPreviewFrames,#]</value>
+      </list>
+    </property>
+	<property name="protectedMappingStatelessIncludes">
+      <list>
+		<value>/REST/**</value>
+		<value>/ContentServer?[pagename=OpenMarket/Xcelerate/PrologActions/Publish/csdt/CSDTService]</value>
+      </list>
+    </property>
+    <!-- Your application protected resources excludes (relative to applicationUrl) -->
+    <property name="protectedMappingExcludes">
+      <list>
+			<value>/wem/fatwire/wem/ui/SysLocStrSvc</value>
+			<value>/REST/controller/**</value>
+            <value>/REST/resources</value>
+            <value>/REST/resources/v1</value>
+			<value>/REST/resources/v1/engage/segments</value>
+			<value>/REST/resources/v1/metadata-catalog</value>
+            <value>/REST/resources/v1/aggregates/**</value>
+			<value>/REST/resources/v1/metadata-catalog/aggregates/**</value>
+			<value>/REST/resources/v1/search/**</value>
+			<value>/REST/resources/v1/metadata-catalog/search/**</value>
+      </list>
+    </property>
+  </bean>  
+	
+</beans> 
+
