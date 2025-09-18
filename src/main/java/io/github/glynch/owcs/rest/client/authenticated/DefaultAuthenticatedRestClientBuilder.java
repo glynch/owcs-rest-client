@@ -1,7 +1,5 @@
 package io.github.glynch.owcs.rest.client.authenticated;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.client.OkHttpClientHttpRequestFactory;
 import org.springframework.util.Assert;
 import org.springframework.web.client.RestTemplate;
@@ -12,7 +10,6 @@ import io.github.glynch.owcs.sso.cache.CachingTokenProvider;
 
 public class DefaultAuthenticatedRestClientBuilder implements AuthenticatedRestClient.Builder {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger("io.github.glynch.owcs.rest.client");
     private static final RestTemplate restTemplate = new DefaultAuthenticatedRestTemplate();
 
     private final String baseUrl;

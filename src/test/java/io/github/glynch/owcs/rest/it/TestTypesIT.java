@@ -1,5 +1,6 @@
 package io.github.glynch.owcs.rest.it;
 
+import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.AfterAll;
@@ -12,6 +13,7 @@ import com.fatwire.rest.beans.AssetTypesBean;
 import com.fatwire.rest.beans.Type;
 
 import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClient;
+import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClientResponseException;
 import io.github.glynch.owcs.test.containers.JSKContainer;
 
 @TestInstance(Lifecycle.PER_CLASS)
@@ -48,6 +50,17 @@ public class TestTypesIT {
         assertEquals("ArticleImage", articleImage.getName());
         Type image = subtypes.getTypes().get(2);
         assertEquals("Image", image.getName());
+
+    }
+
+    @Test
+    void testExceptionForUnknownType() {
+        AuthenticatedRestClientResponseException e = assertThrows(AuthenticatedRestClientResponseException.class,
+                () -> restClient.type("FOO").subtypes());
+        assertEquals(404, e.getStatusCode());
+        assertEquals("Not Found", e.getStatusText());
+        assertEquals("Asset type FOO does not exist in Content Server", e.getError().getMessage());
+        assertEquals(0, e.getError().getErrorCode());
     }
 
     @AfterAll

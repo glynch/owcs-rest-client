@@ -65,6 +65,13 @@ public interface AuthenticatedRestClient {
      */
     String getBaseUrl();
 
+    /*
+     * Gets the REST URL for the REST client.
+     * 
+     * @return the REST URL as a string
+     */
+    String getRestUrl();
+
     /**
      * Gets the username used for authentication.
      *
@@ -84,7 +91,7 @@ public interface AuthenticatedRestClient {
      */
     TokenProvider getTokenProvider();
 
-    String TYPES_URI_TEMPLATE = "/REST/types";
+    String TYPES_URI_TEMPLATE = "/types";
 
     AssetTypesBean types() throws RestClientException;
 
@@ -117,7 +124,7 @@ public interface AuthenticatedRestClient {
         AssetTypeBean subtype(String subtype);
     }
 
-    String SITES_URI_TEMPLATE = "/REST/sites";
+    String SITES_URI_TEMPLATE = "/sites";
 
     SitesBean sites() throws RestClientException;
 

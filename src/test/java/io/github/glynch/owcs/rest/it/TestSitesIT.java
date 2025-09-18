@@ -38,15 +38,15 @@ public class TestSitesIT {
         Site adminSite = sitesBean.getSites().get(0);
         assertEquals("AdminSite", adminSite.getName());
         assertEquals("AdminSite", adminSite.getDescription());
-        assertEquals(jskContainer.getBaseUrl() + SITES_URI_TEMPLATE + "/AdminSite", adminSite.getHref());
+        assertEquals(jskContainer.getRestUrl() + SITES_URI_TEMPLATE + "/AdminSite", adminSite.getHref());
         Site avisports = sitesBean.getSites().get(1);
         assertEquals("avisports", avisports.getName());
         assertEquals("avisports", avisports.getDescription());
-        assertEquals(jskContainer.getBaseUrl() + SITES_URI_TEMPLATE + "/avisports", avisports.getHref());
+        assertEquals(jskContainer.getRestUrl() + SITES_URI_TEMPLATE + "/avisports", avisports.getHref());
         Site samples = sitesBean.getSites().get(2);
         assertEquals("Samples", samples.getName());
         assertEquals("A site containing code samples for using Controller asset.", samples.getDescription());
-        assertEquals(jskContainer.getBaseUrl() + SITES_URI_TEMPLATE + "/Samples", samples.getHref());
+        assertEquals(jskContainer.getRestUrl() + SITES_URI_TEMPLATE + "/Samples", samples.getHref());
 
     }
 

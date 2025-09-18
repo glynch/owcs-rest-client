@@ -18,9 +18,11 @@ import io.github.glynch.owcs.sso.TokenProvider;
 
 public class DefaultAuthenticatedRestClient implements AuthenticatedRestClient {
 
+    private static final String REST_PATH = "/REST";
     private final RestTemplate restTemplate;
     private final TokenProvider tokenProvider;
     private final String baseUrl;
+    private final String restUrl;
     private final String username;
     private final String password;
 
@@ -29,6 +31,7 @@ public class DefaultAuthenticatedRestClient implements AuthenticatedRestClient {
         this.restTemplate = restTemplate;
         this.tokenProvider = tokenProvider;
         this.baseUrl = baseUrl;
+        this.restUrl = baseUrl + REST_PATH;
         this.username = username;
         this.password = password;
     }
@@ -36,6 +39,11 @@ public class DefaultAuthenticatedRestClient implements AuthenticatedRestClient {
     @Override
     public String getBaseUrl() {
         return baseUrl;
+    }
+
+    @Override
+    public String getRestUrl() {
+        return restUrl;
     }
 
     @Override
@@ -108,7 +116,7 @@ public class DefaultAuthenticatedRestClient implements AuthenticatedRestClient {
 
     @Override
     public AssetTypesBean types() throws RestClientException {
-        return get(this.baseUrl + TYPES_URI_TEMPLATE, AssetTypesBean.class);
+        return get(this.restUrl + TYPES_URI_TEMPLATE, AssetTypesBean.class);
     }
 
     @Override
@@ -119,7 +127,7 @@ public class DefaultAuthenticatedRestClient implements AuthenticatedRestClient {
 
     @Override
     public SitesBean sites() throws RestClientException {
-        return get(this.baseUrl + SITES_URI_TEMPLATE, SitesBean.class);
+        return get(this.restUrl + SITES_URI_TEMPLATE, SitesBean.class);
     }
 
     private <T> T execute(String url, HttpMethod method, HttpEntity<?> requestEntity, Class<T> responseType,
