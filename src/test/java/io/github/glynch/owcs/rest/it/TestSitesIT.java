@@ -2,6 +2,7 @@ package io.github.glynch.owcs.rest.it;
 
 import static io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClient.SITES_URI_TEMPLATE;
 import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -10,9 +11,11 @@ import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
 
 import com.fatwire.rest.beans.Site;
+import com.fatwire.rest.beans.SiteBean;
 import com.fatwire.rest.beans.SitesBean;
 
 import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClient;
+import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClientResponseException;
 import io.github.glynch.owcs.test.containers.JSKContainer;
 
 @TestInstance(Lifecycle.PER_CLASS)
@@ -48,6 +51,25 @@ public class TestSitesIT {
         assertEquals("A site containing code samples for using Controller asset.", samples.getDescription());
         assertEquals(jskContainer.getRestUrl() + SITES_URI_TEMPLATE + "/Samples", samples.getHref());
 
+    }
+
+    @Test
+    void testSingleSite() {
+        SiteBean site = restClient.site("avisports").get();
+        assertEquals("avisports", site.getName());
+        assertEquals("avisports", site.getDescription());
+        assertEquals(34, site.getEnabledAssetTypes().getTypes().size());
+    }
+
+    @Test
+    void testExceptionForUnknownSite() {
+        AuthenticatedRestClientResponseException e = assertThrows(AuthenticatedRestClientResponseException.class,
+                () -> restClient.site("FOO").get());
+        assertEquals(404, e.getStatusCode());
+        assertEquals("Not Found", e.getStatusText());
+        assertEquals("Site can not be found in Content Server: FOO",
+                e.getError().getMessage());
+        assertEquals(0, e.getError().getErrorCode());
     }
 
     @AfterAll

@@ -90,23 +90,22 @@ public class DefaultAuthenticatedRestClient implements AuthenticatedRestClient {
         return execute(url, HttpMethod.PUT, requestEntity, responseType, uriVariables);
     }
 
-    // @Override
-    // public <T> T post(String url, T body, Class<T> responseType, Object...
-    // uriVariables) throws RestClientException {
-    // HttpHeaders headers = createHeaders();
-    // HttpEntity<T> requestEntity = new HttpEntity<>(body, headers);
-    // return execute(url, HttpMethod.POST, requestEntity, responseType,
-    // uriVariables);
-    // }
+    @Override
+    public <T> T post(String url, T body, Class<T> responseType, Object... uriVariables) throws RestClientException {
+        HttpHeaders headers = createHeaders();
+        HttpEntity<T> requestEntity = new HttpEntity<>(body, headers);
+        return execute(url, HttpMethod.POST, requestEntity, responseType,
+                uriVariables);
+    }
 
-    // @Override
-    // public <T> T post(String url, T body, Class<T> responseType, Map<String, ?>
-    // uriVariables) throws RestClientException {
-    // HttpHeaders headers = createHeaders();
-    // HttpEntity<T> requestEntity = new HttpEntity<>(body, headers);
-    // return execute(url, HttpMethod.POST, requestEntity, responseType,
-    // uriVariables);
-    // }
+    @Override
+    public <T> T post(String url, T body, Class<T> responseType, Map<String, ?> uriVariables)
+            throws RestClientException {
+        HttpHeaders headers = createHeaders();
+        HttpEntity<T> requestEntity = new HttpEntity<>(body, headers);
+        return execute(url, HttpMethod.POST, requestEntity, responseType,
+                uriVariables);
+    }
 
     // @Override
     // public void delete(String url) throws RestClientException {
@@ -128,6 +127,12 @@ public class DefaultAuthenticatedRestClient implements AuthenticatedRestClient {
     @Override
     public SitesBean sites() throws RestClientException {
         return get(this.restUrl + SITES_URI_TEMPLATE, SitesBean.class);
+    }
+
+    @Override
+    public SiteResources site(String site) {
+        Assert.hasText(site, "site cannot be null or empty");
+        return new DefaultSiteResources(this, site);
     }
 
     private <T> T execute(String url, HttpMethod method, HttpEntity<?> requestEntity, Class<T> responseType,

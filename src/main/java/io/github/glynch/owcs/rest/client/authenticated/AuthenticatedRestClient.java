@@ -4,6 +4,7 @@ import java.util.Map;
 
 import com.fatwire.rest.beans.AssetTypeBean;
 import com.fatwire.rest.beans.AssetTypesBean;
+import com.fatwire.rest.beans.SiteBean;
 import com.fatwire.rest.beans.SitesBean;
 
 import io.github.glynch.owcs.rest.client.RestClientException;
@@ -18,6 +19,10 @@ public interface AuthenticatedRestClient {
     <T> T put(String url, T body, Class<T> responseType, Object... uriVariables) throws RestClientException;
 
     <T> T put(String url, T body, Class<T> responseType, Map<String, ?> uriVariables) throws RestClientException;
+
+    <T> T post(String url, T body, Class<T> responseType, Object... uriVariables) throws RestClientException;
+
+    <T> T post(String url, T body, Class<T> responseType, Map<String, ?> uriVariables) throws RestClientException;
 
     static Builder builder(String baseUrl, String username, String password) {
         return new DefaultAuthenticatedRestClientBuilder(baseUrl, username, password);
@@ -108,7 +113,7 @@ public interface AuthenticatedRestClient {
          * 
          * @return the asset type bean
          */
-        AssetTypeBean read() throws RestClientException;
+        AssetTypeBean get() throws RestClientException;
 
         /*
          * Creates the asset type.
@@ -127,5 +132,15 @@ public interface AuthenticatedRestClient {
     String SITES_URI_TEMPLATE = "/sites";
 
     SitesBean sites() throws RestClientException;
+
+    SiteResources site(String site);
+
+    interface SiteResources {
+
+        String SITE_URI_TEMPLATE = SITES_URI_TEMPLATE + "/{site}";
+
+        SiteBean get() throws RestClientException;
+
+    }
 
 }

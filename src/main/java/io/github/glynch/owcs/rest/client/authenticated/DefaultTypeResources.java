@@ -19,7 +19,7 @@ public class DefaultTypeResources implements TypeResources {
     }
 
     @Override
-    public AssetTypeBean read() throws RestClientException {
+    public AssetTypeBean get() throws RestClientException {
         return restClient.get(restClient.getRestUrl() + TYPE_URI_TEMPLATE, AssetTypeBean.class, type);
     }
 
