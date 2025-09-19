@@ -16,8 +16,29 @@ public class DefaultSiteResources implements SiteResources {
     }
 
     @Override
-    public SiteBean get() throws RestClientException {
-        return restClient.get(restClient.getRestUrl() + SITE_URI_TEMPLATE, SiteBean.class, site);
+    public SiteBean read() throws RestClientException {
+        return restClient.get(SITE_URI_TEMPLATE, SiteBean.class, site);
+    }
+
+    @Override
+    public SiteBean create(SiteBean siteBean) throws RestClientException {
+        return restClient.put(SITE_URI_TEMPLATE, siteBean, SiteBean.class, site);
+    }
+
+    @Override
+    public SiteBean update(SiteBean siteBean) throws RestClientException {
+        return restClient.post(SITE_URI_TEMPLATE, siteBean, SiteBean.class, site);
+    }
+
+    @Override
+    public void delete() throws RestClientException {
+        restClient.delete(SITE_URI_TEMPLATE, site);
+    }
+
+    @Override
+    public String head() throws RestClientException {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'head'");
     }
 
 }

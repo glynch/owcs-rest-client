@@ -3,8 +3,8 @@ package io.github.glynch.owcs.rest.client.authenticated;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.client.BufferingClientHttpRequestFactory;
+import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
-import org.springframework.http.client.OkHttp3ClientHttpRequestFactory;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.ResponseErrorHandler;
@@ -24,16 +24,14 @@ public class DefaultAuthenticatedRestTemplate extends RestTemplate {
     private static final ResponseErrorHandler errorHandler = new DefaultResponseErrorHandler(objectMapper);
     private static final HttpMessageConverter<?> messageConverter = new MappingJackson2HttpMessageConverter(
             objectMapper);
-    private static final OkHttp3ClientHttpRequestFactory requestFactory = new OkHttp3ClientHttpRequestFactory();
 
-    public DefaultAuthenticatedRestTemplate() {
+    public DefaultAuthenticatedRestTemplate(ClientHttpRequestFactory requestFactory) {
         super();
         setErrorHandler(errorHandler);
         // Remove the default MappingJackson2HttpMessageConverter
         getMessageConverters().removeIf(converter -> converter instanceof MappingJackson2HttpMessageConverter);
         getMessageConverters().add(messageConverter);
         getInterceptors().add(loggingInterceptor);
-        setRequestFactory(requestFactory);
         if (LOGGER.isTraceEnabled()) {
             setRequestFactory(new BufferingClientHttpRequestFactory(requestFactory));
         } else {

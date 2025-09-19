@@ -14,13 +14,32 @@ A fluent Java rest client that supports legacy authenticated REST resources, as 
 ### Create an `AuthenticatedRestClient` client
 
 ```bash
-    AuthenticatedRestClient client = AuthenticatedRestClient
+    AuthenticatedRestClient restClient = AuthenticatedRestClient
                 .builder("http://localhost:7003/sites", "fwadmin",
                         "xceladmin")
                 .cachingTokenProvider().build();
 ```
 
 ### AssetType
+
+#### /types
+
+```bash
+    AssetTypesBean assetTypesBean = restClient.types();
+```
+
+#### /types/{type}
+
+##### GET
+
+```bash
+    AssetTypeBean type = restClient.type("AVIArticle").get()
+```
+
+##### CREATE
+
+```bash
+```
 
 
 

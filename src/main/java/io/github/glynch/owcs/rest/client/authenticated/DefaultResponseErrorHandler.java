@@ -50,7 +50,7 @@ public class DefaultResponseErrorHandler implements ResponseErrorHandler {
         try {
             return objectMapper.readValue(responseBody, AuthenticatedRestError.class);
         } catch (IOException e) {
-            throw new RestClientException("Could not parse response body", e);
+            throw new RestClientException("Could not parse response body");
         }
     }
 

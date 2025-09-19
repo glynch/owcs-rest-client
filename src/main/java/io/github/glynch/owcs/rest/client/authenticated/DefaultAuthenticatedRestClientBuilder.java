@@ -1,8 +1,7 @@
 package io.github.glynch.owcs.rest.client.authenticated;
 
-import org.springframework.http.client.OkHttpClientHttpRequestFactory;
+import org.springframework.http.client.OkHttp3ClientHttpRequestFactory;
 import org.springframework.util.Assert;
-import org.springframework.web.client.RestTemplate;
 
 import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClient.Builder;
 import io.github.glynch.owcs.sso.TokenProvider;
@@ -10,8 +9,7 @@ import io.github.glynch.owcs.sso.cache.CachingTokenProvider;
 
 public class DefaultAuthenticatedRestClientBuilder implements AuthenticatedRestClient.Builder {
 
-    private static final RestTemplate restTemplate = new DefaultAuthenticatedRestTemplate();
-
+    private static final OkHttp3ClientHttpRequestFactory requestFactory = new OkHttp3ClientHttpRequestFactory();
     private final String baseUrl;
     private final String username;
     private final String password;
@@ -23,20 +21,17 @@ public class DefaultAuthenticatedRestClientBuilder implements AuthenticatedRestC
         this.baseUrl = baseUrl;
         this.username = username;
         this.password = password;
+
     }
 
     @Override
     public Builder connectTimeOut(int connectTimeOut) {
-        OkHttpClientHttpRequestFactory requestFactory = (OkHttpClientHttpRequestFactory) restTemplate
-                .getRequestFactory();
         requestFactory.setConnectTimeout(connectTimeOut);
         return this;
     }
 
     @Override
     public Builder readTimeOut(int readTimeOut) {
-        OkHttpClientHttpRequestFactory requestFactory = (OkHttpClientHttpRequestFactory) restTemplate
-                .getRequestFactory();
         requestFactory.setReadTimeout(readTimeOut);
         return this;
     }
@@ -60,7 +55,12 @@ public class DefaultAuthenticatedRestClientBuilder implements AuthenticatedRestC
             tokenProvider = TokenProvider.create();
         }
 
-        return new DefaultAuthenticatedRestClient(restTemplate, tokenProvider, baseUrl, username, password);
+        DefaultAuthenticatedRestTemplate restTemplate = new DefaultAuthenticatedRestTemplate(requestFactory);
+
+        restTemplate.getInterceptors()
+                .add(new DefaultAuthenticatedClientHttpRequestInterceptor(tokenProvider, baseUrl, username, password));
+
+        return new DefaultAuthenticatedRestClient(restTemplate, baseUrl, username, password);
     }
 
 }

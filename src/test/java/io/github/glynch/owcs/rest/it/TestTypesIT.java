@@ -3,12 +3,13 @@ package io.github.glynch.owcs.rest.it;
 import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
 
+import com.fatwire.rest.beans.AssetTypeBean;
 import com.fatwire.rest.beans.AssetTypesBean;
 import com.fatwire.rest.beans.Type;
 
@@ -17,15 +18,13 @@ import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClientRe
 import io.github.glynch.owcs.test.containers.JSKContainer;
 
 @TestInstance(Lifecycle.PER_CLASS)
-
 public class TestTypesIT {
 
-    private JSKContainer jskContainer;
+    private JSKContainer jskContainer = new JSKContainer("grahamlynch/jsk:12.2.1.3.0-samples");
     private AuthenticatedRestClient restClient;
 
-    @BeforeAll
+    @BeforeEach
     void beforeAll() {
-        jskContainer = new JSKContainer("grahamlynch/jsk:12.2.1.3.0-samples");
         jskContainer.start();
         restClient = AuthenticatedRestClient.builder(jskContainer.getBaseUrl(), "fwadmin", "xceladmin")
                 .cachingTokenProvider()
@@ -41,7 +40,33 @@ public class TestTypesIT {
     }
 
     @Test
-    void testSubtypes() {
+    void testSingleType() {
+        AssetTypeBean type = restClient.type("AVIArticle").read();
+        assertEquals("AVIArticle", type.getName());
+        assertEquals("Article", type.getDescription());
+        assertEquals(true, type.isCanBeChild());
+        assertEquals(false, type.isProxyAsset());
+        assertEquals(25, type.getAttributes().size());
+
+    }
+
+    @Test
+    void testCreateType() {
+        AssetTypeBean type = restClient.type("AVIArticle").read();
+        type.setName("AVITestType");
+        type.setDescription("AVITestType description");
+        type.setCanBeChild(false);
+        type.setSubtype("TestType");
+        AssetTypeBean testType = restClient.type("AVITestType").create(type);
+        assertEquals("AVITestType", testType.getName());
+        assertEquals("AVITestType description", testType.getDescription());
+        assertEquals(false, testType.isCanBeChild());
+        assertEquals("TestType", testType.getSubtype());
+
+    }
+
+    @Test
+    void testTypeSubtypes() {
         AssetTypesBean subtypes = restClient.type("AVIArticle").subtypes();
         assertEquals(3, subtypes.getTypes().size());
         Type article = subtypes.getTypes().get(0);
@@ -63,7 +88,7 @@ public class TestTypesIT {
         assertEquals(0, e.getError().getErrorCode());
     }
 
-    @AfterAll
+    @AfterEach
     void afterAll() {
         jskContainer.stop();
     }

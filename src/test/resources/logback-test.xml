@@ -12,5 +12,6 @@
     <logger name="io.github" level="TRACE" />
     <logger name="net.sf.ehcache" level="OFF" />
     <logger name="org.testcontainers" level="OFF" />
+    <logger name="org.springframework.http.converter" level="TRACE" />
 
 </configuration>

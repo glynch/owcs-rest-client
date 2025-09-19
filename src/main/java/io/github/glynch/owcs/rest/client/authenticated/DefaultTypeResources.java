@@ -19,25 +19,25 @@ public class DefaultTypeResources implements TypeResources {
     }
 
     @Override
-    public AssetTypeBean get() throws RestClientException {
-        return restClient.get(restClient.getRestUrl() + TYPE_URI_TEMPLATE, AssetTypeBean.class, type);
+    public AssetTypeBean read() throws RestClientException {
+        return restClient.get(TYPE_URI_TEMPLATE, AssetTypeBean.class, type);
     }
 
     @Override
     public AssetTypeBean create(AssetTypeBean assetTypeBean) throws RestClientException {
         Assert.notNull(assetTypeBean, "assetTypeBean cannot be null");
-        return restClient.put(restClient.getRestUrl() + TYPE_URI_TEMPLATE, assetTypeBean, AssetTypeBean.class, type);
+        return restClient.put(TYPE_URI_TEMPLATE, assetTypeBean, AssetTypeBean.class, type);
     }
 
     @Override
     public AssetTypesBean subtypes() throws RestClientException {
-        return restClient.get(restClient.getRestUrl() + TYPE_SUBTYPES_URI_TEMPLATE, AssetTypesBean.class, type);
+        return restClient.get(TYPE_SUBTYPES_URI_TEMPLATE, AssetTypesBean.class, type);
     }
 
     @Override
     public AssetTypeBean subtype(String subtype) {
         Assert.hasText(subtype, "subtype cannot be null or empty");
-        return restClient.get(restClient.getRestUrl() + TYPE_SUBTYPES_SUBTYPE_URI_TEMPLATE, AssetTypeBean.class, type,
+        return restClient.get(TYPE_SUBTYPES_SUBTYPE_URI_TEMPLATE, AssetTypeBean.class, type,
                 subtype);
     }
 }

@@ -24,6 +24,18 @@ public interface AuthenticatedRestClient {
 
     <T> T post(String url, T body, Class<T> responseType, Map<String, ?> uriVariables) throws RestClientException;
 
+    void delete(String url, Object... uriVariables) throws RestClientException;
+
+    void delete(String url, Map<String, ?> uriVariables) throws RestClientException;
+
+    String getBaseUrl();
+
+    String getRestUrl();
+
+    String getUsername();
+
+    String getPassword();
+
     static Builder builder(String baseUrl, String username, String password) {
         return new DefaultAuthenticatedRestClientBuilder(baseUrl, username, password);
     }
@@ -63,39 +75,6 @@ public interface AuthenticatedRestClient {
         AuthenticatedRestClient build();
     }
 
-    /*
-     * Gets the base URL for the REST client.
-     * 
-     * @return the base URL as a string
-     */
-    String getBaseUrl();
-
-    /*
-     * Gets the REST URL for the REST client.
-     * 
-     * @return the REST URL as a string
-     */
-    String getRestUrl();
-
-    /**
-     * Gets the username used for authentication.
-     *
-     * @return the username
-     */
-    String getUsername();
-
-    /**
-     * Gets the password used for authentication.
-     *
-     * @return the password
-     */
-    String getPassword();
-
-    /*
-     * Gets the token provider for the client for authenticated resources.
-     */
-    TokenProvider getTokenProvider();
-
     String TYPES_URI_TEMPLATE = "/types";
 
     AssetTypesBean types() throws RestClientException;
@@ -113,12 +92,12 @@ public interface AuthenticatedRestClient {
          * 
          * @return the asset type bean
          */
-        AssetTypeBean get() throws RestClientException;
+        AssetTypeBean read() throws RestClientException;
 
         /*
          * Creates the asset type.
          * 
-         * @param assetTypeBean the asset type bean to update
+         * @param assetTypeBean the asset type bean to create
          * 
          * @return the created asset type bean
          */
@@ -139,7 +118,15 @@ public interface AuthenticatedRestClient {
 
         String SITE_URI_TEMPLATE = SITES_URI_TEMPLATE + "/{site}";
 
-        SiteBean get() throws RestClientException;
+        SiteBean read() throws RestClientException;
+
+        SiteBean create(SiteBean siteBean) throws RestClientException;
+
+        SiteBean update(SiteBean siteBean) throws RestClientException;
+
+        void delete() throws RestClientException;
+
+        String head() throws RestClientException;
 
     }
 
