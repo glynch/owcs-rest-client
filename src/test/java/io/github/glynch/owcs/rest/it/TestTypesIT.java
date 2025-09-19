@@ -11,6 +11,8 @@ import org.junit.jupiter.api.TestInstance.Lifecycle;
 
 import com.fatwire.rest.beans.AssetTypeBean;
 import com.fatwire.rest.beans.AssetTypesBean;
+import com.fatwire.rest.beans.AttributeDefBean;
+import com.fatwire.rest.beans.AttributeTypeEnum;
 import com.fatwire.rest.beans.Type;
 
 import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClient;
@@ -75,6 +77,22 @@ public class TestTypesIT {
         assertEquals("ArticleImage", articleImage.getName());
         Type image = subtypes.getTypes().get(2);
         assertEquals("Image", image.getName());
+
+    }
+
+    @Test
+    void testSingleSubtype() {
+        AssetTypeBean subtype = restClient.type("AVIArticle").subtype("Article");
+        assertEquals("AVIArticle", subtype.getName());
+        assertEquals("Article", subtype.getSubtype());
+        assertEquals("Article", subtype.getDescription());
+        assertEquals(true, subtype.isCanBeChild());
+        assertEquals(false, subtype.isProxyAsset());
+        assertEquals(36, subtype.getAttributes().size());
+        AttributeDefBean attributeDef = subtype.getAttributes().get(0);
+        assertEquals("name", attributeDef.getName());
+        assertEquals("Name", attributeDef.getDescription());
+        assertEquals(AttributeTypeEnum.STRING, attributeDef.getType());
 
     }
 
