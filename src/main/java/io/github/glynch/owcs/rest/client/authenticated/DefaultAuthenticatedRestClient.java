@@ -5,6 +5,7 @@ import java.util.Map;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.util.Assert;
+import org.springframework.web.client.RestTemplate;
 
 import com.fatwire.rest.beans.AssetTypesBean;
 import com.fatwire.rest.beans.SitesBean;
@@ -14,13 +15,13 @@ import io.github.glynch.owcs.rest.client.RestClientException;
 public class DefaultAuthenticatedRestClient implements AuthenticatedRestClient {
 
     private static final String REST_PATH = "/REST";
-    private final DefaultAuthenticatedRestTemplate restTemplate;
+    private final RestTemplate restTemplate;
     private final String restUrl;
     private final String baseUrl;
     private final String username;
     private final String password;
 
-    DefaultAuthenticatedRestClient(DefaultAuthenticatedRestTemplate restTemplate, String baseUrl, String username,
+    DefaultAuthenticatedRestClient(RestTemplate restTemplate, String baseUrl, String username,
             String password) {
         this.restTemplate = restTemplate;
         this.baseUrl = baseUrl;
@@ -91,12 +92,12 @@ public class DefaultAuthenticatedRestClient implements AuthenticatedRestClient {
 
     @Override
     public void delete(String url, Object... uriVariables) throws RestClientException {
-        restTemplate.delete(this.restUrl + url, uriVariables);
+        restTemplate.delete(url, uriVariables);
     }
 
     @Override
     public void delete(String url, Map<String, ?> uriVariables) throws RestClientException {
-        restTemplate.delete(this.restUrl + url, uriVariables);
+        restTemplate.delete(url, uriVariables);
     }
 
     @Override
@@ -123,13 +124,13 @@ public class DefaultAuthenticatedRestClient implements AuthenticatedRestClient {
 
     private <T> T execute(String url, HttpMethod method, HttpEntity<?> requestEntity, Class<T> responseType,
             Object... uriVariables) throws RestClientException {
-        return restTemplate.exchange(this.restUrl + url, method, requestEntity, responseType,
+        return restTemplate.exchange(url, method, requestEntity, responseType,
                 uriVariables).getBody();
     }
 
     private <T> T execute(String url, HttpMethod method, HttpEntity<?> requestEntity, Class<T> responseType,
             Map<String, ?> uriVariables) throws RestClientException {
-        return restTemplate.exchange(this.restUrl + url, method, requestEntity, responseType, uriVariables).getBody();
+        return restTemplate.exchange(url, method, requestEntity, responseType, uriVariables).getBody();
     }
 
 }
