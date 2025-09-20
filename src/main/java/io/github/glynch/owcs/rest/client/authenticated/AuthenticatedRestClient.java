@@ -4,6 +4,7 @@ import java.util.Map;
 
 import com.fatwire.rest.beans.AssetTypeBean;
 import com.fatwire.rest.beans.AssetTypesBean;
+import com.fatwire.rest.beans.NavigationBean;
 import com.fatwire.rest.beans.SiteBean;
 import com.fatwire.rest.beans.SitesBean;
 
@@ -27,6 +28,10 @@ public interface AuthenticatedRestClient {
     void delete(String url, Object... uriVariables) throws RestClientException;
 
     void delete(String url, Map<String, ?> uriVariables) throws RestClientException;
+
+    <T> T head(String url, Class<T> responseType, Object... uriVariables) throws RestClientException;
+
+    <T> T head(String url, Class<T> responseType, Map<String, ?> uriVariables) throws RestClientException;
 
     String getBaseUrl();
 
@@ -117,6 +122,8 @@ public interface AuthenticatedRestClient {
     interface SiteResources {
 
         String SITE_URI_TEMPLATE = SITES_URI_TEMPLATE + "/{site}";
+        String SITE_NAVIGATION_URI_TEMPLATE = SITE_URI_TEMPLATE + "/navigation";
+        String SITE_NAVIGATION_PAGEID_URI_TEMPLATE = SITE_NAVIGATION_URI_TEMPLATE + "/{pageId}";
 
         SiteBean read() throws RestClientException;
 
@@ -126,7 +133,15 @@ public interface AuthenticatedRestClient {
 
         void delete() throws RestClientException;
 
-        String head() throws RestClientException;
+        SiteBean head() throws RestClientException;
+
+        NavigationBean navigation(NavigationSearch search) throws RestClientException;
+
+        NavigationBean navigation(long pageId) throws RestClientException;
+
+        NavigationBean navigation(long pageId, String depth) throws RestClientException;
+
+        NavigationBean navigation() throws RestClientException;
 
     }
 

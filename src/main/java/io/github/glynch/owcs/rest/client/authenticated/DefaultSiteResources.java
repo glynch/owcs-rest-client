@@ -1,5 +1,8 @@
 package io.github.glynch.owcs.rest.client.authenticated;
 
+import org.springframework.web.util.UriComponentsBuilder;
+
+import com.fatwire.rest.beans.NavigationBean;
 import com.fatwire.rest.beans.SiteBean;
 
 import io.github.glynch.owcs.rest.client.RestClientException;
@@ -13,6 +16,7 @@ public class DefaultSiteResources implements SiteResources {
     public DefaultSiteResources(AuthenticatedRestClient restClient, String site) {
         this.restClient = restClient;
         this.site = site;
+
     }
 
     @Override
@@ -36,9 +40,46 @@ public class DefaultSiteResources implements SiteResources {
     }
 
     @Override
-    public String head() throws RestClientException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'head'");
+    public SiteBean head() throws RestClientException {
+        return restClient.head(SITE_URI_TEMPLATE, SiteBean.class, site);
+    }
+
+    @Override
+    public NavigationBean navigation(NavigationSearch search) throws RestClientException {
+        UriComponentsBuilder builder = UriComponentsBuilder.fromPath(SITE_NAVIGATION_URI_TEMPLATE);
+
+        if (search != null) {
+            if (search.getDepth() != null) {
+                builder.queryParam("depth", search.getDepth());
+            }
+            if (search.getCode() != null) {
+                builder.queryParam("code", search.getCode().name());
+            }
+        }
+
+        return restClient.get(builder.build(false).toUriString(), NavigationBean.class, site);
+    }
+
+    @Override
+    public NavigationBean navigation() throws RestClientException {
+        return navigation(null);
+    }
+
+    @Override
+    public NavigationBean navigation(long pageId) throws RestClientException {
+        return navigation(pageId, null);
+    }
+
+    @Override
+    public NavigationBean navigation(long pageId, String depth) throws RestClientException {
+        UriComponentsBuilder builder = UriComponentsBuilder.fromPath(SITE_NAVIGATION_PAGEID_URI_TEMPLATE);
+
+        if (depth != null) {
+            builder.queryParam("depth", depth);
+        }
+
+        return restClient.get(builder.build(false).toUriString(), NavigationBean.class, site,
+                pageId);
     }
 
 }

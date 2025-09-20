@@ -101,6 +101,18 @@ public class DefaultAuthenticatedRestClient implements AuthenticatedRestClient {
     }
 
     @Override
+    public <T> T head(String url, Class<T> responseType, Object... uriVariables) throws RestClientException {
+        HttpEntity<?> requestEntity = HttpEntity.EMPTY;
+        return execute(url, HttpMethod.HEAD, requestEntity, responseType, uriVariables);
+    }
+
+    @Override
+    public <T> T head(String url, Class<T> responseType, Map<String, ?> uriVariables) throws RestClientException {
+        HttpEntity<?> requestEntity = HttpEntity.EMPTY;
+        return execute(url, HttpMethod.HEAD, requestEntity, responseType, uriVariables);
+    }
+
+    @Override
     public AssetTypesBean types() throws RestClientException {
         return get(TYPES_URI_TEMPLATE, AssetTypesBean.class);
     }

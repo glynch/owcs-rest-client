@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
 
+import com.fatwire.rest.beans.NavigationBean;
 import com.fatwire.rest.beans.Site;
 import com.fatwire.rest.beans.SiteBean;
 import com.fatwire.rest.beans.SitesBean;
@@ -105,6 +106,19 @@ public class TestSitesIT {
                 e.getError().getMessage());
         assertEquals(0, e.getError().getErrorCode());
 
+    }
+
+    @Test
+    void testHeadSite() {
+        SiteBean siteBean = restClient.site("avisports").head();
+        // System.out.println("HEAD: " + siteBean.getId());
+        // assertEquals("HEAD", siteBean.getName());
+    }
+
+    @Test
+    void testSiteNavigation() {
+        NavigationBean navigation = restClient.site("avisports").navigation(1327351719456L, "all");
+        assertEquals("Home", navigation.getNavigation().getName());
     }
 
     @AfterEach

@@ -1,7 +1,6 @@
 package io.github.glynch.owcs.rest.client.authenticated;
 
 import java.util.Arrays;
-import java.util.Collections;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,8 +30,9 @@ public class DefaultAuthenticatedRestClientBuilder implements AuthenticatedRestC
     private static final ClientHttpRequestInterceptor loggingInterceptor = new LoggingClientHttpRequestInterceptor();
     private static final OkHttp3ClientHttpRequestFactory requestFactory = new OkHttp3ClientHttpRequestFactory();
     static final ResponseErrorHandler errorHandler = new DefaultResponseErrorHandler(objectMapper);
-    private static final HttpMessageConverter<?> messageConverter = new MappingJackson2HttpMessageConverter(
+    private static final HttpMessageConverter<?> jacksonHttpMessageConverter = new MappingJackson2HttpMessageConverter(
             objectMapper);
+    private static final HttpMessageConverter<?> stringHttpMessageConverter = new org.springframework.http.converter.StringHttpMessageConverter();
     private final String baseUrl;
     private final String username;
     private final String password;
@@ -82,7 +82,7 @@ public class DefaultAuthenticatedRestClientBuilder implements AuthenticatedRestC
         uriTemplateHandler.setBaseUrl(baseUrl + "/REST");
         restTemplate.setUriTemplateHandler(uriTemplateHandler);
         restTemplate.setErrorHandler(errorHandler);
-        restTemplate.setMessageConverters(Collections.singletonList(messageConverter));
+        restTemplate.setMessageConverters(Arrays.asList(stringHttpMessageConverter, jacksonHttpMessageConverter));
         ClientHttpRequestInterceptor headerInterceptor = new DefaultAuthenticatedClientHttpRequestInterceptor(
                 tokenProvider, baseUrl, username, password);
         restTemplate.setInterceptors(Arrays.asList(headerInterceptor, loggingInterceptor));
