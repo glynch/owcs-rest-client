@@ -2,6 +2,9 @@ package io.github.glynch.owcs.rest.it;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,6 +14,10 @@ import com.fatwire.rest.beans.AclsBean;
 import com.fatwire.rest.beans.DeviceBean;
 import com.fatwire.rest.beans.DeviceGroupBean;
 import com.fatwire.rest.beans.TimezoneBean;
+import com.fatwire.rest.beans.User;
+import com.fatwire.rest.beans.UserBean;
+import com.fatwire.rest.beans.UserSite;
+import com.fatwire.rest.beans.UsersBean;
 
 import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClient;
 import io.github.glynch.owcs.test.containers.JSKContainer;
@@ -53,6 +60,31 @@ public class TestMiscIT {
         AclsBean aclsBean = restClient.acls();
         assertEquals(18, aclsBean.getAcls().size());
         assertEquals("Browser", aclsBean.getAcls().get(0));
+    }
+
+    @Test
+    void testUsers() {
+        UsersBean usersBean = restClient.users();
+        assertEquals(7, usersBean.getTotal().intValue());
+        assertEquals(0, usersBean.getStartindex().intValue());
+        User user = usersBean.getUsers().get(0);
+        assertEquals("Bill", user.getName());
+        assertEquals(jskContainer.getRestUrl() + "/users/Bill", user.getHref());
+    }
+
+    @Test
+    void testSingleUser() {
+        List<String> acls = Arrays.asList("Browser", "ElementReader", "PageReader", "UserReader", "Visitor",
+                "xceleditor");
+        List<String> roles = Arrays.asList("SitesUser", "Reviewer");
+        UserBean userBean = restClient.user("Bill");
+        UserSite userSite = userBean.getSites().get(0);
+        assertEquals("Bill", userBean.getName());
+        assertEquals("userid=1502442347337,ou=People", userBean.getId());
+        assertEquals(acls, userBean.getAcls());
+        assertEquals("avisports", userSite.getSite());
+        assertEquals(roles, userSite.getRoles());
+
     }
 
     @AfterEach

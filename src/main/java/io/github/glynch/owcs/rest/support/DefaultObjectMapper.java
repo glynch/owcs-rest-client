@@ -28,7 +28,6 @@ import com.fatwire.rest.beans.RolesBean;
 import com.fatwire.rest.beans.SitesBean;
 import com.fatwire.rest.beans.Struct;
 import com.fatwire.rest.beans.UserLocalesBean;
-import com.fatwire.rest.beans.UsersBean;
 import com.fatwire.rest.beans.ViewTypeEnum;
 
 import io.github.glynch.owcs.rest.support.deserializers.LayoutTypeEnumDeserializer;
@@ -50,7 +49,6 @@ import io.github.glynch.owcs.rest.support.mixins.RolesBeanMixin;
 import io.github.glynch.owcs.rest.support.mixins.SitesBeanMixin;
 import io.github.glynch.owcs.rest.support.mixins.StructMixin;
 import io.github.glynch.owcs.rest.support.mixins.UserLocalesBeanMixin;
-import io.github.glynch.owcs.rest.support.mixins.UsersBeanMixin;
 
 public final class DefaultObjectMapper extends ObjectMapper {
 
@@ -75,7 +73,6 @@ public final class DefaultObjectMapper extends ObjectMapper {
         mixins.put(UserLocalesBean.class, UserLocalesBeanMixin.class);
         mixins.put(RolesBean.class, RolesBeanMixin.class);
         mixins.put(IndexConfigsBean.class, IndexConfigsBeanMixin.class);
-        mixins.put(UsersBean.class, UsersBeanMixin.class);
         mixins.put(ApplicationBean.class, ApplicationBeanMixin.class);
         simpleModule.addDeserializer(LayoutTypeEnum.class, new LayoutTypeEnumDeserializer());
         simpleModule.addDeserializer(ViewTypeEnum.class, new ViewTypeEnumDeserializer());

@@ -12,6 +12,8 @@ import com.fatwire.rest.beans.AssetTypesBean;
 import com.fatwire.rest.beans.DeviceBean;
 import com.fatwire.rest.beans.SitesBean;
 import com.fatwire.rest.beans.TimezoneBean;
+import com.fatwire.rest.beans.UserBean;
+import com.fatwire.rest.beans.UsersBean;
 
 import io.github.glynch.owcs.rest.client.RestClientException;
 
@@ -128,6 +130,17 @@ public class DefaultAuthenticatedRestClient implements AuthenticatedRestClient {
     @Override
     public AclsBean acls() throws RestClientException {
         return get(ACLS_URI_TEMPLATE, AclsBean.class);
+    }
+
+    @Override
+    public UsersBean users() throws RestClientException {
+        return get(USERS_URI_TEMPLATE, UsersBean.class);
+    }
+
+    @Override
+    public UserBean user(String user) throws RestClientException {
+        Assert.hasText(user, "user cannot be null or empty");
+        return get(USER_URI_TEMPLATE, UserBean.class, user);
     }
 
     @Override

@@ -12,6 +12,8 @@ import com.fatwire.rest.beans.NavigationBean;
 import com.fatwire.rest.beans.SiteBean;
 import com.fatwire.rest.beans.SitesBean;
 import com.fatwire.rest.beans.TimezoneBean;
+import com.fatwire.rest.beans.UserBean;
+import com.fatwire.rest.beans.UsersBean;
 
 import io.github.glynch.owcs.rest.client.RestClientException;
 import io.github.glynch.owcs.sso.TokenProvider;
@@ -108,6 +110,27 @@ public interface AuthenticatedRestClient {
      * @throws RestClientException
      */
     AclsBean acls() throws RestClientException;
+
+    String USERS_URI_TEMPLATE = "/users";
+
+    /**
+     * List of all users in the WebCenter Sites.
+     * 
+     * @return the users bean
+     * @throws RestClientException
+     */
+    UsersBean users() throws RestClientException;
+
+    String USER_URI_TEMPLATE = USERS_URI_TEMPLATE + "/{user}";
+
+    /**
+     * Details of a specific user.
+     * 
+     * @param user
+     * @return the user bean
+     * @throws RestClientException
+     */
+    UserBean user(String user) throws RestClientException;
 
     String TYPES_URI_TEMPLATE = "/types";
 
