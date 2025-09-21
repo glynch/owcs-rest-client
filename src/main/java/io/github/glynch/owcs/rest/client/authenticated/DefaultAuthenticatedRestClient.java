@@ -12,7 +12,6 @@ import com.fatwire.rest.beans.AssetTypesBean;
 import com.fatwire.rest.beans.DeviceBean;
 import com.fatwire.rest.beans.GroupBean;
 import com.fatwire.rest.beans.GroupsBean;
-import com.fatwire.rest.beans.RoleBean;
 import com.fatwire.rest.beans.RolesBean;
 import com.fatwire.rest.beans.SitesBean;
 import com.fatwire.rest.beans.TimezoneBean;
@@ -21,7 +20,6 @@ import com.fatwire.rest.beans.UserLocalesBean;
 import com.fatwire.rest.beans.UsersBean;
 
 import io.github.glynch.owcs.rest.client.RestClientException;
-import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClient.SiteTypeResources.UserResources;
 
 public class DefaultAuthenticatedRestClient implements AuthenticatedRestClient {
 
@@ -155,9 +153,9 @@ public class DefaultAuthenticatedRestClient implements AuthenticatedRestClient {
     }
 
     @Override
-    public RoleBean role(String role) throws RestClientException {
+    public RoleResources role(String role) throws RestClientException {
         Assert.hasText(role, "role cannot be null or empty");
-        return get(ROLE_URI_TEMPLATE, RoleBean.class, role);
+        return new DefaultRoleResources(this, role);
     }
 
     @Override

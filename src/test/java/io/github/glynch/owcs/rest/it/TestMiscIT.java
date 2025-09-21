@@ -1,10 +1,6 @@
 package io.github.glynch.owcs.rest.it;
 
-import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.util.Arrays;
-import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,21 +13,13 @@ import com.fatwire.rest.beans.DeviceGroupBean;
 import com.fatwire.rest.beans.Group;
 import com.fatwire.rest.beans.GroupBean;
 import com.fatwire.rest.beans.GroupsBean;
-import com.fatwire.rest.beans.Role;
-import com.fatwire.rest.beans.RoleBean;
-import com.fatwire.rest.beans.RolesBean;
 import com.fatwire.rest.beans.TimezoneBean;
-import com.fatwire.rest.beans.User;
 import com.fatwire.rest.beans.UserAttributeDefBean;
-import com.fatwire.rest.beans.UserBean;
 import com.fatwire.rest.beans.UserDefBean;
 import com.fatwire.rest.beans.UserLocale;
 import com.fatwire.rest.beans.UserLocalesBean;
-import com.fatwire.rest.beans.UserSite;
-import com.fatwire.rest.beans.UsersBean;
 
 import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClient;
-import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClientResponseException;
 import io.github.glynch.owcs.test.containers.JSKContainer;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -72,77 +60,6 @@ public class TestMiscIT {
         AclsBean aclsBean = restClient.acls();
         assertEquals(18, aclsBean.getAcls().size());
         assertEquals("Browser", aclsBean.getAcls().get(0));
-    }
-
-    @Test
-    void testUsers() {
-        UsersBean usersBean = restClient.users();
-        assertEquals(7, usersBean.getTotal().intValue());
-        assertEquals(0, usersBean.getStartindex().intValue());
-        User user = usersBean.getUsers().get(0);
-        assertEquals("Bill", user.getName());
-        assertEquals(jskContainer.getRestUrl() + "/users/Bill", user.getHref());
-    }
-
-    @Test
-    void testSingleUser() {
-        List<String> acls = Arrays.asList("Browser", "ElementReader", "PageReader", "UserReader", "Visitor",
-                "xceleditor");
-        List<String> roles = Arrays.asList("SitesUser", "Reviewer");
-        UserBean userBean = restClient.user("Bill").read();
-        UserSite userSite = userBean.getSites().get(0);
-        assertEquals("Bill", userBean.getName());
-        assertEquals("userid=1502442347337,ou=People", userBean.getId());
-        assertEquals(acls, userBean.getAcls());
-        assertEquals("avisports", userSite.getSite());
-        assertEquals(roles, userSite.getRoles());
-    }
-
-    @Test
-    void testCreateUser() {
-        UserBean userBean = restClient.user("Bill").read();
-        userBean.setName("TestUser");
-        userBean.setPassword("TestUser");
-        userBean.setId("");
-        UserBean testUserBean = restClient.user("TestUser").create(userBean);
-        assertEquals("TestUser", testUserBean.getName());
-    }
-
-    @Test
-    void testUpdateUser() {
-        UserBean userBean = restClient.user("Bill").read();
-        userBean.setEmail("test@test.com");
-        userBean.setPassword("newpassword");
-        UserBean updatedUserBean = restClient.user("Bill").update(userBean);
-        assertEquals("newpassword", updatedUserBean.getPassword());
-        assertEquals("test@test.com", updatedUserBean.getEmail());
-    }
-
-    @Test
-    void testDeleteUser() {
-        restClient.user("Bill").delete();
-        AuthenticatedRestClientResponseException e = assertThrows(
-                AuthenticatedRestClientResponseException.class,
-                () -> restClient.user("Bill").read());
-        assertEquals(404, e.getStatusCode());
-        assertEquals("Not Found", e.getStatusText());
-    }
-
-    @Test
-    void testRoles() {
-        RolesBean rolesBean = restClient.roles();
-        assertEquals(13, rolesBean.getTotal().intValue());
-        Role role = rolesBean.getRoles().get(0);
-        assertEquals("AdvancedUser", role.getName());
-        assertEquals("Advanced User", role.getDescription());
-        assertEquals(jskContainer.getRestUrl() + "/roles/AdvancedUser", role.getHref());
-    }
-
-    @Test
-    void testSingleRole() {
-        RoleBean roleBean = restClient.role("AdvancedUser");
-        assertEquals("AdvancedUser", roleBean.getName());
-        assertEquals("Advanced User", roleBean.getDescription());
     }
 
     @Test

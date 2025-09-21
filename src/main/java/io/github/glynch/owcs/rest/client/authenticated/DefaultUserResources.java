@@ -5,7 +5,7 @@ import org.springframework.util.Assert;
 import com.fatwire.rest.beans.UserBean;
 
 import io.github.glynch.owcs.rest.client.RestClientException;
-import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClient.SiteTypeResources.UserResources;
+import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClient.UserResources;
 
 public class DefaultUserResources implements UserResources {
 

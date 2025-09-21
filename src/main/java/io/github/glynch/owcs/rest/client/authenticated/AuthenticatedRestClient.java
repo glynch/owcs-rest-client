@@ -22,7 +22,6 @@ import com.fatwire.rest.beans.UserLocalesBean;
 import com.fatwire.rest.beans.UsersBean;
 
 import io.github.glynch.owcs.rest.client.RestClientException;
-import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClient.SiteTypeResources.UserResources;
 import io.github.glynch.owcs.sso.TokenProvider;
 
 public interface AuthenticatedRestClient {
@@ -147,16 +146,7 @@ public interface AuthenticatedRestClient {
      */
     RolesBean roles() throws RestClientException;
 
-    String ROLE_URI_TEMPLATE = ROLES_URI_TEMPLATE + "/{role}";
-
-    /**
-     * Details of a specific role.
-     * 
-     * @param role
-     * @return the role bean
-     * @throws RestClientException
-     */
-    RoleBean role(String role) throws RestClientException;
+    RoleResources role(String role);
 
     String GROUPS_URI_TEMPLATE = "/groups";
 
@@ -273,19 +263,34 @@ public interface AuthenticatedRestClient {
 
         AssetsBean search() throws RestClientException;
 
-        interface UserResources {
+    }
 
-            String USER_URI_TEMPLATE = USERS_URI_TEMPLATE + "/{user}";
+    interface RoleResources {
 
-            UserBean read() throws RestClientException;
+        String ROLE_URI_TEMPLATE = ROLES_URI_TEMPLATE + "/{role}";
 
-            UserBean create(UserBean userBean) throws RestClientException;
+        RoleBean read() throws RestClientException;
 
-            UserBean update(UserBean userBean) throws RestClientException;
+        RoleBean create(RoleBean roleBean) throws RestClientException;
 
-            void delete() throws RestClientException;
+        RoleBean update(RoleBean roleBean) throws RestClientException;
 
-        }
+        void delete() throws RestClientException;
+
+    }
+
+    interface UserResources {
+
+        String USER_URI_TEMPLATE = USERS_URI_TEMPLATE + "/{user}";
+
+        UserBean read() throws RestClientException;
+
+        UserBean create(UserBean userBean) throws RestClientException;
+
+        UserBean update(UserBean userBean) throws RestClientException;
+
+        void delete() throws RestClientException;
+
     }
 
 }
