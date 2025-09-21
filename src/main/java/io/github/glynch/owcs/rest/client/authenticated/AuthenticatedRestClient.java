@@ -10,6 +10,8 @@ import com.fatwire.rest.beans.DeviceBean;
 import com.fatwire.rest.beans.EnabledTypesBean;
 import com.fatwire.rest.beans.GroupBean;
 import com.fatwire.rest.beans.GroupsBean;
+import com.fatwire.rest.beans.IndexConfigBean;
+import com.fatwire.rest.beans.IndexConfigsBean;
 import com.fatwire.rest.beans.NavigationBean;
 import com.fatwire.rest.beans.RoleBean;
 import com.fatwire.rest.beans.RolesBean;
@@ -177,6 +179,12 @@ public interface AuthenticatedRestClient {
 
     UserDefBean userDef() throws RestClientException;
 
+    String INDEXES_URI_TEMPLATE = "/indexes";
+
+    IndexConfigsBean indexes() throws RestClientException;
+
+    IndexResources index(String index);
+
     String TYPES_URI_TEMPLATE = "/types";
 
     /**
@@ -291,6 +299,19 @@ public interface AuthenticatedRestClient {
 
         void delete() throws RestClientException;
 
+    }
+
+    interface IndexResources {
+
+        String INDEX_URI_TEMPLATE = "/indexes/{index}";
+
+        IndexConfigBean read() throws RestClientException;
+
+        IndexConfigBean create(IndexConfigBean indexConfigBean) throws RestClientException;
+
+        IndexConfigBean update(IndexConfigBean indexConfigBean) throws RestClientException;
+
+        void delete() throws RestClientException;
     }
 
 }

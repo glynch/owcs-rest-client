@@ -12,6 +12,7 @@ import com.fatwire.rest.beans.AssetTypesBean;
 import com.fatwire.rest.beans.DeviceBean;
 import com.fatwire.rest.beans.GroupBean;
 import com.fatwire.rest.beans.GroupsBean;
+import com.fatwire.rest.beans.IndexConfigsBean;
 import com.fatwire.rest.beans.RolesBean;
 import com.fatwire.rest.beans.SitesBean;
 import com.fatwire.rest.beans.TimezoneBean;
@@ -177,6 +178,17 @@ public class DefaultAuthenticatedRestClient implements AuthenticatedRestClient {
     @Override
     public UserDefBean userDef() throws RestClientException {
         return get(USER_DEF_URI_TEMPLATE, UserDefBean.class);
+    }
+
+    @Override
+    public IndexConfigsBean indexes() throws RestClientException {
+        return get(INDEXES_URI_TEMPLATE, IndexConfigsBean.class);
+    }
+
+    @Override
+    public IndexResources index(String index) {
+        Assert.hasText(index, "index cannot be null or empty");
+        return new DefaultIndexResources(this, index);
     }
 
     @Override
