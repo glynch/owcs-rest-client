@@ -7,6 +7,8 @@ import org.springframework.util.Assert;
 
 import com.fatwire.rest.beans.IndexConfigBean;
 import com.fatwire.rest.beans.IndexFieldDescriptor;
+import com.fatwire.rest.beans.IndexStatus;
+import com.fatwire.rest.beans.IndexStatusEnum;
 
 public class IndexConfigBeanBuilder {
 
@@ -34,10 +36,23 @@ public class IndexConfigBeanBuilder {
         return this;
     }
 
+    public IndexConfigBeanBuilder sortableField(String sortableField) {
+        Assert.hasText(sortableField, "sortableField cannot be empty or null");
+        sortableFields.add(sortableField);
+        return this;
+    }
+
+    public IndexConfigBeanBuilder indexFieldDescriptor(IndexFieldDescriptor indexFieldDescriptor) {
+        Assert.notNull(indexFieldDescriptor, "indexFieldDescriptor cannot be null");
+        indexFieldDescriptors.add(indexFieldDescriptor);
+        return this;
+    }
+
     public IndexConfigBean build() {
         IndexConfigBean indexConfigBean = new IndexConfigBean();
         indexConfigBean.setName(name);
         indexConfigBean.setUniqueIdField(uniqueIdField);
+        indexConfigBean.setDefaultSearchField(defaultSearchField);
         indexConfigBean.setIndexAllFields(indexAllFields);
         indexConfigBean.setSearchEngine(searchEngine);
         for (String sortableField : sortableFields) {
@@ -49,6 +64,10 @@ public class IndexConfigBeanBuilder {
         for (IndexFieldDescriptor indexFieldDescriptor : indexFieldDescriptors) {
             indexConfigBean.getFieldDescriptors().add(indexFieldDescriptor);
         }
+        IndexStatus indexStatus = new IndexStatus();
+        indexStatus.setAssettype(name);
+        indexStatus.setIndexStatus(IndexStatusEnum.ENABLED);
+        indexConfigBean.getStatusObjects().add(indexStatus);
 
         return indexConfigBean;
     }

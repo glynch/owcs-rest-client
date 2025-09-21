@@ -17,6 +17,8 @@ import com.fatwire.rest.beans.IndexFieldTypeEnum;
 import com.fatwire.rest.beans.IndexStatus;
 import com.fatwire.rest.beans.IndexStatusEnum;
 
+import io.github.glynch.owcs.rest.bean.builders.Builders;
+import io.github.glynch.owcs.rest.bean.builders.IndexConfigBeanBuilder;
 import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClient;
 import io.github.glynch.owcs.test.containers.JSKContainer;
 
@@ -71,11 +73,23 @@ public class TestIndexesIT {
     @Test
     void testCreateIndex() {
 
+        IndexConfigBeanBuilder indexConfigBeanBuilder = Builders.indexConfigBeanBuilder("AVITest");
+        indexConfigBeanBuilder
+                .indexFieldDescriptor(Builders.indexFieldDescriptorBuilder("name", IndexFieldTypeEnum.TEXT).build());
+
+        IndexConfigBean indexConfigBean = indexConfigBeanBuilder.build();
+        restClient.index("AVITest").create(indexConfigBean);
+
     }
 
     @Test
     void testUpdateIndex() {
         IndexConfigBean indexConfigBean = restClient.index("AVIArticle").read();
+        indexConfigBean.setIndexAllFields(true);
+        indexConfigBean.getStatusObjects().get(0).setIndexStatus(IndexStatusEnum.PAUSED);
+        IndexConfigBean updatedIndexConfigBean = restClient.index("AVIArticle").update(indexConfigBean);
+        assertEquals(true, updatedIndexConfigBean.isIndexAllFields());
+        assertEquals(IndexStatusEnum.PAUSED, updatedIndexConfigBean.getStatusObjects().get(0).getIndexStatus());
     }
 
     @AfterAll
