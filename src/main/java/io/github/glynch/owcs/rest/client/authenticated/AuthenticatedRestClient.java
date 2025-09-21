@@ -9,6 +9,8 @@ import com.fatwire.rest.beans.AssetsBean;
 import com.fatwire.rest.beans.DeviceBean;
 import com.fatwire.rest.beans.EnabledTypesBean;
 import com.fatwire.rest.beans.NavigationBean;
+import com.fatwire.rest.beans.RoleBean;
+import com.fatwire.rest.beans.RolesBean;
 import com.fatwire.rest.beans.SiteBean;
 import com.fatwire.rest.beans.SitesBean;
 import com.fatwire.rest.beans.TimezoneBean;
@@ -131,6 +133,14 @@ public interface AuthenticatedRestClient {
      * @throws RestClientException
      */
     UserBean user(String user) throws RestClientException;
+
+    String ROLES_URI_TEMPLATE = "/roles";
+
+    RolesBean roles() throws RestClientException;
+
+    String ROLE_URI_TEMPLATE = ROLES_URI_TEMPLATE + "/{role}";
+
+    RoleBean role(String role) throws RestClientException;
 
     String TYPES_URI_TEMPLATE = "/types";
 

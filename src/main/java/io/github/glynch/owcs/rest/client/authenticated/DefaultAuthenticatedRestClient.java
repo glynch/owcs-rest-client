@@ -10,6 +10,8 @@ import org.springframework.web.client.RestTemplate;
 import com.fatwire.rest.beans.AclsBean;
 import com.fatwire.rest.beans.AssetTypesBean;
 import com.fatwire.rest.beans.DeviceBean;
+import com.fatwire.rest.beans.RoleBean;
+import com.fatwire.rest.beans.RolesBean;
 import com.fatwire.rest.beans.SitesBean;
 import com.fatwire.rest.beans.TimezoneBean;
 import com.fatwire.rest.beans.UserBean;
@@ -141,6 +143,17 @@ public class DefaultAuthenticatedRestClient implements AuthenticatedRestClient {
     public UserBean user(String user) throws RestClientException {
         Assert.hasText(user, "user cannot be null or empty");
         return get(USER_URI_TEMPLATE, UserBean.class, user);
+    }
+
+    @Override
+    public RolesBean roles() throws RestClientException {
+        return get(ROLES_URI_TEMPLATE, RolesBean.class);
+    }
+
+    @Override
+    public RoleBean role(String role) throws RestClientException {
+        Assert.hasText(role, "role cannot be null or empty");
+        return get(ROLE_URI_TEMPLATE, RoleBean.class, role);
     }
 
     @Override

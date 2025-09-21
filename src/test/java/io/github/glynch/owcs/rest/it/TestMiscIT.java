@@ -13,6 +13,9 @@ import org.junit.jupiter.api.TestInstance;
 import com.fatwire.rest.beans.AclsBean;
 import com.fatwire.rest.beans.DeviceBean;
 import com.fatwire.rest.beans.DeviceGroupBean;
+import com.fatwire.rest.beans.Role;
+import com.fatwire.rest.beans.RoleBean;
+import com.fatwire.rest.beans.RolesBean;
 import com.fatwire.rest.beans.TimezoneBean;
 import com.fatwire.rest.beans.User;
 import com.fatwire.rest.beans.UserBean;
@@ -84,7 +87,23 @@ public class TestMiscIT {
         assertEquals(acls, userBean.getAcls());
         assertEquals("avisports", userSite.getSite());
         assertEquals(roles, userSite.getRoles());
+    }
 
+    @Test
+    void testRoles() {
+        RolesBean rolesBean = restClient.roles();
+        assertEquals(13, rolesBean.getTotal().intValue());
+        Role role = rolesBean.getRoles().get(0);
+        assertEquals("AdvancedUser", role.getName());
+        assertEquals("Advanced User", role.getDescription());
+        assertEquals(jskContainer.getRestUrl() + "/roles/AdvancedUser", role.getHref());
+    }
+
+    @Test
+    void testSingleRole() {
+        RoleBean roleBean = restClient.role("AdvancedUser");
+        assertEquals("AdvancedUser", roleBean.getName());
+        assertEquals("Advanced User", roleBean.getDescription());
     }
 
     @AfterEach
