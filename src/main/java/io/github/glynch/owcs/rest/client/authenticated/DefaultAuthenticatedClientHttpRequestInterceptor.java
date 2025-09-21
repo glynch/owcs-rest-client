@@ -12,6 +12,9 @@ import org.springframework.http.client.ClientHttpResponse;
 
 import io.github.glynch.owcs.sso.TokenProvider;
 
+/**
+ * Interceptor to add authentication token to requests.
+ */
 public class DefaultAuthenticatedClientHttpRequestInterceptor implements ClientHttpRequestInterceptor {
 
     private final TokenProvider tokenProvider;

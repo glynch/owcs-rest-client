@@ -21,7 +21,11 @@ import com.fatwire.rest.beans.RoleBean;
 import com.fatwire.rest.beans.RolesBean;
 import com.fatwire.rest.beans.TimezoneBean;
 import com.fatwire.rest.beans.User;
+import com.fatwire.rest.beans.UserAttributeDefBean;
 import com.fatwire.rest.beans.UserBean;
+import com.fatwire.rest.beans.UserDefBean;
+import com.fatwire.rest.beans.UserLocale;
+import com.fatwire.rest.beans.UserLocalesBean;
 import com.fatwire.rest.beans.UserSite;
 import com.fatwire.rest.beans.UsersBean;
 
@@ -124,6 +128,27 @@ public class TestMiscIT {
         GroupBean groupBean = restClient.group("RestAdmin");
         assertEquals("RestAdmin", groupBean.getName());
         assertEquals("Rest Admin", groupBean.getDescription());
+    }
+
+    @Test
+    void testUserDef() {
+        UserDefBean userDefBean = restClient.userDef();
+        assertEquals(6, userDefBean.getAttributeDefs().size());
+        UserAttributeDefBean userAttributeDefBean = userDefBean.getAttributeDefs().get(0);
+        assertEquals("name", userAttributeDefBean.getName());
+        assertEquals("Username", userAttributeDefBean.getUiFormName());
+        assertEquals("STRING", userAttributeDefBean.getType());
+        assertEquals(true, userAttributeDefBean.isRequired());
+    }
+
+    @Test
+    void testUserLocales() {
+        UserLocalesBean userLocalesBean = restClient.userLocales();
+        assertEquals(11, userLocalesBean.getUserLocales().size());
+        UserLocale userLocale = userLocalesBean.getUserLocales().get(0);
+        assertEquals("ar_SA", userLocale.getName());
+        assertEquals("Arabic (Saudi Arabia)", userLocale.getDescription());
+        assertEquals(2, userLocale.getOrdinal());
     }
 
     @AfterEach

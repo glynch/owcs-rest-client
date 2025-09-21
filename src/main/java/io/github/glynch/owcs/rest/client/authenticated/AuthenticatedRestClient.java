@@ -17,6 +17,8 @@ import com.fatwire.rest.beans.SiteBean;
 import com.fatwire.rest.beans.SitesBean;
 import com.fatwire.rest.beans.TimezoneBean;
 import com.fatwire.rest.beans.UserBean;
+import com.fatwire.rest.beans.UserDefBean;
+import com.fatwire.rest.beans.UserLocalesBean;
 import com.fatwire.rest.beans.UsersBean;
 
 import io.github.glynch.owcs.rest.client.RestClientException;
@@ -177,6 +179,14 @@ public interface AuthenticatedRestClient {
      * @throws RestClientException
      */
     GroupBean group(String group) throws RestClientException;
+
+    String USER_LOCALES_URI_TEMPLATE = "/userlocales";
+
+    UserLocalesBean userLocales() throws RestClientException;
+
+    String USER_DEF_URI_TEMPLATE = "/userdef";
+
+    UserDefBean userDef() throws RestClientException;
 
     String TYPES_URI_TEMPLATE = "/types";
 

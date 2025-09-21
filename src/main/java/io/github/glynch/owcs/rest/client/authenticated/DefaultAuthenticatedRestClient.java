@@ -17,6 +17,8 @@ import com.fatwire.rest.beans.RolesBean;
 import com.fatwire.rest.beans.SitesBean;
 import com.fatwire.rest.beans.TimezoneBean;
 import com.fatwire.rest.beans.UserBean;
+import com.fatwire.rest.beans.UserDefBean;
+import com.fatwire.rest.beans.UserLocalesBean;
 import com.fatwire.rest.beans.UsersBean;
 
 import io.github.glynch.owcs.rest.client.RestClientException;
@@ -167,6 +169,16 @@ public class DefaultAuthenticatedRestClient implements AuthenticatedRestClient {
     public GroupBean group(String group) throws RestClientException {
         Assert.hasText(group, "group cannot be null or empty");
         return get(GROUP_URI_TEMPLATE, GroupBean.class, group);
+    }
+
+    @Override
+    public UserLocalesBean userLocales() throws RestClientException {
+        return get(USER_LOCALES_URI_TEMPLATE, UserLocalesBean.class);
+    }
+
+    @Override
+    public UserDefBean userDef() throws RestClientException {
+        return get(USER_DEF_URI_TEMPLATE, UserDefBean.class);
     }
 
     @Override
