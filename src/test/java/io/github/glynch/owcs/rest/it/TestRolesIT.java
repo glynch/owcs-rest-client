@@ -1,5 +1,6 @@
 package io.github.glynch.owcs.rest.it;
 
+import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.AfterEach;
@@ -12,6 +13,7 @@ import com.fatwire.rest.beans.RoleBean;
 import com.fatwire.rest.beans.RolesBean;
 
 import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClient;
+import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClientResponseException;
 import io.github.glynch.owcs.test.containers.JSKContainer;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -61,6 +63,20 @@ public class TestRolesIT {
         RoleBean createdRoleBean = restClient.role("TestRole").create(roleBean);
         assertEquals("TestRole", createdRoleBean.getName());
         assertEquals("Test Role description", createdRoleBean.getDescription());
+    }
+
+    @Test
+    void testDeleteRole() {
+        RoleBean roleBean = new RoleBean();
+        roleBean.setName("TestRole");
+        roleBean.setDescription("Test Role description");
+        RoleBean createdRoleBean = restClient.role("TestRole").create(roleBean);
+        restClient.role("TestRole").delete();
+        AuthenticatedRestClientResponseException e = assertThrows(AuthenticatedRestClientResponseException.class,
+                () -> restClient.role("TestRole").read());
+        assertEquals(404, e.getStatusCode());
+        assertEquals("Not Found", e.getStatusText());
+
     }
 
     @AfterEach
