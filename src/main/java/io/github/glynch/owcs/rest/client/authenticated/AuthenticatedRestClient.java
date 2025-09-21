@@ -8,6 +8,8 @@ import com.fatwire.rest.beans.AssetTypesBean;
 import com.fatwire.rest.beans.AssetsBean;
 import com.fatwire.rest.beans.DeviceBean;
 import com.fatwire.rest.beans.EnabledTypesBean;
+import com.fatwire.rest.beans.GroupBean;
+import com.fatwire.rest.beans.GroupsBean;
 import com.fatwire.rest.beans.NavigationBean;
 import com.fatwire.rest.beans.RoleBean;
 import com.fatwire.rest.beans.RolesBean;
@@ -136,11 +138,45 @@ public interface AuthenticatedRestClient {
 
     String ROLES_URI_TEMPLATE = "/roles";
 
+    /**
+     * List of all roles in the WebCenter Sites.
+     * 
+     * @return the roles bean
+     * @throws RestClientException
+     */
     RolesBean roles() throws RestClientException;
 
     String ROLE_URI_TEMPLATE = ROLES_URI_TEMPLATE + "/{role}";
 
+    /**
+     * Details of a specific role.
+     * 
+     * @param role
+     * @return the role bean
+     * @throws RestClientException
+     */
     RoleBean role(String role) throws RestClientException;
+
+    String GROUPS_URI_TEMPLATE = "/groups";
+
+    /**
+     * List of all groups in the WebCenter Sites.
+     * 
+     * @return the groups bean
+     * @throws RestClientException
+     */
+    GroupsBean groups() throws RestClientException;
+
+    String GROUP_URI_TEMPLATE = GROUPS_URI_TEMPLATE + "/{group}";
+
+    /**
+     * Details of a specific group.
+     * 
+     * @param group
+     * @return the group bean
+     * @throws RestClientException
+     */
+    GroupBean group(String group) throws RestClientException;
 
     String TYPES_URI_TEMPLATE = "/types";
 

@@ -13,6 +13,9 @@ import org.junit.jupiter.api.TestInstance;
 import com.fatwire.rest.beans.AclsBean;
 import com.fatwire.rest.beans.DeviceBean;
 import com.fatwire.rest.beans.DeviceGroupBean;
+import com.fatwire.rest.beans.Group;
+import com.fatwire.rest.beans.GroupBean;
+import com.fatwire.rest.beans.GroupsBean;
 import com.fatwire.rest.beans.Role;
 import com.fatwire.rest.beans.RoleBean;
 import com.fatwire.rest.beans.RolesBean;
@@ -104,6 +107,23 @@ public class TestMiscIT {
         RoleBean roleBean = restClient.role("AdvancedUser");
         assertEquals("AdvancedUser", roleBean.getName());
         assertEquals("Advanced User", roleBean.getDescription());
+    }
+
+    @Test
+    void testGroups() {
+        GroupsBean groupsBean = restClient.groups();
+        assertEquals(2, groupsBean.getGroups().size());
+        Group group = groupsBean.getGroups().get(0);
+        assertEquals("RestAdmin", group.getName());
+        assertEquals("Rest Admin", group.getDescription());
+        assertEquals(jskContainer.getRestUrl() + "/groups/RestAdmin", group.getHref());
+    }
+
+    @Test
+    void testSingleGroup() {
+        GroupBean groupBean = restClient.group("RestAdmin");
+        assertEquals("RestAdmin", groupBean.getName());
+        assertEquals("Rest Admin", groupBean.getDescription());
     }
 
     @AfterEach

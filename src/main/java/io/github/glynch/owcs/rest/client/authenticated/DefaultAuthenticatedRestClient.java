@@ -10,6 +10,8 @@ import org.springframework.web.client.RestTemplate;
 import com.fatwire.rest.beans.AclsBean;
 import com.fatwire.rest.beans.AssetTypesBean;
 import com.fatwire.rest.beans.DeviceBean;
+import com.fatwire.rest.beans.GroupBean;
+import com.fatwire.rest.beans.GroupsBean;
 import com.fatwire.rest.beans.RoleBean;
 import com.fatwire.rest.beans.RolesBean;
 import com.fatwire.rest.beans.SitesBean;
@@ -154,6 +156,17 @@ public class DefaultAuthenticatedRestClient implements AuthenticatedRestClient {
     public RoleBean role(String role) throws RestClientException {
         Assert.hasText(role, "role cannot be null or empty");
         return get(ROLE_URI_TEMPLATE, RoleBean.class, role);
+    }
+
+    @Override
+    public GroupsBean groups() throws RestClientException {
+        return get(GROUPS_URI_TEMPLATE, GroupsBean.class);
+    }
+
+    @Override
+    public GroupBean group(String group) throws RestClientException {
+        Assert.hasText(group, "group cannot be null or empty");
+        return get(GROUP_URI_TEMPLATE, GroupBean.class, group);
     }
 
     @Override
