@@ -16,12 +16,12 @@ import com.fatwire.rest.beans.RoleBean;
 import com.fatwire.rest.beans.RolesBean;
 import com.fatwire.rest.beans.SitesBean;
 import com.fatwire.rest.beans.TimezoneBean;
-import com.fatwire.rest.beans.UserBean;
 import com.fatwire.rest.beans.UserDefBean;
 import com.fatwire.rest.beans.UserLocalesBean;
 import com.fatwire.rest.beans.UsersBean;
 
 import io.github.glynch.owcs.rest.client.RestClientException;
+import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClient.SiteTypeResources.UserResources;
 
 public class DefaultAuthenticatedRestClient implements AuthenticatedRestClient {
 
@@ -144,9 +144,9 @@ public class DefaultAuthenticatedRestClient implements AuthenticatedRestClient {
     }
 
     @Override
-    public UserBean user(String user) throws RestClientException {
+    public UserResources user(String user) throws RestClientException {
         Assert.hasText(user, "user cannot be null or empty");
-        return get(USER_URI_TEMPLATE, UserBean.class, user);
+        return new DefaultUserResources(this, user);
     }
 
     @Override

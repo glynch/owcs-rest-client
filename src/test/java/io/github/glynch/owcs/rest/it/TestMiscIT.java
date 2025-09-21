@@ -1,5 +1,6 @@
 package io.github.glynch.owcs.rest.it;
 
+import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Arrays;
@@ -30,6 +31,7 @@ import com.fatwire.rest.beans.UserSite;
 import com.fatwire.rest.beans.UsersBean;
 
 import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClient;
+import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClientResponseException;
 import io.github.glynch.owcs.test.containers.JSKContainer;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -87,13 +89,43 @@ public class TestMiscIT {
         List<String> acls = Arrays.asList("Browser", "ElementReader", "PageReader", "UserReader", "Visitor",
                 "xceleditor");
         List<String> roles = Arrays.asList("SitesUser", "Reviewer");
-        UserBean userBean = restClient.user("Bill");
+        UserBean userBean = restClient.user("Bill").read();
         UserSite userSite = userBean.getSites().get(0);
         assertEquals("Bill", userBean.getName());
         assertEquals("userid=1502442347337,ou=People", userBean.getId());
         assertEquals(acls, userBean.getAcls());
         assertEquals("avisports", userSite.getSite());
         assertEquals(roles, userSite.getRoles());
+    }
+
+    @Test
+    void testCreateUser() {
+        UserBean userBean = restClient.user("Bill").read();
+        userBean.setName("TestUser");
+        userBean.setPassword("TestUser");
+        userBean.setId("");
+        UserBean testUserBean = restClient.user("TestUser").create(userBean);
+        assertEquals("TestUser", testUserBean.getName());
+    }
+
+    @Test
+    void testUpdateUser() {
+        UserBean userBean = restClient.user("Bill").read();
+        userBean.setEmail("test@test.com");
+        userBean.setPassword("newpassword");
+        UserBean updatedUserBean = restClient.user("Bill").update(userBean);
+        assertEquals("newpassword", updatedUserBean.getPassword());
+        assertEquals("test@test.com", updatedUserBean.getEmail());
+    }
+
+    @Test
+    void testDeleteUser() {
+        restClient.user("Bill").delete();
+        AuthenticatedRestClientResponseException e = assertThrows(
+                AuthenticatedRestClientResponseException.class,
+                () -> restClient.user("Bill").read());
+        assertEquals(404, e.getStatusCode());
+        assertEquals("Not Found", e.getStatusText());
     }
 
     @Test

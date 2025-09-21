@@ -22,6 +22,7 @@ import com.fatwire.rest.beans.UserLocalesBean;
 import com.fatwire.rest.beans.UsersBean;
 
 import io.github.glynch.owcs.rest.client.RestClientException;
+import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClient.SiteTypeResources.UserResources;
 import io.github.glynch.owcs.sso.TokenProvider;
 
 public interface AuthenticatedRestClient {
@@ -127,8 +128,6 @@ public interface AuthenticatedRestClient {
      */
     UsersBean users() throws RestClientException;
 
-    String USER_URI_TEMPLATE = USERS_URI_TEMPLATE + "/{user}";
-
     /**
      * Details of a specific user.
      * 
@@ -136,7 +135,7 @@ public interface AuthenticatedRestClient {
      * @return the user bean
      * @throws RestClientException
      */
-    UserBean user(String user) throws RestClientException;
+    UserResources user(String user);
 
     String ROLES_URI_TEMPLATE = "/roles";
 
@@ -274,6 +273,19 @@ public interface AuthenticatedRestClient {
 
         AssetsBean search() throws RestClientException;
 
+        interface UserResources {
+
+            String USER_URI_TEMPLATE = USERS_URI_TEMPLATE + "/{user}";
+
+            UserBean read() throws RestClientException;
+
+            UserBean create(UserBean userBean) throws RestClientException;
+
+            UserBean update(UserBean userBean) throws RestClientException;
+
+            void delete() throws RestClientException;
+
+        }
     }
 
 }
