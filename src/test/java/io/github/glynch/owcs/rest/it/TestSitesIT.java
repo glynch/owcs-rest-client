@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
 
+import com.fatwire.rest.beans.Navigation;
 import com.fatwire.rest.beans.NavigationBean;
 import com.fatwire.rest.beans.Site;
 import com.fatwire.rest.beans.SiteBean;
@@ -18,6 +19,7 @@ import com.fatwire.rest.beans.SitesBean;
 
 import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClient;
 import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClientResponseException;
+import io.github.glynch.owcs.rest.client.authenticated.NavigationSearch;
 import io.github.glynch.owcs.test.containers.JSKContainer;
 
 @TestInstance(Lifecycle.PER_CLASS)
@@ -116,9 +118,20 @@ public class TestSitesIT {
     }
 
     @Test
-    void testSiteNavigation() {
-        NavigationBean navigation = restClient.site("avisports").navigation(1327351719456L, "all");
-        assertEquals("Home", navigation.getNavigation().getName());
+    void testSiteNavigationByPageId() {
+        NavigationBean homeNavigation = restClient.site("avisports").navigation(1327351719456L, "all");
+        assertEquals("Home", homeNavigation.getNavigation().getName());
+        assertEquals(2, homeNavigation.getNavigation().getNodePath().getNodes().size());
+        assertEquals(5, homeNavigation.getNavigation().getPlacedChildren().getchildren().size());
+        Navigation surfing = homeNavigation.getNavigation().getPlacedChildren().getchildren().get(0);
+        assertEquals("Surfing", surfing.getName());
+        assertEquals(1329851332601L, surfing.getId().longValue());
+    }
+
+    @Test
+    void testSiteNavigationBySearch() {
+        NavigationBean navigation = restClient.site("avisports")
+                .navigation(NavigationSearch.builder().depth("all").build());
     }
 
     @AfterEach

@@ -2,11 +2,13 @@ package io.github.glynch.owcs.rest.client.authenticated;
 
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.fatwire.rest.beans.EnabledTypesBean;
 import com.fatwire.rest.beans.NavigationBean;
 import com.fatwire.rest.beans.SiteBean;
 
 import io.github.glynch.owcs.rest.client.RestClientException;
 import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClient.SiteResources;
+import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClient.SiteTypeResources;
 
 public class DefaultSiteResources implements SiteResources {
 
@@ -80,6 +82,18 @@ public class DefaultSiteResources implements SiteResources {
 
         return restClient.get(builder.build(false).toUriString(), NavigationBean.class, site,
                 pageId);
+    }
+
+    @Override
+    public EnabledTypesBean types() throws RestClientException {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'types'");
+    }
+
+    @Override
+    public SiteTypeResources type(String type) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'type'");
     }
 
 }

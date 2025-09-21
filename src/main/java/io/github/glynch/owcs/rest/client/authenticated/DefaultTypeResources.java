@@ -4,6 +4,7 @@ import org.springframework.util.Assert;
 
 import com.fatwire.rest.beans.AssetTypeBean;
 import com.fatwire.rest.beans.AssetTypesBean;
+import com.fatwire.rest.beans.AssetsBean;
 
 import io.github.glynch.owcs.rest.client.RestClientException;
 import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClient.TypeResources;
@@ -39,5 +40,16 @@ public class DefaultTypeResources implements TypeResources {
         Assert.hasText(subtype, "subtype cannot be null or empty");
         return restClient.get(TYPE_SUBTYPES_SUBTYPE_URI_TEMPLATE, AssetTypeBean.class, type,
                 subtype);
+    }
+
+    @Override
+    public AssetsBean search() throws RestClientException {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'search'");
+    }
+
+    @Override
+    public void delete() throws RestClientException {
+        restClient.delete(TYPE_URI_TEMPLATE, type);
     }
 }

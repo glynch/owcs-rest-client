@@ -7,8 +7,11 @@ import org.springframework.http.HttpMethod;
 import org.springframework.util.Assert;
 import org.springframework.web.client.RestTemplate;
 
+import com.fatwire.rest.beans.AclsBean;
 import com.fatwire.rest.beans.AssetTypesBean;
+import com.fatwire.rest.beans.DeviceBean;
 import com.fatwire.rest.beans.SitesBean;
+import com.fatwire.rest.beans.TimezoneBean;
 
 import io.github.glynch.owcs.rest.client.RestClientException;
 
@@ -110,6 +113,21 @@ public class DefaultAuthenticatedRestClient implements AuthenticatedRestClient {
     public <T> T head(String url, Class<T> responseType, Map<String, ?> uriVariables) throws RestClientException {
         HttpEntity<?> requestEntity = HttpEntity.EMPTY;
         return execute(url, HttpMethod.HEAD, requestEntity, responseType, uriVariables);
+    }
+
+    @Override
+    public TimezoneBean timezone() throws RestClientException {
+        return get(TIMEZONES_URI_TEMPLATE, TimezoneBean.class);
+    }
+
+    @Override
+    public DeviceBean currentDevice() throws RestClientException {
+        return get(CURRENT_DEVICE_URI_TEMPLATE, DeviceBean.class);
+    }
+
+    @Override
+    public AclsBean acls() throws RestClientException {
+        return get(ACLS_URI_TEMPLATE, AclsBean.class);
     }
 
     @Override

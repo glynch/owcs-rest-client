@@ -26,7 +26,7 @@ public class TestTypesIT {
     private AuthenticatedRestClient restClient;
 
     @BeforeEach
-    void beforeAll() {
+    void beforeEach() {
         jskContainer.start();
         restClient = AuthenticatedRestClient.builder(jskContainer.getBaseUrl(), "fwadmin", "xceladmin")
                 .cachingTokenProvider()
@@ -97,6 +97,24 @@ public class TestTypesIT {
     }
 
     @Test
+    void testDeleteType() {
+        // First create a type to delete
+        AssetTypeBean type = restClient.type("AVIArticle").read();
+        type.setName("AVITestTypeToDelete");
+        type.setDescription("AVITestTypeToDelete description");
+        type.setSubtype("TestTypeToDelete");
+        AssetTypeBean testType = restClient.type("AVITestTypeToDelete").create(type);
+        assertEquals("AVITestTypeToDelete", testType.getName());
+        restClient.type("AVITestTypeToDelete").delete();
+        AuthenticatedRestClientResponseException e = assertThrows(AuthenticatedRestClientResponseException.class,
+                () -> restClient.type("AVITestTypeToDelete").read());
+        assertEquals(404, e.getStatusCode());
+        assertEquals("Not Found", e.getStatusText());
+        assertEquals("Asset type AVITestTypeToDelete does not exist in Content Server", e.getError().getMessage());
+        assertEquals(0, e.getError().getErrorCode());
+    }
+
+    @Test
     void testExceptionForUnknownType() {
         AuthenticatedRestClientResponseException e = assertThrows(AuthenticatedRestClientResponseException.class,
                 () -> restClient.type("FOO").subtypes());
@@ -107,7 +125,7 @@ public class TestTypesIT {
     }
 
     @AfterEach
-    void afterAll() {
+    void afterEach() {
         jskContainer.stop();
     }
 

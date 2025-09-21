@@ -20,12 +20,16 @@ public class NavigationSearch {
         return code;
     }
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
     public static class Builder {
 
         private String depth;
         private SitePlanNodeCodeEnum code;
 
-        Builder depth(String depth) {
+        public Builder depth(String depth) {
             this.depth = depth;
             return this;
         }

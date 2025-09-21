@@ -2,11 +2,16 @@ package io.github.glynch.owcs.rest.client.authenticated;
 
 import java.util.Map;
 
+import com.fatwire.rest.beans.AclsBean;
 import com.fatwire.rest.beans.AssetTypeBean;
 import com.fatwire.rest.beans.AssetTypesBean;
+import com.fatwire.rest.beans.AssetsBean;
+import com.fatwire.rest.beans.DeviceBean;
+import com.fatwire.rest.beans.EnabledTypesBean;
 import com.fatwire.rest.beans.NavigationBean;
 import com.fatwire.rest.beans.SiteBean;
 import com.fatwire.rest.beans.SitesBean;
+import com.fatwire.rest.beans.TimezoneBean;
 
 import io.github.glynch.owcs.rest.client.RestClientException;
 import io.github.glynch.owcs.sso.TokenProvider;
@@ -80,12 +85,45 @@ public interface AuthenticatedRestClient {
         AuthenticatedRestClient build();
     }
 
+    String TIMEZONES_URI_TEMPLATE = "/timezone";
+
+    /**
+     * Get the server's time zone.
+     * 
+     * @return the time zone bean
+     * @throws RestClientException
+     */
+    TimezoneBean timezone() throws RestClientException;
+
+    String CURRENT_DEVICE_URI_TEMPLATE = "/currentdevice";
+
+    DeviceBean currentDevice() throws RestClientException;
+
+    String ACLS_URI_TEMPLATE = "/acls";
+
+    /**
+     * List of all ACLs in the WebCenter Sites.
+     * 
+     * @return
+     * @throws RestClientException
+     */
+    AclsBean acls() throws RestClientException;
+
     String TYPES_URI_TEMPLATE = "/types";
 
+    /**
+     * List of all asset types in the WebCenter Sites.
+     * 
+     * @return the asset types bean
+     * @throws RestClientException
+     */
     AssetTypesBean types() throws RestClientException;
 
     TypeResources type(String type);
 
+    /**
+     * Resources for a specific asset type.
+     */
     interface TypeResources {
 
         String TYPE_URI_TEMPLATE = TYPES_URI_TEMPLATE + "/{type}";
@@ -108,9 +146,13 @@ public interface AuthenticatedRestClient {
          */
         AssetTypeBean create(AssetTypeBean assetTypeBean) throws RestClientException;
 
+        void delete() throws RestClientException;
+
         AssetTypesBean subtypes() throws RestClientException;
 
         AssetTypeBean subtype(String subtype);
+
+        AssetsBean search() throws RestClientException;
     }
 
     String SITES_URI_TEMPLATE = "/sites";
@@ -141,7 +183,17 @@ public interface AuthenticatedRestClient {
 
         NavigationBean navigation(long pageId, String depth) throws RestClientException;
 
+        EnabledTypesBean types() throws RestClientException;
+
         NavigationBean navigation() throws RestClientException;
+
+        SiteTypeResources type(String type);
+
+    }
+
+    interface SiteTypeResources {
+
+        AssetsBean search() throws RestClientException;
 
     }
 
