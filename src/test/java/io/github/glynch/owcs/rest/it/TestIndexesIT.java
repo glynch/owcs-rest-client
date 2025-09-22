@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
+import com.fatwire.rest.beans.AssetTypeBean;
 import com.fatwire.rest.beans.IndexConfigBean;
 import com.fatwire.rest.beans.IndexConfigsBean;
 import com.fatwire.rest.beans.IndexConfigsBean.IndexConfig;
@@ -17,8 +18,6 @@ import com.fatwire.rest.beans.IndexFieldTypeEnum;
 import com.fatwire.rest.beans.IndexStatus;
 import com.fatwire.rest.beans.IndexStatusEnum;
 
-import io.github.glynch.owcs.rest.bean.builders.Builders;
-import io.github.glynch.owcs.rest.bean.builders.IndexConfigBeanBuilder;
 import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClient;
 import io.github.glynch.owcs.test.containers.JSKContainer;
 
@@ -72,13 +71,30 @@ public class TestIndexesIT {
 
     @Test
     void testCreateIndex() {
-
-        IndexConfigBeanBuilder indexConfigBeanBuilder = Builders.indexConfigBeanBuilder("AVITest");
-        indexConfigBeanBuilder
-                .indexFieldDescriptor(Builders.indexFieldDescriptorBuilder("name", IndexFieldTypeEnum.TEXT).build());
-
-        IndexConfigBean indexConfigBean = indexConfigBeanBuilder.build();
-        restClient.index("AVITest").create(indexConfigBean);
+        AssetTypeBean testType = restClient.type("AVIArticle").read();
+        testType.setName("AVITest");
+        restClient.type("AVITest").create(testType);
+        IndexConfigBean indexConfigBean = restClient.index("AVIArticle").read();
+        indexConfigBean.setName("AVITest");
+        indexConfigBean.getStatusObjects().get(0).setAssettype("AVITest");
+        IndexConfigBean createdIndexConfigBean = restClient.index("AVITest").create(indexConfigBean);
+        assertEquals("AVITest", createdIndexConfigBean.getName());
+        assertEquals("DefaultSearchField", createdIndexConfigBean.getDefaultSearchField());
+        assertEquals("id", createdIndexConfigBean.getUniqueIdField());
+        assertEquals("lucene", createdIndexConfigBean.getSearchEngine());
+        assertEquals(Collections.singletonList("name"), indexConfigBean.getSortableFields());
+        assertEquals(false, createdIndexConfigBean.isIndexAllFields());
+        assertEquals(10, createdIndexConfigBean.getFieldDescriptors().size());
+        IndexFieldDescriptor indexFieldDescriptor = indexConfigBean.getFieldDescriptors().get(0);
+        assertEquals("enddate", indexFieldDescriptor.getName());
+        assertEquals(IndexFieldTypeEnum.DATETIME, indexFieldDescriptor.getType());
+        assertEquals(false, indexFieldDescriptor.isStored());
+        assertEquals(true, indexFieldDescriptor.isTokenized());
+        assertEquals(100, indexFieldDescriptor.getBoost());
+        assertEquals(1, createdIndexConfigBean.getStatusObjects().size());
+        IndexStatus indexStatus = createdIndexConfigBean.getStatusObjects().get(0);
+        assertEquals("AVITest", indexStatus.getAssettype());
+        assertEquals(IndexStatusEnum.ENABLED, indexStatus.getIndexStatus());
 
     }
 
