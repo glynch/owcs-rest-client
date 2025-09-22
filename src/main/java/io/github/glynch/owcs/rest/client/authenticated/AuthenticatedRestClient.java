@@ -5,15 +5,19 @@ import java.util.Map;
 import com.fatwire.rest.beans.AclsBean;
 import com.fatwire.rest.beans.ApplicationBean;
 import com.fatwire.rest.beans.ApplicationsBean;
+import com.fatwire.rest.beans.AssetBean;
 import com.fatwire.rest.beans.AssetTypeBean;
 import com.fatwire.rest.beans.AssetTypesBean;
 import com.fatwire.rest.beans.AssetsBean;
+import com.fatwire.rest.beans.AssociationBean;
+import com.fatwire.rest.beans.AssociationsBean;
 import com.fatwire.rest.beans.DeviceBean;
 import com.fatwire.rest.beans.EnabledTypesBean;
 import com.fatwire.rest.beans.GroupBean;
 import com.fatwire.rest.beans.GroupsBean;
 import com.fatwire.rest.beans.IndexConfigBean;
 import com.fatwire.rest.beans.IndexConfigsBean;
+import com.fatwire.rest.beans.ListKeyValuePairs;
 import com.fatwire.rest.beans.NavigationBean;
 import com.fatwire.rest.beans.RoleBean;
 import com.fatwire.rest.beans.RolesBean;
@@ -193,6 +197,10 @@ public interface AuthenticatedRestClient {
 
     ApplicationResources application(long applicationId);
 
+    String VISTORY_HISTORY_URI_TEMPLATE = "/visitor/visitorhistory";
+
+    ListKeyValuePairs vistoryHistory(long visitorId, long historyDef, String... fields);
+
     String TYPES_URI_TEMPLATE = "/types";
 
     /**
@@ -248,6 +256,7 @@ public interface AuthenticatedRestClient {
     interface SiteResources {
 
         String SITE_URI_TEMPLATE = SITES_URI_TEMPLATE + "/{site}";
+        String SITE_TYPES_URI_TEMPLATE = SITE_URI_TEMPLATE + "/types";
         String SITE_NAVIGATION_URI_TEMPLATE = SITE_URI_TEMPLATE + "/navigation";
         String SITE_NAVIGATION_PAGEID_URI_TEMPLATE = SITE_NAVIGATION_URI_TEMPLATE + "/{pageId}";
 
@@ -269,16 +278,39 @@ public interface AuthenticatedRestClient {
 
         EnabledTypesBean types() throws RestClientException;
 
-        NavigationBean navigation() throws RestClientException;
-
         SiteTypeResources type(String type);
+
+        NavigationBean navigation() throws RestClientException;
 
     }
 
     interface SiteTypeResources {
 
+        String SITE_TYPE_URI_TEMPLATE = SiteResources.SITE_URI_TEMPLATE + "/types/{type}";
+
+        SiteTypeAssetResources asset(long id);
+
         AssetsBean search() throws RestClientException;
 
+    }
+
+    interface SiteTypeAssetResources {
+
+        String SITE_TYPE_ASSET_URI_TEMPLATE = SiteTypeResources.SITE_TYPE_URI_TEMPLATE + "/assets/{id}";
+        String SITE_TYPE_ASSET_ASSOCIATIONS_URI_TEMPLATE = SITE_TYPE_ASSET_URI_TEMPLATE + "/associations";
+        String SITE_TYPE_ASSET_ASSOCIATION_URI_TEMPLATE = SITE_TYPE_ASSET_ASSOCIATIONS_URI_TEMPLATE + "/{assocName}";
+
+        AssetBean read() throws RestClientException;
+
+        AssetBean create(AssetBean assetBean) throws RestClientException;
+
+        AssetBean update(AssetBean assetBean) throws RestClientException;
+
+        AssociationsBean associations() throws RestClientException;
+
+        AssociationBean association(String assocName) throws RestClientException;
+
+        void delete() throws RestClientException;
     }
 
     interface RoleResources {

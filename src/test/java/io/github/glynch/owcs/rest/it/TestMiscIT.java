@@ -100,6 +100,13 @@ public class TestMiscIT {
         assertEquals(2, userLocale.getOrdinal());
     }
 
+    @Test
+    void testVistoryHistory() {
+        // ListKeyValuePairs vistoryHistory = restClient.vistoryHistory(1502442402863L,
+        // 1502442402880L);
+        // TODO Build JSK with visitor history and add user to group to allow access.
+    }
+
     @AfterEach
     void afterEach() {
         jskContainer.stop();

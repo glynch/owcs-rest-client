@@ -2,10 +2,12 @@ package io.github.glynch.owcs.rest.client.authenticated;
 
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.util.Assert;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import com.fatwire.rest.beans.AclsBean;
 import com.fatwire.rest.beans.ApplicationsBean;
@@ -14,6 +16,7 @@ import com.fatwire.rest.beans.DeviceBean;
 import com.fatwire.rest.beans.GroupBean;
 import com.fatwire.rest.beans.GroupsBean;
 import com.fatwire.rest.beans.IndexConfigsBean;
+import com.fatwire.rest.beans.ListKeyValuePairs;
 import com.fatwire.rest.beans.RolesBean;
 import com.fatwire.rest.beans.SitesBean;
 import com.fatwire.rest.beans.TimezoneBean;
@@ -200,6 +203,18 @@ public class DefaultAuthenticatedRestClient implements AuthenticatedRestClient {
     @Override
     public ApplicationResources application(long applicationId) {
         return new DefaultApplicationResources(this, applicationId);
+    }
+
+    @Override
+    public ListKeyValuePairs vistoryHistory(long visitorId, long historyDef, String... fields) {
+        UriComponentsBuilder builder = UriComponentsBuilder.fromPath(VISTORY_HISTORY_URI_TEMPLATE);
+
+        builder.queryParam("visitorid", visitorId);
+        builder.queryParam("historyDef", historyDef);
+        if (fields != null && fields.length > 0) {
+            builder.queryParam("fields", StringUtils.join(fields, ","));
+        }
+        return get(builder.build(false).toUriString(), ListKeyValuePairs.class);
     }
 
     @Override

@@ -86,8 +86,7 @@ public class DefaultSiteResources implements SiteResources {
 
     @Override
     public EnabledTypesBean types() throws RestClientException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'types'");
+        return restClient.get(SITE_TYPES_URI_TEMPLATE, EnabledTypesBean.class, site);
     }
 
     @Override
