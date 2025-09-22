@@ -16,6 +16,7 @@ public class ApplicationBeanBuilder {
 
     ApplicationBeanBuilder(String name, LayoutTypeEnum layoutType) {
         this.applicationBean = new ApplicationBean();
+        this.applicationBean.setId(0L);
         this.applicationBean.setName(name);
         this.applicationBean.setLayouttype(layoutType);
     }
@@ -108,7 +109,7 @@ public class ApplicationBeanBuilder {
 
     public ApplicationBean build() {
         if (applicationBean.getSites().size() == 0) {
-            throw new IllegalStateException("null");
+            throw new IllegalStateException("Application must have at least 1 site role");
         }
         return applicationBean;
     }

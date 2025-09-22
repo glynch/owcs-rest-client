@@ -9,8 +9,14 @@ public class ViewBuilder {
 
     ViewBuilder(String name, ViewTypeEnum viewType) {
         view = new View();
+        view.setId(0L);
         view.setName(name);
         view.setViewtype(viewType);
+    }
+
+    public ViewBuilder description(String description) {
+        view.setDescription(description);
+        return this;
     }
 
     public ViewBuilder srcUrl(String srcUrl) {
