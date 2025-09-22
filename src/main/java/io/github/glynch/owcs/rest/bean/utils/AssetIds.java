@@ -1,7 +1,8 @@
 package io.github.glynch.owcs.rest.bean.utils;
 
-import java.util.Objects;
 import java.util.regex.Pattern;
+
+import org.springframework.util.Assert;
 
 import com.fatwire.assetapi.data.AssetId;
 import com.openmarket.xcelerate.asset.AssetIdImpl;
@@ -14,7 +15,7 @@ public class AssetIds {
     }
 
     public static AssetId of(String value) {
-        Objects.requireNonNull(value, "value cannot be null");
+        Assert.hasText(value, "value cannot be empty or null");
         if (ASSETID_PATTERN.matcher(value).matches()) {
             String[] parts = value.split(":");
             return of(parts[0], Long.parseLong(parts[1]));
@@ -23,7 +24,7 @@ public class AssetIds {
     }
 
     public static AssetId of(String type, long id) {
-        Objects.requireNonNull(type, "type cannot be null");
+        Assert.hasText(type, "type cannot be empty or null");
         return new AssetIdImpl(type, id);
     }
 

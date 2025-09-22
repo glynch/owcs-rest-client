@@ -8,6 +8,7 @@ import org.springframework.util.Assert;
 import org.springframework.web.client.RestTemplate;
 
 import com.fatwire.rest.beans.AclsBean;
+import com.fatwire.rest.beans.ApplicationsBean;
 import com.fatwire.rest.beans.AssetTypesBean;
 import com.fatwire.rest.beans.DeviceBean;
 import com.fatwire.rest.beans.GroupBean;
@@ -189,6 +190,16 @@ public class DefaultAuthenticatedRestClient implements AuthenticatedRestClient {
     public IndexResources index(String index) {
         Assert.hasText(index, "index cannot be null or empty");
         return new DefaultIndexResources(this, index);
+    }
+
+    @Override
+    public ApplicationsBean applications() throws RestClientException {
+        return get(APPLICATIONS_URI_TEMPLATE, ApplicationsBean.class);
+    }
+
+    @Override
+    public ApplicationResources application(long applicationId) {
+        return new DefaultApplicationResources(this, applicationId);
     }
 
     @Override

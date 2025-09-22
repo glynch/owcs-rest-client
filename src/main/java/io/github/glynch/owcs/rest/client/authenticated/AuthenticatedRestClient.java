@@ -3,6 +3,8 @@ package io.github.glynch.owcs.rest.client.authenticated;
 import java.util.Map;
 
 import com.fatwire.rest.beans.AclsBean;
+import com.fatwire.rest.beans.ApplicationBean;
+import com.fatwire.rest.beans.ApplicationsBean;
 import com.fatwire.rest.beans.AssetTypeBean;
 import com.fatwire.rest.beans.AssetTypesBean;
 import com.fatwire.rest.beans.AssetsBean;
@@ -185,6 +187,12 @@ public interface AuthenticatedRestClient {
 
     IndexResources index(String index);
 
+    String APPLICATIONS_URI_TEMPLATE = "/applications";
+
+    ApplicationsBean applications() throws RestClientException;
+
+    ApplicationResources application(long applicationId);
+
     String TYPES_URI_TEMPLATE = "/types";
 
     /**
@@ -312,6 +320,20 @@ public interface AuthenticatedRestClient {
         IndexConfigBean update(IndexConfigBean indexConfigBean) throws RestClientException;
 
         void delete() throws RestClientException;
+    }
+
+    public interface ApplicationResources {
+
+        String APPLICATION_URI_TEMPLATE = APPLICATIONS_URI_TEMPLATE + "/{applicationId}";
+
+        ApplicationBean read() throws RestClientException;
+
+        ApplicationBean create(ApplicationBean applicationBean) throws RestClientException;
+
+        ApplicationBean update(ApplicationBean applicationBean) throws RestClientException;
+
+        void delete() throws RestClientException;
+
     }
 
 }

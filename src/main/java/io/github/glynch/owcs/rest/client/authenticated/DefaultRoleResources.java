@@ -9,10 +9,10 @@ import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClient.R
 
 public class DefaultRoleResources implements RoleResources {
 
-    private final DefaultAuthenticatedRestClient restClient;
+    private final AuthenticatedRestClient restClient;
     private final String role;
 
-    public DefaultRoleResources(DefaultAuthenticatedRestClient client, String role) {
+    public DefaultRoleResources(AuthenticatedRestClient client, String role) {
         this.restClient = client;
         this.role = role;
     }
