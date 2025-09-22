@@ -17,7 +17,7 @@ import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClientRe
 import io.github.glynch.owcs.test.containers.JSKContainer;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class TestRolesIT {
+public class TestRoleResourcesIT {
 
     private JSKContainer jskContainer = new JSKContainer("grahamlynch/jsk:12.2.1.3.0-samples");
     private AuthenticatedRestClient restClient;

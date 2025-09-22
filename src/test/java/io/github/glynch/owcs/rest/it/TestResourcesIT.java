@@ -23,7 +23,7 @@ import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClient;
 import io.github.glynch.owcs.test.containers.JSKContainer;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class TestMiscIT {
+public class TestResourcesIT {
 
     private JSKContainer jskContainer = new JSKContainer("grahamlynch/jsk:12.2.1.3.0-samples");
     private AuthenticatedRestClient restClient;

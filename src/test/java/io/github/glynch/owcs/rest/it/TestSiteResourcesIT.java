@@ -23,7 +23,7 @@ import io.github.glynch.owcs.rest.client.authenticated.NavigationSearch;
 import io.github.glynch.owcs.test.containers.JSKContainer;
 
 @TestInstance(Lifecycle.PER_CLASS)
-public class TestSitesIT {
+public class TestSiteResourcesIT {
 
     private JSKContainer jskContainer = new JSKContainer("grahamlynch/jsk:12.2.1.3.0-samples");
     private AuthenticatedRestClient restClient;
