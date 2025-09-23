@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.util.Assert;
 
@@ -12,6 +13,7 @@ import com.fatwire.assetapi.data.AssetId;
 import com.fatwire.assetapi.data.BasicAssetDataReadStrategy;
 import com.fatwire.rest.beans.AssetBean;
 import com.fatwire.rest.beans.Association;
+import com.fatwire.rest.beans.Attribute;
 import com.fatwire.rest.beans.Attribute.Data;
 import com.fatwire.rest.beans.Blob;
 import com.fatwire.rest.beans.Parent;
@@ -32,15 +34,10 @@ public class AssetBeanFacade {
 
     private final AssetBean assetBean;
     private static final String TEMPLATE = IAsset.TEMPLATE;
-    private static final String STATUS = IAsset.STATUS;
     private static final String STARTDATE = IAsset.STARTDATE;
     private static final String ENDDATE = IAsset.ENDDATE;
-    private static final String PATH = IAsset.PATH;
-    private static final String FILENAME = IAsset.FILENAME;
     private static final String UID = IAsset.UID;
     private static final String FW_TAGS = IAsset.FWTAGS;
-    private static final String URLDOC = IAsset.URLDOC;
-    private static final String URLXMLDOC = IAsset.URLXMLDOC;
 
     public static final List<String> SYSTEM_ATTRIBUTES = BasicAssetDataReadStrategy.basicStandAttributes;
 
@@ -200,6 +197,23 @@ public class AssetBeanFacade {
         return AttributeUtils.asAssetId(assetBean, "flexgrouptemplateid");
     }
 
+    public List<Attribute> getAttributes() {
+        return Collections.unmodifiableList(assetBean.getAttributes());
+    }
+
+    public void addAttributes(Attribute attribute, Attribute... attributes) {
+        Assert.notNull(attribute, "attribute cannot be null");
+        assetBean.getAttributes().add(attribute);
+        if (attributes != null && attributes.length > 0) {
+            assetBean.getAttributes().addAll(Arrays.asList(attributes));
+        }
+    }
+
+    public void setAttributes(Attribute attribute, Attribute... attributes) {
+        assetBean.getAttributes().clear();
+        addAttributes(attribute, attributes);
+    }
+
     public void addAssociations(Association association, Association... associations) {
         Assert.notNull(associations, "association cannot be null");
         AssociationUtils.getAssociations(assetBean).add(association);
@@ -351,6 +365,102 @@ public class AssetBeanFacade {
 
     public Struct getStructAttribute(String name) {
         return AttributeUtils.asStruct(assetBean, name);
+    }
+
+    public void setAssetAttribute(String name, AssetId value) {
+        setStringAttribute(name, value != null ? value.toString() : null);
+    }
+
+    public void setMultiValuedStringAttribute(String name, List<String> values) {
+        Data data = AttributeUtils.getOrCreateAttributeData(assetBean, name);
+        data.getStringLists().clear();
+        data.getStringLists().addAll(values);
+    }
+
+    public List<String> getMultiValuedStringAttribute(String name) {
+        return AttributeUtils.asStringList(assetBean, name);
+    }
+
+    public void setMultiValuedIntegerAttribute(String name, List<Integer> values) {
+        Data data = AttributeUtils.getOrCreateAttributeData(assetBean, name);
+        data.getIntegerLists().clear();
+        data.getIntegerLists().addAll(values);
+    }
+
+    public List<Integer> getMultiValuedIntegerAttribute(String name) {
+        return AttributeUtils.asIntegerList(assetBean, name);
+    }
+
+    public void setMultiValuedLongAttribute(String name, List<Long> values) {
+        Data data = AttributeUtils.getOrCreateAttributeData(assetBean, name);
+        data.getLongLists().clear();
+        data.getLongLists().addAll(values);
+    }
+
+    public List<Long> getMultiValuedLongAttribute(String name) {
+        return AttributeUtils.asLongList(assetBean, name);
+    }
+
+    public void setMultiValuedDateAttribute(String name, List<Date> values) {
+        Data data = AttributeUtils.getOrCreateAttributeData(assetBean, name);
+        data.getDateLists().clear();
+        data.getDateLists().addAll(values);
+    }
+
+    public List<Date> getMultiValuedDateAttribute(String name) {
+        return AttributeUtils.asDateList(assetBean, name);
+    }
+
+    public void setMultiValuedBigDecimalAttribute(String name, List<BigDecimal> values) {
+        Data data = AttributeUtils.getOrCreateAttributeData(assetBean, name);
+        data.getDecimalLists().clear();
+        data.getDecimalLists().addAll(values);
+    }
+
+    public List<BigDecimal> getMultiValuedBigDecimalAttribute(String name) {
+        return AttributeUtils.asBigDecimalList(assetBean, name);
+    }
+
+    public void setMultiValuedBlobAttribute(String name, List<Blob> values) {
+        Data data = AttributeUtils.getOrCreateAttributeData(assetBean, name);
+        data.getBlobLists().clear();
+        data.getBlobLists().addAll(values);
+    }
+
+    public List<Blob> getMultiValuedBlobAttribute(String name) {
+        return AttributeUtils.asBlobList(assetBean, name);
+    }
+
+    public void setMultiValuedDoubleAttribute(String name, List<Double> values) {
+        Data data = AttributeUtils.getOrCreateAttributeData(assetBean, name);
+        data.getDoubleLists().clear();
+        data.getDoubleLists().addAll(values);
+    }
+
+    public List<Double> getMultiValuedDoubleAttribute(String name) {
+        return AttributeUtils.asDoubleList(assetBean, name);
+    }
+
+    public void setMultiValuedStructAttribute(String name, List<Struct> values) {
+        Data data = AttributeUtils.getOrCreateAttributeData(assetBean, name);
+        data.getStructLists().clear();
+        data.getStructLists().addAll(values);
+    }
+
+    public List<Struct> getMultiValuedStructAttribute(String name) {
+        return AttributeUtils.asStructList(assetBean, name);
+    }
+
+    public void setMultiValuedAssetAttribute(String name, List<AssetId> values) {
+        if (values != null) {
+            setMultiValuedStringAttribute(name,
+                    values.stream().map(value -> value.toString()).collect(Collectors.toList()));
+        }
+
+    }
+
+    public List<AssetId> getMultiValuedAssetAttribute(String name) {
+        return AttributeUtils.asAssetIdList(assetBean, name);
     }
 
 }

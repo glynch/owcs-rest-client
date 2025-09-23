@@ -136,7 +136,7 @@ public class AttributeUtils {
                 .collect(Collectors.toList());
     }
 
-    public static List<?> asDateList(AssetBean assetBean, String name) {
+    public static List<Date> asDateList(AssetBean assetBean, String name) {
         Attribute.Data attributeData = getAttributeData(assetBean, name);
         return attributeData != null ? attributeData.getDateLists() : Collections.emptyList();
     }

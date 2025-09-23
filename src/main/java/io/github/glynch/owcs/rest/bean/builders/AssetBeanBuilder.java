@@ -1,13 +1,16 @@
 package io.github.glynch.owcs.rest.bean.builders;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.util.Assert;
 
 import com.fatwire.assetapi.data.AssetId;
 import com.fatwire.rest.beans.AssetBean;
 import com.fatwire.rest.beans.Attribute;
+import com.fatwire.rest.beans.Blob;
 import com.fatwire.rest.beans.Parent;
+import com.fatwire.rest.beans.Struct;
 import com.fatwire.rest.beans.Webreference;
 import com.openmarket.xcelerate.asset.AssetIdImpl;
 
@@ -110,6 +113,30 @@ public class AssetBeanBuilder {
     public AssetBeanBuilder attribute(String name, Date value) {
         Assert.hasText(name, "name cannot be empty or null");
         assetBeanFacade.setDateAttribute(name, value);
+        return this;
+    }
+
+    public AssetBeanBuilder attribute(String name, Boolean value) {
+        Assert.hasText(name, "name cannot be empty or null");
+        assetBeanFacade.setBooleanAttribute(name, value);
+        return this;
+    }
+
+    public AssetBeanBuilder attribute(String name, Blob value) {
+        Assert.hasText(name, "name cannot be empty or null");
+        assetBeanFacade.setBlobAttribute(name, value);
+        return this;
+    }
+
+    public AssetBeanBuilder attribute(String name, Struct value) {
+        Assert.hasText(name, "name cannot be empty or null");
+        assetBeanFacade.setStructAttribute(name, value);
+        return this;
+    }
+
+    public AssetBeanBuilder attribute(String name, List<String> values) {
+        Assert.hasText(name, "name cannot be empty or null");
+        assetBeanFacade.setMultiValuedStringAttribute(name, values);
         return this;
     }
 
