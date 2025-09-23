@@ -8,12 +8,15 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import org.springframework.util.Assert;
+
 import com.fatwire.assetapi.data.AssetId;
 import com.fatwire.rest.beans.AssetBean;
 import com.fatwire.rest.beans.Attribute;
 import com.fatwire.rest.beans.Attribute.Data;
 import com.fatwire.rest.beans.Blob;
 import com.fatwire.rest.beans.Struct;
+import com.fatwire.rest.beans.Webreference;
 
 public class AttributeUtils {
 
@@ -21,143 +24,142 @@ public class AttributeUtils {
     }
 
     public static Attribute getAttribute(AssetBean assetBean, String name) {
-        Objects.requireNonNull(assetBean, "assetBean cannot be null");
-        return getAttribute(assetBean.getAttributes(), name);
-    }
-
-    public static Attribute getAttribute(List<Attribute> attributes, String name) {
-        Objects.requireNonNull(attributes, "attributes cannot be null");
-        Objects.requireNonNull(name, "name cannot be null");
-        return attributes.stream()
+        Assert.notNull(assetBean, "assetBean cannot be null");
+        return assetBean.getAttributes().stream()
                 .filter(attribute -> name.equals(attribute.getName()))
                 .findFirst()
                 .orElse(null);
     }
 
-    public static Data getAttributeData(List<Attribute> attributes, String name) {
-        Objects.requireNonNull(attributes, "attributes cannot be null");
-        Objects.requireNonNull(name, "name cannot be null");
-        Attribute attribute = getAttribute(attributes, name);
+    public static Data getAttributeData(AssetBean assetBean, String name) {
+        Assert.notNull(assetBean, "assetBean cannot be null");
+        Assert.hasText(name, "name cannot be null");
+        Attribute attribute = getAttribute(assetBean, name);
         return attribute != null ? attribute.getData() : null;
     }
 
-    public static String asString(List<Attribute> attributes, String name) {
-        Attribute.Data attributeData = getAttributeData(attributes, name);
+    public static String asString(AssetBean assetBean, String name) {
+        Attribute.Data attributeData = getAttributeData(assetBean, name);
         return attributeData != null ? attributeData.getStringValue() : null;
     }
 
-    public static Integer asInteger(List<Attribute> attributes, String name) {
-        Attribute.Data attributeData = getAttributeData(attributes, name);
+    public static Integer asInteger(AssetBean assetBean, String name) {
+        Attribute.Data attributeData = getAttributeData(assetBean, name);
         return attributeData != null ? attributeData.getIntegerValue() : null;
     }
 
-    public static Boolean asBoolean(List<Attribute> attributes, String name) {
-        Attribute.Data attributeData = getAttributeData(attributes, name);
+    public static Boolean asBoolean(AssetBean assetBean, String name) {
+        Attribute.Data attributeData = getAttributeData(assetBean, name);
         return attributeData != null ? attributeData.isBooleanValue() : null;
     }
 
-    public static Blob asBlob(List<Attribute> attributes, String name) {
-        Attribute.Data attributeData = getAttributeData(attributes, name);
+    public static Blob asBlob(AssetBean assetBean, String name) {
+        Attribute.Data attributeData = getAttributeData(assetBean, name);
         return attributeData != null ? attributeData.getBlobValue() : null;
     }
 
-    public static Long asLong(List<Attribute> attributes, String name) {
-        Attribute.Data attributeData = getAttributeData(attributes, name);
+    public static Long asLong(AssetBean assetBean, String name) {
+        Attribute.Data attributeData = getAttributeData(assetBean, name);
         return attributeData != null ? attributeData.getLongValue() : null;
     }
 
-    public static Double asDouble(List<Attribute> attributes, String name) {
-        Attribute.Data attributeData = getAttributeData(attributes, name);
+    public static Double asDouble(AssetBean assetBean, String name) {
+        Attribute.Data attributeData = getAttributeData(assetBean, name);
         return attributeData != null ? attributeData.getDoubleValue() : null;
     }
 
-    public static BigDecimal asBigDecimal(List<Attribute> attributes, String name) {
-        Attribute.Data attributeData = getAttributeData(attributes, name);
+    public static BigDecimal asBigDecimal(AssetBean assetBean, String name) {
+        Attribute.Data attributeData = getAttributeData(assetBean, name);
         return attributeData != null ? attributeData.getDecimalValue() : null;
     }
 
-    public static Struct asStruct(List<Attribute> attributes, String name) {
-        Attribute.Data attributeData = getAttributeData(attributes, name);
+    public static Struct asStruct(AssetBean assetBean, String name) {
+        Attribute.Data attributeData = getAttributeData(assetBean, name);
         return attributeData != null ? attributeData.getStructValue() : null;
     }
 
-    public static Date asDate(List<Attribute> attributes, String name) {
-        Attribute.Data attributeData = getAttributeData(attributes, name);
+    public static Date asDate(AssetBean assetBean, String name) {
+        Attribute.Data attributeData = getAttributeData(assetBean, name);
         return attributeData != null ? attributeData.getDateValue() : null;
     }
 
-    public static AssetId asAssetId(List<Attribute> attributes, String name) {
-        String value = asString(attributes, name);
+    public static AssetId asAssetId(AssetBean assetBean, String name) {
+        String value = asString(assetBean, name);
         return value != null ? AssetIds.of(value) : null;
     }
 
-    public static List<String> asStringList(List<Attribute> attributes, String name) {
-        Attribute.Data attributeData = getAttributeData(attributes, name);
+    public static List<String> asStringList(AssetBean assetBean, String name) {
+        Attribute.Data attributeData = getAttributeData(assetBean, name);
         return attributeData != null ? attributeData.getStringLists() : new ArrayList<>();
     }
 
-    public static List<Integer> asIntegerList(List<Attribute> attributes, String name) {
-        Attribute.Data attributeData = getAttributeData(attributes, name);
+    public static List<Integer> asIntegerList(AssetBean assetBean, String name) {
+        Attribute.Data attributeData = getAttributeData(assetBean, name);
         return attributeData != null ? attributeData.getIntegerLists() : new ArrayList<>();
     }
 
-    public static List<Boolean> asBooleanList(List<Attribute> attributes, String name) {
-        Attribute.Data attributeData = getAttributeData(attributes, name);
+    public static List<Boolean> asBooleanList(AssetBean assetBean, String name) {
+        Attribute.Data attributeData = getAttributeData(assetBean, name);
         return attributeData != null ? attributeData.getBooleanLists() : new ArrayList<>();
     }
 
-    public static List<Blob> asBlobList(List<Attribute> attributes, String name) {
-        Attribute.Data attributeData = getAttributeData(attributes, name);
+    public static List<Blob> asBlobList(AssetBean assetBean, String name) {
+        Attribute.Data attributeData = getAttributeData(assetBean, name);
         return attributeData != null ? attributeData.getBlobLists() : new ArrayList<>();
     }
 
-    public static List<Long> asLongList(List<Attribute> attributes, String name) {
-        Attribute.Data attributeData = getAttributeData(attributes, name);
+    public static List<Long> asLongList(AssetBean assetBean, String name) {
+        Attribute.Data attributeData = getAttributeData(assetBean, name);
         return attributeData != null ? attributeData.getLongLists() : Collections.emptyList();
     }
 
-    public static List<Double> asDoubleList(List<Attribute> attributes, String name) {
-        Attribute.Data attributeData = getAttributeData(attributes, name);
+    public static List<Double> asDoubleList(AssetBean assetBean, String name) {
+        Attribute.Data attributeData = getAttributeData(assetBean, name);
         return attributeData != null ? attributeData.getDoubleLists() : Collections.emptyList();
     }
 
-    public static List<BigDecimal> asBigDecimalList(List<Attribute> attributes, String name) {
-        Attribute.Data attributeData = getAttributeData(attributes, name);
+    public static List<BigDecimal> asBigDecimalList(AssetBean assetBean, String name) {
+        Attribute.Data attributeData = getAttributeData(assetBean, name);
         return attributeData != null ? attributeData.getDecimalLists() : Collections.emptyList();
     }
 
-    public static List<Struct> asStructList(List<Attribute> attributes, String name) {
-        Attribute.Data attributeData = getAttributeData(attributes, name);
+    public static List<Struct> asStructList(AssetBean assetBean, String name) {
+        Attribute.Data attributeData = getAttributeData(assetBean, name);
         return attributeData != null ? attributeData.getStructLists() : Collections.emptyList();
     }
 
-    public static List<AssetId> asAssetIdList(List<Attribute> attributes, String name) {
-        List<String> values = asStringList(attributes, name);
+    public static List<AssetId> asAssetIdList(AssetBean assetBean, String name) {
+        List<String> values = asStringList(assetBean, name);
         return values.stream()
                 .map(AssetIds::of)
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
     }
 
-    public static List<?> asDateList(List<Attribute> attributes, String name) {
-        Attribute.Data attributeData = getAttributeData(attributes, name);
+    public static List<?> asDateList(AssetBean assetBean, String name) {
+        Attribute.Data attributeData = getAttributeData(assetBean, name);
         return attributeData != null ? attributeData.getDateLists() : Collections.emptyList();
     }
 
-    public static Attribute getOrCreateAttribute(List<Attribute> attributes, String name) {
-        Attribute attribute = getAttribute(attributes, name);
+    public static List<Webreference> getWebReferences(AssetBean assetBean) {
+        Data data = AttributeUtils.getOrCreateAttributeData(assetBean, "Webreference");
+        return data.getWebreferenceLists();
+    }
+
+    public static Attribute getOrCreateAttribute(AssetBean assetBean, String name) {
+        Attribute attribute = getAttribute(assetBean, name);
         if (attribute == null) {
             attribute = new Attribute();
             attribute.setName(name);
             Data data = new Data();
             attribute.setData(data);
-            attributes.add(attribute);
+            assetBean.getAttributes().add(attribute);
         }
         return attribute;
     }
 
-    public static Data getOrCreateAttributeData(List<Attribute> attributes, String name) {
-        Attribute attribute = getOrCreateAttribute(attributes, name);
+    public static Data getOrCreateAttributeData(AssetBean assetBean, String name) {
+        Attribute attribute = getOrCreateAttribute(assetBean, name);
         Data data = attribute.getData();
         if (data == null) {
             data = new Data();

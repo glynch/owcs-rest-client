@@ -1,5 +1,6 @@
 package io.github.glynch.owcs.rest.client.authenticated;
 
+import org.springframework.util.Assert;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.fatwire.rest.beans.EnabledTypesBean;
@@ -91,8 +92,8 @@ public class DefaultSiteResources implements SiteResources {
 
     @Override
     public SiteTypeResources type(String type) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'type'");
+        Assert.hasText(type, "type cannot be empty or null");
+        return new DefaultSiteTypeResources(restClient, site, type);
     }
 
 }

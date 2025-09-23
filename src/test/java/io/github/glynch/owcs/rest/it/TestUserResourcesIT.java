@@ -10,6 +10,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
 
 import com.fatwire.rest.beans.User;
 import com.fatwire.rest.beans.UserBean;
@@ -20,7 +21,7 @@ import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClient;
 import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClientResponseException;
 import io.github.glynch.owcs.test.containers.JSKContainer;
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@TestInstance(Lifecycle.PER_CLASS)
 public class TestUserResourcesIT {
 
     private JSKContainer jskContainer = new JSKContainer("grahamlynch/jsk:12.2.1.3.0-samples");
