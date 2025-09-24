@@ -24,6 +24,8 @@ import com.fatwire.rest.beans.NavigationBean;
 import com.fatwire.rest.beans.RoleBean;
 import com.fatwire.rest.beans.RolesBean;
 import com.fatwire.rest.beans.SiteBean;
+import com.fatwire.rest.beans.SiteUserBean;
+import com.fatwire.rest.beans.SiteUsersBean;
 import com.fatwire.rest.beans.SitesBean;
 import com.fatwire.rest.beans.TimezoneBean;
 import com.fatwire.rest.beans.UserBean;
@@ -294,9 +296,9 @@ public interface AuthenticatedRestClient {
 
         NavigationBean navigation() throws RestClientException;
 
-        UsersBean users() throws RestClientException;
+        SiteUsersBean users() throws RestClientException;
 
-        UserBean user(String user) throws RestClientException;
+        SiteUserBean user(String user) throws RestClientException;
 
     }
 

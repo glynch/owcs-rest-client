@@ -6,8 +6,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.fatwire.rest.beans.EnabledTypesBean;
 import com.fatwire.rest.beans.NavigationBean;
 import com.fatwire.rest.beans.SiteBean;
-import com.fatwire.rest.beans.UserBean;
-import com.fatwire.rest.beans.UsersBean;
+import com.fatwire.rest.beans.SiteUserBean;
+import com.fatwire.rest.beans.SiteUsersBean;
 
 import io.github.glynch.owcs.rest.client.RestClientException;
 import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClient.SiteResources;
@@ -99,14 +99,14 @@ public class DefaultSiteResources implements SiteResources {
     }
 
     @Override
-    public UsersBean users() throws RestClientException {
-        return restClient.get(SITE_USERS_URI_TEMPLATE, UsersBean.class);
+    public SiteUsersBean users() throws RestClientException {
+        return restClient.get(SITE_USERS_URI_TEMPLATE, SiteUsersBean.class, site);
     }
 
     @Override
-    public UserBean user(String user) throws RestClientException {
+    public SiteUserBean user(String user) throws RestClientException {
         Assert.hasText(user, "user cannot be empty or null");
-        return restClient.get(SITE_USER_URI_TEMPLATE, UserBean.class, user);
+        return restClient.get(SITE_USER_URI_TEMPLATE, SiteUserBean.class, site, user);
     }
 
 }

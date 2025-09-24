@@ -5,6 +5,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.Arrays;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,6 +17,9 @@ import com.fatwire.rest.beans.Navigation;
 import com.fatwire.rest.beans.NavigationBean;
 import com.fatwire.rest.beans.Site;
 import com.fatwire.rest.beans.SiteBean;
+import com.fatwire.rest.beans.SiteUser;
+import com.fatwire.rest.beans.SiteUserBean;
+import com.fatwire.rest.beans.SiteUsersBean;
 import com.fatwire.rest.beans.SitesBean;
 
 import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClient;
@@ -132,6 +137,23 @@ public class TestSiteResourcesIT {
     void testSiteNavigationBySearch() {
         NavigationBean navigation = restClient.site("avisports")
                 .navigation(NavigationSearch.builder().depth("all").build());
+    }
+
+    @Test
+    void testSiteUsers() {
+        SiteUsersBean siteUsersBean = restClient.site("avisports").users();
+        assertEquals(5, siteUsersBean.getUsers().size());
+        SiteUser siteUser = siteUsersBean.getUsers().get(0);
+        assertEquals("Sally", siteUser.getName());
+        assertEquals(Arrays.asList("Writer", "SitesUser"), siteUser.getRoles());
+        assertEquals(jskContainer.getRestUrl() + "/sites/avisports/users/Sally", siteUser.getHref());
+    }
+
+    @Test
+    void testSiteUser() {
+        SiteUserBean siteUserBean = restClient.site("avisports").user("Sally");
+        assertEquals("Sally", siteUserBean.getName());
+        assertEquals(Arrays.asList("Writer", "SitesUser"), siteUserBean.getRoles());
     }
 
     @AfterEach
