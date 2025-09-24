@@ -158,12 +158,12 @@ public class TestApplicationResourcesIT {
                                 .description("Test Application");
 
                 ApplicationBean applicationBean = builder.view(viewBuilder.build()).build();
-                ApplicationBean testAplpicationBean = restClient.application(0L).create(applicationBean);
-                restClient.application(testAplpicationBean.getId()).delete();
+                ApplicationBean testApplicationBean = restClient.application(0L).create(applicationBean);
+                restClient.application(testApplicationBean.getId()).delete();
 
                 AuthenticatedRestClientResponseException e = assertThrows(
                                 AuthenticatedRestClientResponseException.class,
-                                () -> restClient.application(testAplpicationBean.getId()).read());
+                                () -> restClient.application(testApplicationBean.getId()).read());
                 assertEquals(404, e.getStatusCode());
                 assertEquals("Not Found", e.getStatusText());
                 assertEquals(0, e.getError().getErrorCode());

@@ -5,39 +5,33 @@ import com.fatwire.rest.beans.IndexFieldTypeEnum;
 
 public class IndexFieldDescriptorBuilder {
 
-    private final String name;
-    private final IndexFieldTypeEnum type;
-    private int boost = 100;
-    private boolean isTokenized = false;
-    private boolean isStored = false;
+    private final IndexFieldDescriptor indexFieldDescriptor;
 
     IndexFieldDescriptorBuilder(String name, IndexFieldTypeEnum type) {
-        this.name = name;
-        this.type = type;
+        this.indexFieldDescriptor = new IndexFieldDescriptor();
+        indexFieldDescriptor.setName(name);
+        indexFieldDescriptor.setType(type);
+        indexFieldDescriptor.setStored(false);
+        indexFieldDescriptor.setTokenized(false);
+        indexFieldDescriptor.setBoost(100);
     }
 
     public IndexFieldDescriptorBuilder boost(int boost) {
-        this.boost = boost;
+        indexFieldDescriptor.setBoost(boost);
         return this;
     }
 
     public IndexFieldDescriptorBuilder stored() {
-        this.isStored = true;
+        indexFieldDescriptor.setStored(true);
         return this;
     }
 
     public IndexFieldDescriptorBuilder tokenized() {
-        this.isTokenized = true;
+        indexFieldDescriptor.setTokenized(true);
         return this;
     }
 
     public IndexFieldDescriptor build() {
-        IndexFieldDescriptor indexFieldDescriptor = new IndexFieldDescriptor();
-        indexFieldDescriptor.setName(name);
-        indexFieldDescriptor.setType(type);
-        indexFieldDescriptor.setStored(isStored);
-        indexFieldDescriptor.setTokenized(isTokenized);
-        indexFieldDescriptor.setBoost(boost);
         return indexFieldDescriptor;
     }
 

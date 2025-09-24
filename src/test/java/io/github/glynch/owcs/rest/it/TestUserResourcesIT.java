@@ -61,20 +61,25 @@ public class TestUserResourcesIT {
 
     @Test
     void testCreateUser() {
-        UserBean userBean = restClient.user("Bill").read();
+        UserBean userBean = new UserBean();
         userBean.setName("TestUser");
         userBean.setPassword("TestUser");
-        userBean.setId("");
-        UserBean testUserBean = restClient.user("TestUser").create(userBean);
-        assertEquals("TestUser", testUserBean.getName());
+        userBean.getAcls().addAll(Arrays.asList("Browser", "ElementReader"));
+
+        UserBean createdUserBean = restClient.user("TestUser").create(userBean);
+        assertEquals("TestUser", createdUserBean.getName());
+        assertEquals(Arrays.asList("Browser", "ElementReader"), createdUserBean.getAcls());
     }
 
     @Test
     void testUpdateUser() {
         UserBean userBean = restClient.user("Bill").read();
         userBean.setEmail("bill@test.com");
+        userBean.getAcls().add("xceladmin");
         UserBean updatedUserBean = restClient.user("Bill").update(userBean);
         assertEquals("bill@test.com", updatedUserBean.getEmail());
+        assertEquals(Arrays.asList("Browser", "ElementReader", "PageReader", "UserReader", "Visitor", "xceleditor",
+                "xceladmin"), updatedUserBean.getAcls());
     }
 
     @Test

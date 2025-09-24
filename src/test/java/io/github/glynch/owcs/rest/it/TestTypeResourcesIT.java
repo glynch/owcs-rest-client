@@ -15,6 +15,8 @@ import com.fatwire.rest.beans.AttributeDefBean;
 import com.fatwire.rest.beans.AttributeTypeEnum;
 import com.fatwire.rest.beans.Type;
 
+import io.github.glynch.owcs.rest.bean.builders.AssetTypeBeanBuilder;
+import io.github.glynch.owcs.rest.bean.builders.Builders;
 import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClient;
 import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClientResponseException;
 import io.github.glynch.owcs.test.containers.JSKContainer;
@@ -54,16 +56,16 @@ public class TestTypeResourcesIT {
 
     @Test
     void testCreateType() {
-        AssetTypeBean type = restClient.type("AVIArticle").read();
-        type.setName("AVITestType");
-        type.setDescription("AVITestType description");
-        type.setCanBeChild(false);
-        type.setSubtype("TestType");
-        AssetTypeBean testType = restClient.type("AVITestType").create(type);
-        assertEquals("AVITestType", testType.getName());
-        assertEquals("AVITestType description", testType.getDescription());
+        AssetTypeBeanBuilder builder = Builders.assetTypeBeanBuilder("AVITest", "Test")
+                .canBeChild(false)
+                .description("AVITest description")
+                .singleValuedAttribute("body", "Body", AttributeTypeEnum.STRING, false, 2000);
+
+        AssetTypeBean testType = restClient.type("AVITest").create(builder.build());
+        assertEquals("AVITest", testType.getName());
+        assertEquals("AVITest description", testType.getDescription());
         assertEquals(false, testType.isCanBeChild());
-        assertEquals("TestType", testType.getSubtype());
+        assertEquals("Test", testType.getSubtype());
 
     }
 

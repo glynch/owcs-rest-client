@@ -2,10 +2,11 @@ package io.github.glynch.owcs.rest.it;
 
 import static io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClient.SITES_URI_TEMPLATE;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
+import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,6 +23,8 @@ import com.fatwire.rest.beans.SiteUserBean;
 import com.fatwire.rest.beans.SiteUsersBean;
 import com.fatwire.rest.beans.SitesBean;
 
+import io.github.glynch.owcs.rest.bean.builders.Builders;
+import io.github.glynch.owcs.rest.bean.builders.SiteBeanBuilder;
 import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClient;
 import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClientResponseException;
 import io.github.glynch.owcs.rest.client.authenticated.NavigationSearch;
@@ -70,14 +73,18 @@ public class TestSiteResourcesIT {
 
     @Test
     void testCreateSite() {
-        SiteBean avisports = restClient.site("avisports").read();
-        avisports.setId(0L);
-        avisports.setName("testsite");
-        avisports.setDescription("testsite");
-        SiteBean testSite = restClient.site("testsite").create(avisports);
+        SiteBeanBuilder siteBeanBuilder = Builders.siteBeanBuilder("testsite", "testsite description");
+        siteBeanBuilder.type("AVIArticle").type("Page").user("Bill", "SitesUser", "Writer");
+        SiteBean testSite = restClient.site("testsite").create(siteBeanBuilder.build());
         assertEquals("testsite", testSite.getName());
-        assertEquals("testsite", testSite.getDescription());
-        assertNotEquals(avisports.getId(), testSite.getId());
+        assertEquals("testsite description", testSite.getDescription());
+        assertEquals(1, testSite.getSiteUsers().getUsers().size());
+        SiteUser siteUser = testSite.getSiteUsers().getUsers().get(0);
+        assertEquals("Bill", siteUser.getName());
+        List<String> siteRoles = Arrays.asList("SitesUser", "Writer");
+        List<String> roles = siteUser.getRoles();
+        assertTrue(roles.size() == siteRoles.size() && roles.containsAll(siteRoles) && siteRoles.containsAll(roles));
+
     }
 
     @Test

@@ -18,16 +18,18 @@ public class Builders {
 
     public static ApplicationBeanBuilder applicationBeanBuilder(String name, LayoutTypeEnum layoutType) {
         Assert.hasText(name, " cannot be empty or null");
-        Assert.notNull(layoutType, "layoutType cannort be null");
+        Assert.notNull(layoutType, "layoutType cannot be null");
         return new ApplicationBeanBuilder(name, layoutType);
     }
 
     public static ViewBuilder viewBuilder(String name, ViewTypeEnum viewType) {
+        Assert.hasText(name, "name cannot be empty or null");
+        Assert.notNull(viewType, "viewType cannot be null");
         return new ViewBuilder(name, viewType);
     }
 
     public static AssetTypeBeanBuilder assetTypeBeanBuilder(String name, String subtype) {
-        Assert.hasText(name, " cannot be empty or null");
+        Assert.hasText(name, "name cannot be empty or null");
         return new AssetTypeBeanBuilder(name, subtype);
     }
 
@@ -37,6 +39,13 @@ public class Builders {
 
     public static AssetBeanBuilder assetBeanBuilder(String type, String subtype, String name, String site) {
         return new AssetBeanBuilder(type, subtype, name, site);
+    }
+
+    public static SiteBeanBuilder siteBeanBuilder(String name, String description) {
+        Assert.hasText(name, "name cannot be empty or null");
+        Assert.hasText(description, "description cannot be empty or null");
+
+        return new SiteBeanBuilder(name, description);
     }
 
 }
