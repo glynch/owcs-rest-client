@@ -31,4 +31,12 @@ public class Builders {
         return new AssetTypeBeanBuilder(name, subtype);
     }
 
+    public static AssetBeanBuilder assetBeanBuilder(String type, String name, String site) {
+        return new AssetBeanBuilder(type, name, site);
+    }
+
+    public static AssetBeanBuilder assetBeanBuilder(String type, String subtype, String name, String site) {
+        return new AssetBeanBuilder(type, subtype, name, site);
+    }
+
 }

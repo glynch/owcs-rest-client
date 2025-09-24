@@ -19,14 +19,14 @@ public class DefaultSiteTypeResources implements SiteTypeResources {
     }
 
     @Override
-    public SiteTypeAssetResources asset(long id) {
-        return new DefaultSiteTypeAssetResources(restClient, site, type, id);
-    }
-
-    @Override
     public AssetsBean search() throws RestClientException {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'search'");
+    }
+
+    @Override
+    public SiteTypeAssetResources asset(long id) {
+        return new DefaultSiteTypeAssetResources(restClient, site, type, id);
     }
 
 }

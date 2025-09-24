@@ -15,6 +15,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fatwire.rest.beans.AssetBean;
+import com.fatwire.rest.beans.Parent;
 import com.fatwire.rest.beans.Webreference;
 
 import io.github.glynch.owcs.rest.bean.utils.AssetIds;
@@ -57,6 +58,11 @@ public class TestAssetBeanFacade {
         assertEquals("Avi", webReference.getWebroot());
         assertEquals(200, webReference.getHttpstatus());
         assertEquals("article/rookie_skier_makes_her_mark_.html", webReference.getUrl());
+        List<Parent> parents = assetBeanFacade.getParents(assetBean);
+        for (Parent parent : parents) {
+            System.out.println(parent.getParentDefName());
+            System.out.println(parent.getAssets());
+        }
 
     }
 

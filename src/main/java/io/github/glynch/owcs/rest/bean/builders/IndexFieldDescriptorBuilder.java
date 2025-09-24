@@ -11,10 +11,6 @@ public class IndexFieldDescriptorBuilder {
     private boolean isTokenized = false;
     private boolean isStored = false;
 
-    public static IndexFieldDescriptorBuilder builder(String name, IndexFieldTypeEnum type) {
-        return new IndexFieldDescriptorBuilder(name, type);
-    }
-
     IndexFieldDescriptorBuilder(String name, IndexFieldTypeEnum type) {
         this.name = name;
         this.type = type;

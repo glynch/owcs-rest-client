@@ -1,6 +1,7 @@
 package io.github.glynch.owcs.rest.bean;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
@@ -254,7 +255,7 @@ public class AssetBeanFacade {
 
     public void addParents(String parentDefName, AssetId id, AssetId... ids) {
         Assert.notNull(id, "id cannot be null");
-        Parent parent = ParentUtils.getParent(assetBean, parentDefName);
+        Parent parent = ParentUtils.getOrCreateParent(assetBean, parentDefName);
         parent.getAssets().add(id.toString());
         if (ids != null && ids.length > 0) {
             for (AssetId assetId : ids) {
@@ -455,6 +456,8 @@ public class AssetBeanFacade {
         if (values != null) {
             setMultiValuedStringAttribute(name,
                     values.stream().map(value -> value.toString()).collect(Collectors.toList()));
+        } else {
+            setMultiValuedStringAttribute(name, new ArrayList<>());
         }
 
     }

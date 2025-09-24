@@ -2,6 +2,8 @@ package io.github.glynch.owcs.rest.client.authenticated;
 
 import java.util.Map;
 
+import org.springframework.util.Assert;
+
 import com.fatwire.rest.beans.AclsBean;
 import com.fatwire.rest.beans.ApplicationBean;
 import com.fatwire.rest.beans.ApplicationsBean;
@@ -63,6 +65,9 @@ public interface AuthenticatedRestClient {
     String getPassword();
 
     static Builder builder(String baseUrl, String username, String password) {
+        Assert.hasText(baseUrl, "baseUrl cannot be empty or null");
+        Assert.hasText(username, "username cannot be empty or null");
+        Assert.hasText(password, "password cannot be empty or null");
         return new DefaultAuthenticatedRestClientBuilder(baseUrl, username, password);
     }
 
@@ -84,8 +89,12 @@ public interface AuthenticatedRestClient {
          */
         Builder readTimeOut(int readTimeOut);
 
-        /*
+        /**
          * Sets the token provider for the client.
+         * 
+         * @param tokenProvider
+         * 
+         * @return this
          */
         Builder tokenProvider(TokenProvider tokenProvider);
 
@@ -220,7 +229,7 @@ public interface AuthenticatedRestClient {
 
         String TYPE_URI_TEMPLATE = TYPES_URI_TEMPLATE + "/{type}";
         String TYPE_SUBTYPES_URI_TEMPLATE = TYPE_URI_TEMPLATE + "/subtypes";
-        String TYPE_SUBTYPES_SUBTYPE_URI_TEMPLATE = TYPE_SUBTYPES_URI_TEMPLATE + "/{subtype}";
+        String TYPE_SUBTYPE_URI_TEMPLATE = TYPE_SUBTYPES_URI_TEMPLATE + "/{subtype}";
 
         /*
          * Reads the asset type.
@@ -256,6 +265,9 @@ public interface AuthenticatedRestClient {
     interface SiteResources {
 
         String SITE_URI_TEMPLATE = SITES_URI_TEMPLATE + "/{site}";
+        String SITE_USERS_URI_TEMPLATE = SITE_URI_TEMPLATE + "/users";
+        String SITE_USER_URI_TEMPLATE = SITE_USERS_URI_TEMPLATE + "/{user}";
+
         String SITE_TYPES_URI_TEMPLATE = SITE_URI_TEMPLATE + "/types";
         String SITE_NAVIGATION_URI_TEMPLATE = SITE_URI_TEMPLATE + "/navigation";
         String SITE_NAVIGATION_PAGEID_URI_TEMPLATE = SITE_NAVIGATION_URI_TEMPLATE + "/{pageId}";
@@ -282,15 +294,19 @@ public interface AuthenticatedRestClient {
 
         NavigationBean navigation() throws RestClientException;
 
+        UsersBean users() throws RestClientException;
+
+        UserBean user(String user) throws RestClientException;
+
     }
 
     interface SiteTypeResources {
 
         String SITE_TYPE_URI_TEMPLATE = SiteResources.SITE_URI_TEMPLATE + "/types/{type}";
 
-        SiteTypeAssetResources asset(long id);
-
         AssetsBean search() throws RestClientException;
+
+        SiteTypeAssetResources asset(long id);
 
     }
 
@@ -311,6 +327,7 @@ public interface AuthenticatedRestClient {
         AssociationBean association(String assocName) throws RestClientException;
 
         void delete() throws RestClientException;
+
     }
 
     interface RoleResources {

@@ -38,7 +38,7 @@ public class DefaultTypeResources implements TypeResources {
     @Override
     public AssetTypeBean subtype(String subtype) {
         Assert.hasText(subtype, "subtype cannot be null or empty");
-        return restClient.get(TYPE_SUBTYPES_SUBTYPE_URI_TEMPLATE, AssetTypeBean.class, type,
+        return restClient.get(TYPE_SUBTYPE_URI_TEMPLATE, AssetTypeBean.class, type,
                 subtype);
     }
 
