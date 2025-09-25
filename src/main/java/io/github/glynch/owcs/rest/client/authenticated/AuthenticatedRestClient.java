@@ -236,6 +236,7 @@ public interface AuthenticatedRestClient {
     interface TypeResources {
 
         String TYPE_URI_TEMPLATE = TYPES_URI_TEMPLATE + "/{type}";
+        String TYPE_SEARCH_URI_TEMPLATE = TYPE_URI_TEMPLATE + "/search";
         String TYPE_SUBTYPES_URI_TEMPLATE = TYPE_URI_TEMPLATE + "/subtypes";
         String TYPE_SUBTYPE_URI_TEMPLATE = TYPE_SUBTYPES_URI_TEMPLATE + "/{subtype}";
 
@@ -260,6 +261,8 @@ public interface AuthenticatedRestClient {
         AssetTypesBean subtypes() throws RestClientException;
 
         AssetTypeBean subtype(String subtype);
+
+        AssetsBean search(AssetSearchQuery query) throws RestClientException;
 
         AssetsBean search() throws RestClientException;
     }
