@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.util.Assert;
 
 import com.fatwire.assetapi.data.AssetId;
@@ -218,7 +219,7 @@ public class AssetBeanFacade {
     public void addAssociations(Association association, Association... associations) {
         Assert.notNull(associations, "association cannot be null");
         AssociationUtils.getAssociations(assetBean).add(association);
-        if (associations != null && associations.length > 0) {
+        if (ArrayUtils.isNotEmpty(associations)) {
             AssociationUtils.getAssociations(assetBean).addAll(Arrays.asList(associations));
         }
     }
@@ -257,7 +258,7 @@ public class AssetBeanFacade {
         Assert.notNull(id, "id cannot be null");
         Parent parent = ParentUtils.getOrCreateParent(assetBean, parentDefName);
         parent.getAssets().add(id.toString());
-        if (ids != null && ids.length > 0) {
+        if (ArrayUtils.isNotEmpty(ids)) {
             for (AssetId assetId : ids) {
                 parent.getAssets().add(assetId.toString());
             }
@@ -273,7 +274,7 @@ public class AssetBeanFacade {
     public void addParents(Parent parent, Parent... parents) {
         Assert.notNull(parents, "parent cannot be null");
         ParentUtils.getParents(assetBean).add(parent);
-        if (parents != null && parents.length > 0) {
+        if (ArrayUtils.isNotEmpty(parents)) {
             ParentUtils.getParents(assetBean).addAll(Arrays.asList(parents));
         }
     }

@@ -18,6 +18,7 @@ public class IndexConfigBeanBuilder {
         indexConfigBean.setDefaultSearchField("DefaultSearchField");
         indexConfigBean.setUniqueIdField("id");
         indexConfigBean.setIndexAllFields(false);
+        indexConfigBean.getSortableFields().add("name");
         IndexStatus indexStatus = new IndexStatus();
         indexStatus.setAssettype(name);
         indexStatus.setIndexStatus(IndexStatusEnum.ENABLED);

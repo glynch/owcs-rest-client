@@ -50,19 +50,23 @@ public class DefaultSiteResources implements SiteResources {
     }
 
     @Override
-    public NavigationBean navigation(NavigationSearch search) throws RestClientException {
+    public NavigationBean navigation(String depth, String code) throws RestClientException {
         UriComponentsBuilder builder = UriComponentsBuilder.fromPath(SITE_NAVIGATION_URI_TEMPLATE);
 
-        if (search != null) {
-            if (search.getDepth() != null) {
-                builder.queryParam("depth", search.getDepth());
-            }
-            if (search.getCode() != null) {
-                builder.queryParam("code", search.getCode().name());
-            }
+        if (depth != null) {
+            builder.queryParam("depth", depth);
+        }
+        if (code != null) {
+            builder.queryParam("code", code);
         }
 
         return restClient.get(builder.build(false).toUriString(), NavigationBean.class, site);
+
+    }
+
+    @Override
+    public NavigationBean navigation(String depth) throws RestClientException {
+        return navigation(depth, null);
     }
 
     @Override

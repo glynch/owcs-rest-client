@@ -12,6 +12,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.fatwire.rest.beans.AclsBean;
 import com.fatwire.rest.beans.ApplicationsBean;
 import com.fatwire.rest.beans.AssetTypesBean;
+import com.fatwire.rest.beans.AssetsBean;
 import com.fatwire.rest.beans.DeviceBean;
 import com.fatwire.rest.beans.GroupBean;
 import com.fatwire.rest.beans.GroupsBean;
@@ -25,6 +26,7 @@ import com.fatwire.rest.beans.UserLocalesBean;
 import com.fatwire.rest.beans.UsersBean;
 
 import io.github.glynch.owcs.rest.client.RestClientException;
+import io.github.glynch.owcs.rest.client.authenticated.search.LuceneAssetSearchQuery;
 
 public class DefaultAuthenticatedRestClient implements AuthenticatedRestClient {
 
@@ -237,6 +239,13 @@ public class DefaultAuthenticatedRestClient implements AuthenticatedRestClient {
     public SiteResources site(String site) {
         Assert.hasText(site, "site cannot be null or empty");
         return new DefaultSiteResources(this, site);
+    }
+
+    @Override
+    public AssetsBean search(LuceneAssetSearchQuery query) throws RestClientException {
+        UriComponentsBuilder builder = UriComponentsBuilder.fromPath(SEARCH_URI_TEMPLATE);
+        builder.queryParams(query.queryParams());
+        return get(builder.build(false).toUriString(), AssetsBean.class);
     }
 
     private <T> T execute(String url, HttpMethod method, HttpEntity<?> requestEntity, Class<T> responseType,

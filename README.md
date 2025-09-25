@@ -244,5 +244,29 @@ A fluent Java rest client that supports legacy authenticated REST resources, as 
     restClient.site("avisports").delete();
 ```
 
+### /sites/{sitename}/navigation
+
+```java
+    NavigationBean navigationBean = restClient.site("avisports").navigation("1", "placed");
+```
+
+### /sites/{sitename}/navigation/{pageId}
+
+```java
+    NavigationBean navigationBean = restClient.site("avisports").navigation(1327351719456L, "all");
+```
+
+### /sites/{site}/users
+
+```java
+    SiteUsersBean siteUsersBean = restClient.site("avisports").users();
+```
+
+### /sites/{site}/users/{user}
+
+```java
+    SiteUserBean siteUserBean = restClient.site("avisports").user("Sally");
+```
+
 ## Aggregated REST Resources 
 

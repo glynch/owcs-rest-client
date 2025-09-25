@@ -34,6 +34,7 @@ import com.fatwire.rest.beans.UserLocalesBean;
 import com.fatwire.rest.beans.UsersBean;
 
 import io.github.glynch.owcs.rest.client.RestClientException;
+import io.github.glynch.owcs.rest.client.authenticated.search.LuceneAssetSearchQuery;
 import io.github.glynch.owcs.sso.TokenProvider;
 
 public interface AuthenticatedRestClient {
@@ -224,6 +225,10 @@ public interface AuthenticatedRestClient {
 
     TypeResources type(String type);
 
+    String SEARCH_URI_TEMPLATE = "/search";
+
+    AssetsBean search(LuceneAssetSearchQuery query) throws RestClientException;
+
     /**
      * Resources for a specific asset type.
      */
@@ -284,7 +289,13 @@ public interface AuthenticatedRestClient {
 
         SiteBean head() throws RestClientException;
 
-        NavigationBean navigation(NavigationSearch search) throws RestClientException;
+        // TODO: Fix these navigation methods to make it harder to pass in incorrect
+        // arguments
+        NavigationBean navigation() throws RestClientException;
+
+        NavigationBean navigation(String depth) throws RestClientException;
+
+        NavigationBean navigation(String depth, String code) throws RestClientException;
 
         NavigationBean navigation(long pageId) throws RestClientException;
 
@@ -293,8 +304,6 @@ public interface AuthenticatedRestClient {
         EnabledTypesBean types() throws RestClientException;
 
         SiteTypeResources type(String type);
-
-        NavigationBean navigation() throws RestClientException;
 
         SiteUsersBean users() throws RestClientException;
 

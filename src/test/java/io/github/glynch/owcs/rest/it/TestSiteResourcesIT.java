@@ -27,7 +27,6 @@ import io.github.glynch.owcs.rest.bean.builders.Builders;
 import io.github.glynch.owcs.rest.bean.builders.SiteBeanBuilder;
 import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClient;
 import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClientResponseException;
-import io.github.glynch.owcs.rest.client.authenticated.NavigationSearch;
 import io.github.glynch.owcs.test.containers.JSKContainer;
 
 @TestInstance(Lifecycle.PER_CLASS)
@@ -141,9 +140,9 @@ public class TestSiteResourcesIT {
     }
 
     @Test
-    void testSiteNavigationBySearch() {
+    void testSiteNavigation() {
         NavigationBean navigation = restClient.site("avisports")
-                .navigation(NavigationSearch.builder().depth("all").build());
+                .navigation("all");
     }
 
     @Test
