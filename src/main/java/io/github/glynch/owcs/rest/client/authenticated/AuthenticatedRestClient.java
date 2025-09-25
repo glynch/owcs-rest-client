@@ -34,6 +34,7 @@ import com.fatwire.rest.beans.UserLocalesBean;
 import com.fatwire.rest.beans.UsersBean;
 
 import io.github.glynch.owcs.rest.client.RestClientException;
+import io.github.glynch.owcs.rest.client.authenticated.search.AssetSearchQuery;
 import io.github.glynch.owcs.rest.client.authenticated.search.LuceneAssetSearchQuery;
 import io.github.glynch.owcs.sso.TokenProvider;
 
@@ -272,6 +273,7 @@ public interface AuthenticatedRestClient {
     interface SiteResources {
 
         String SITE_URI_TEMPLATE = SITES_URI_TEMPLATE + "/{site}";
+        String SITE_SEARCH_URI_TEMPLATE = SITE_URI_TEMPLATE + "/search";
         String SITE_USERS_URI_TEMPLATE = SITE_URI_TEMPLATE + "/users";
         String SITE_USER_URI_TEMPLATE = SITE_USERS_URI_TEMPLATE + "/{user}";
 
@@ -309,11 +311,18 @@ public interface AuthenticatedRestClient {
 
         SiteUserBean user(String user) throws RestClientException;
 
+        AssetsBean search() throws RestClientException;
+
+        AssetsBean search(LuceneAssetSearchQuery query) throws RestClientException;
+
     }
 
     interface SiteTypeResources {
 
         String SITE_TYPE_URI_TEMPLATE = SiteResources.SITE_URI_TEMPLATE + "/types/{type}";
+        String SITE_TYPE_SEARCH_URI_TEMPLATE = SITE_TYPE_URI_TEMPLATE + "/search";
+
+        AssetsBean search(AssetSearchQuery query) throws RestClientException;
 
         AssetsBean search() throws RestClientException;
 

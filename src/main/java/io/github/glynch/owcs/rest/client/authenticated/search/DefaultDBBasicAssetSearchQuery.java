@@ -2,6 +2,7 @@ package io.github.glynch.owcs.rest.client.authenticated.search;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.MultiValueMap;
+import org.testcontainers.shaded.org.apache.commons.lang3.ArrayUtils;
 
 public class DefaultDBBasicAssetSearchQuery extends AbstractAssetSearchQuery implements DBBasicAssetSearchQuery {
 
@@ -16,7 +17,7 @@ public class DefaultDBBasicAssetSearchQuery extends AbstractAssetSearchQuery imp
     @Override
     public MultiValueMap<String, String> queryParams() {
         MultiValueMap<String, String> queryParams = super.queryParams();
-        if (conditions != null) {
+        if (ArrayUtils.isNotEmpty(conditions)) {
             for (Condition condition : conditions) {
                 Operation operation = condition.operation();
                 switch (operation) {

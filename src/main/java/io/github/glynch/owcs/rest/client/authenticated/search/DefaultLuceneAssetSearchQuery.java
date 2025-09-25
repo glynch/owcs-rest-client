@@ -4,6 +4,7 @@ import org.springframework.util.MultiValueMap;
 
 public class DefaultLuceneAssetSearchQuery extends AbstractAssetSearchQuery implements LuceneAssetSearchQuery {
 
+    private static final String Q = "q";
     private final String q;
 
     public DefaultLuceneAssetSearchQuery(String q, SortField sortField, int count, int startIndex, String[] fields) {
@@ -15,7 +16,7 @@ public class DefaultLuceneAssetSearchQuery extends AbstractAssetSearchQuery impl
     public MultiValueMap<String, String> queryParams() {
         MultiValueMap<String, String> queryParams = super.queryParams();
         if (q != null) {
-            queryParams.add("q", q);
+            queryParams.add(Q, q);
         }
 
         return queryParams;

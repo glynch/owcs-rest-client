@@ -5,9 +5,14 @@ import java.util.Arrays;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.testcontainers.shaded.org.apache.commons.lang3.ArrayUtils;
 
 public abstract class AbstractAssetSearchQuery implements AssetSearchQuery {
 
+    private static final String SEARCHENGINE = "searchengine";
+    private static final String FIELDS = "fields";
+    private static final String COUNT = "count";
+    private static final String STARTINDEX = "startindex";
     private final SortField sortField;
     private final Integer count;
     private final Integer startIndex;
@@ -44,19 +49,19 @@ public abstract class AbstractAssetSearchQuery implements AssetSearchQuery {
     public MultiValueMap<String, String> queryParams() {
         MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<>();
         if (startIndex != null) {
-            queryParams.add("startindex", String.valueOf(startIndex));
+            queryParams.add(STARTINDEX, String.valueOf(startIndex));
         }
         if (count != null) {
-            queryParams.add("count", String.valueOf(count));
+            queryParams.add(COUNT, String.valueOf(count));
         }
-        if (fields() != null) {
-            queryParams.add("fields", StringUtils.join(Arrays.asList(fields()), ","));
+        if (ArrayUtils.isNotEmpty(fields)) {
+            queryParams.add(FIELDS, StringUtils.join(Arrays.asList(fields()), ","));
         }
         if (sortField() != null) {
             queryParams.add(sortField().toString(), null);
         }
 
-        queryParams.add("searchengine", searchEngine().toString());
+        queryParams.add(SEARCHENGINE, searchEngine().toString());
         return queryParams;
     }
 

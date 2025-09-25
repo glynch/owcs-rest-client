@@ -3,6 +3,7 @@ package io.github.glynch.owcs.rest.client.authenticated;
 import org.springframework.util.Assert;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.fatwire.rest.beans.AssetsBean;
 import com.fatwire.rest.beans.EnabledTypesBean;
 import com.fatwire.rest.beans.NavigationBean;
 import com.fatwire.rest.beans.SiteBean;
@@ -12,6 +13,7 @@ import com.fatwire.rest.beans.SiteUsersBean;
 import io.github.glynch.owcs.rest.client.RestClientException;
 import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClient.SiteResources;
 import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClient.SiteTypeResources;
+import io.github.glynch.owcs.rest.client.authenticated.search.LuceneAssetSearchQuery;
 
 public class DefaultSiteResources implements SiteResources {
 
@@ -111,6 +113,24 @@ public class DefaultSiteResources implements SiteResources {
     public SiteUserBean user(String user) throws RestClientException {
         Assert.hasText(user, "user cannot be empty or null");
         return restClient.get(SITE_USER_URI_TEMPLATE, SiteUserBean.class, site, user);
+    }
+
+    @Override
+    public AssetsBean search(LuceneAssetSearchQuery query) throws RestClientException {
+        AssetsBean assetsBean = null;
+        if (query != null) {
+            UriComponentsBuilder builder = UriComponentsBuilder.fromPath(SITE_SEARCH_URI_TEMPLATE);
+            builder.queryParams(query.queryParams());
+            assetsBean = restClient.get(builder.build(false).toUriString(), AssetsBean.class, site);
+        } else {
+            assetsBean = restClient.get(SITE_SEARCH_URI_TEMPLATE, AssetsBean.class, site);
+        }
+        return assetsBean;
+    }
+
+    @Override
+    public AssetsBean search() throws RestClientException {
+        return search(null);
     }
 
 }

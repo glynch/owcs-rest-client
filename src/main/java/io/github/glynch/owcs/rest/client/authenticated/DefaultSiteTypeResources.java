@@ -1,10 +1,13 @@
 package io.github.glynch.owcs.rest.client.authenticated;
 
+import org.springframework.web.util.UriComponentsBuilder;
+
 import com.fatwire.rest.beans.AssetsBean;
 
 import io.github.glynch.owcs.rest.client.RestClientException;
 import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClient.SiteTypeAssetResources;
 import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClient.SiteTypeResources;
+import io.github.glynch.owcs.rest.client.authenticated.search.AssetSearchQuery;
 
 public class DefaultSiteTypeResources implements SiteTypeResources {
 
@@ -19,9 +22,21 @@ public class DefaultSiteTypeResources implements SiteTypeResources {
     }
 
     @Override
+    public AssetsBean search(AssetSearchQuery query) throws RestClientException {
+        AssetsBean assetsBean = null;
+        if (query != null) {
+            UriComponentsBuilder builder = UriComponentsBuilder.fromPath(SITE_TYPE_SEARCH_URI_TEMPLATE);
+            builder.queryParams(query.queryParams());
+            assetsBean = restClient.get(builder.build(false).toUriString(), AssetsBean.class, site, type);
+        } else {
+            assetsBean = restClient.get(SITE_TYPE_SEARCH_URI_TEMPLATE, AssetsBean.class, site, type);
+        }
+        return assetsBean;
+    }
+
+    @Override
     public AssetsBean search() throws RestClientException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'search'");
+        return search(null);
     }
 
     @Override
