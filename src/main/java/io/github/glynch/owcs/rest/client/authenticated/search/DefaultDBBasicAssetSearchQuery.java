@@ -56,8 +56,8 @@ public class DefaultDBBasicAssetSearchQuery extends AbstractAssetSearchQuery imp
     public static class DBBasicAssetSearchQueryBuilder implements Builder {
 
         private SortField sortField;
-        private int count;
-        private int startIndex;
+        private int count = Integer.MAX_VALUE;
+        private int startIndex = 0;
         private List<String> fields = new ArrayList<>();
         private List<Condition> conditions = new ArrayList<>();
 
@@ -84,12 +84,14 @@ public class DefaultDBBasicAssetSearchQuery extends AbstractAssetSearchQuery imp
 
         @Override
         public Builder count(int count) {
+            Assert.isTrue(count > 0, "count must be > 0");
             this.count = count;
             return this;
         }
 
         @Override
         public Builder startIndex(int startIndex) {
+            Assert.isTrue(startIndex >= 0, "startIndex must be >= 0");
             this.startIndex = startIndex;
             return this;
         }

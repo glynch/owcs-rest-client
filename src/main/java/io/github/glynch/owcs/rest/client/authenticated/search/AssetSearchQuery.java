@@ -6,9 +6,9 @@ public interface AssetSearchQuery extends SearchQuery {
 
     String[] fields();
 
-    Integer count();
+    int count();
 
-    Integer startIndex();
+    int startIndex();
 
     SearchEngine searchEngine();
 

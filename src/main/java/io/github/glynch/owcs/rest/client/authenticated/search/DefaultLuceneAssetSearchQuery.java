@@ -35,8 +35,8 @@ public class DefaultLuceneAssetSearchQuery extends AbstractAssetSearchQuery impl
 
         private String q;
         private SortField sortField;
-        private int count;
-        private int startIndex;
+        private int count = Integer.MAX_VALUE;
+        private int startIndex = 0;
         private List<String> fields = new ArrayList<>();
 
         @Override
@@ -63,12 +63,14 @@ public class DefaultLuceneAssetSearchQuery extends AbstractAssetSearchQuery impl
 
         @Override
         public Builder count(int count) {
+            Assert.isTrue(count > 0, "count must be > 0");
             this.count = count;
             return this;
         }
 
         @Override
         public Builder startIndex(int startIndex) {
+            Assert.isTrue(startIndex >= 0, "startIndex must be >= 0");
             this.startIndex = startIndex;
             return this;
         }

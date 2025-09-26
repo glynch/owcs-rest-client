@@ -42,6 +42,28 @@ A fluent Java rest client that supports legacy authenticated REST resources, as 
     type = restClient.type("AVITest").create(builder.build());
 ```
 
+### /types/{type}/search
+
+```java
+    DBBasicAssetSearchQuery query = DBBasicAssetSearchQuery.builder()
+                .condition(condition)
+                .sortField(SortField.CREATEDDATE_DESC)
+                .count(10)
+                .build();
+    AssetsBean assetBean = restClient.type("AVIArticle").search(query);
+```
+
+```java
+    LuceneAssetSearchQuery query = LuceneAssetSearchQuery.builder()
+                .q("Running")
+                .sortField(SortField.NAME_ASC)
+                .count(10)
+                .startIndex(0)
+                .field("name")
+                .build();
+    restClient.type("AVIArticle").search(query);
+```
+
 ```java
     restClient.type("AVIArticle").delete();
 ```
@@ -64,7 +86,7 @@ A fluent Java rest client that supports legacy authenticated REST resources, as 
     RolesBean rolesBean = restClient.roles();
 ```
 
-### /roles{role}
+### /roles/{role}
 
 ```java
     RoleBean roleBean = restClient.role("AdvancedUser").read();
@@ -216,6 +238,19 @@ A fluent Java rest client that supports legacy authenticated REST resources, as 
     IndexConfigBean indexConfigBean = restClient.index("ContentCloud").read();
 ```
 
+### /search
+
+```java
+    LuceneAssetSearchQuery query = LuceneAssetSearchQuery.builder()
+                .q("Running")
+                .sortField(SortField.NAME_ASC)
+                .count(5)
+                .startIndex(0)
+                .field("name")
+                .build();
+    AssetsBean assetsBean = restClient.search(query);
+```
+
 ### /sites
 
 ```java
@@ -244,6 +279,19 @@ A fluent Java rest client that supports legacy authenticated REST resources, as 
     restClient.site("avisports").delete();
 ```
 
+### /sites/{site}/search
+
+```java
+    LuceneAssetSearchQuery query = LuceneAssetSearchQuery.builder()
+                .q("Running")
+                .sortField(SortField.NAME_ASC)
+                .count(10)
+                .startIndex(0)
+                .field("name")
+                .build();
+    AssetsBean assetsBean = restClient.site("avisports").search(query);
+```
+
 ### /sites/{sitename}/navigation
 
 ```java
@@ -267,6 +315,74 @@ A fluent Java rest client that supports legacy authenticated REST resources, as 
 ```java
     SiteUserBean siteUserBean = restClient.site("avisports").user("Sally");
 ```
+
+### /sites/{site}/types
+
+```java
+    EnabledTypesBean enabledTypesBean = restClient.site("avisports").types();
+```
+
+### /sites/{site}/types/{type}/search
+
+```java
+
+    LuceneAssetSearchQuery query = LuceneAssetSearchQuery.builder()
+                .q("Running")
+                .sortField(SortField.NAME_ASC)
+                .count(10)
+                .startIndex(0)
+                .field("description")
+                .field("name")
+                .build();
+    restClient.site("avisports").type("AVIArticle").search(query);
+```
+
+```java
+    Condition condition = Condition.contains("name", "Running");
+
+    DBBasicAssetSearchQuery query = DBBasicAssetSearchQuery.builder()
+                .condition(condition)
+                .sortField(SortField.CREATEDDATE_DESC)
+                .count(10)
+                .build();
+     restClient.site("avisports").type("AVIArticle").search(query);
+```
+
+### /sites/{site}/types/{type}/assets/{id}
+
+```java
+    AssetBean assetBean = restClient.site("avisports").type("AVIArticle").asset(1328196047309L).read();
+```
+
+```java
+    AssetBean assetBean = ...
+    assetBean = restClient.site("avisports").type("AVIArticle").asset(0L).create(assetBean);
+```
+
+```java
+    AssetBean assetBean = ...
+    assetBean = restClient.site("avisports").type("AVIArticle").asset(1328196047309L).update(assetBean);
+```
+
+```java
+    restClient.site("avisports").type("AVIArticle").asset(1328196047309L).delete();
+```
+
+### /sites/{site}/types/{type}/assets/{id}/associations
+
+```java
+    AssociationsBean associationsBean = restClient.site("avisports").type("AVIArticle").asset(1328196047309L)
+                .associations();
+```
+
+### /sites/{site}/types/{type}/assets/{id}/associations/{assocName}
+
+```java
+    AssociationBean associationBean = restClient.site("avisports").type("Page").asset(1327351719380L)
+                .association("contentList1");
+```
+
+
 
 ## Aggregated REST Resources 
 

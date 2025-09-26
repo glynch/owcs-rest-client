@@ -2,17 +2,23 @@ package io.github.glynch.owcs.rest.it;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.List;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
 import com.fatwire.rest.beans.AclsBean;
+import com.fatwire.rest.beans.AssetInfo;
+import com.fatwire.rest.beans.AssetsBean;
 import com.fatwire.rest.beans.DeviceBean;
 import com.fatwire.rest.beans.DeviceGroupBean;
+import com.fatwire.rest.beans.FieldInfo;
 import com.fatwire.rest.beans.Group;
 import com.fatwire.rest.beans.GroupBean;
 import com.fatwire.rest.beans.GroupsBean;
+import com.fatwire.rest.beans.IndexFieldTypeEnum;
 import com.fatwire.rest.beans.TimezoneBean;
 import com.fatwire.rest.beans.UserAttributeDefBean;
 import com.fatwire.rest.beans.UserDefBean;
@@ -20,6 +26,8 @@ import com.fatwire.rest.beans.UserLocale;
 import com.fatwire.rest.beans.UserLocalesBean;
 
 import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClient;
+import io.github.glynch.owcs.rest.client.authenticated.search.LuceneAssetSearchQuery;
+import io.github.glynch.owcs.rest.client.authenticated.search.SortField;
 import io.github.glynch.owcs.test.containers.JSKContainer;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -105,6 +113,32 @@ public class TestResourcesIT {
         // ListKeyValuePairs vistoryHistory = restClient.vistoryHistory(1502442402863L,
         // 1502442402880L);
         // TODO Build JSK with visitor history and add user to group to allow access.
+    }
+
+    @Test
+    void testSearch() {
+        LuceneAssetSearchQuery query = LuceneAssetSearchQuery.builder()
+                .q("Running")
+                .sortField(SortField.NAME_ASC)
+                .count(5)
+                .startIndex(0)
+                .field("name")
+                .build();
+        AssetsBean assetsBean = restClient.search(query);
+        assertEquals(5, assetsBean.getCount().intValue());
+        assertEquals(5, assetsBean.getTotal().intValue());
+        assertEquals(0, assetsBean.getStartindex().intValue());
+        assertEquals(5, assetsBean.getAssetinfos().size());
+        List<AssetInfo> assetInfos = assetsBean.getAssetinfos();
+        AssetInfo assetInfo = assetInfos.get(0);
+        assertEquals("AVIArticle:1330881074927", assetInfo.getId());
+        List<FieldInfo> fieldInfos = assetInfo.getFieldinfos();
+        assertEquals(1, fieldInfos.size());
+        FieldInfo name = fieldInfos.get(0);
+        assertEquals("name", name.getFieldname());
+        assertEquals(IndexFieldTypeEnum.TEXT, name.getType());
+        assertEquals("10 Important Baseball Rules for beginners", name.getData());
+
     }
 
     @AfterEach
