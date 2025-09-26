@@ -2,6 +2,7 @@ package io.github.glynch.owcs.rest.it;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
@@ -10,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
 import com.fatwire.rest.beans.AclsBean;
+import com.fatwire.rest.beans.AssetBean;
 import com.fatwire.rest.beans.AssetInfo;
 import com.fatwire.rest.beans.AssetsBean;
 import com.fatwire.rest.beans.DeviceBean;
@@ -24,7 +26,9 @@ import com.fatwire.rest.beans.UserAttributeDefBean;
 import com.fatwire.rest.beans.UserDefBean;
 import com.fatwire.rest.beans.UserLocale;
 import com.fatwire.rest.beans.UserLocalesBean;
+import com.fatwire.rest.beans.Webreference;
 
+import io.github.glynch.owcs.rest.bean.AssetBeanFacade;
 import io.github.glynch.owcs.rest.client.authenticated.AuthenticatedRestClient;
 import io.github.glynch.owcs.rest.client.authenticated.search.LuceneAssetSearchQuery;
 import io.github.glynch.owcs.rest.client.authenticated.search.SortField;
@@ -138,6 +142,32 @@ public class TestResourcesIT {
         assertEquals("name", name.getFieldname());
         assertEquals(IndexFieldTypeEnum.TEXT, name.getType());
         assertEquals("10 Important Baseball Rules for beginners", name.getData());
+
+    }
+
+    @Test
+    void testFindByName() {
+        AssetBean assetBean = restClient.findByName("Rookie Skier Makes Her Mark ", "avisports", "AVIArticle");
+        AssetBeanFacade facade = new AssetBeanFacade(assetBean);
+        assertEquals("AVIArticle:1328196047309", facade.getId());
+        assertEquals("AVIArticle", facade.getAssetId().getType());
+        assertEquals(1328196047309L, facade.getAssetId().getId());
+        assertEquals("Rookie Skier Makes Her Mark ", facade.getName());
+        assertEquals("", facade.getDescription());
+        assertEquals("Article", facade.getSubtype());
+        assertEquals(Arrays.asList("avisports"), facade.getSites());
+        assertEquals("ArticleLayout", facade.getTemplate());
+        assertEquals("fwadmin", facade.getCreatedBy());
+        assertEquals("fwadmin", facade.getUpdatedBy());
+        assertEquals("e0df548b-3acd-466e-911b-d29e97535643", facade.getFwUid());
+        assertEquals("Rookie Skier Makes Mark at Winter X Games", facade.getStringAttribute("headline"));
+        List<Webreference> webReferences = facade.getWebReferences();
+        Webreference webReference = webReferences.get(0);
+        assertEquals("http://localhost:7003/sites/avi/article/rookie_skier_makes_her_mark_.html",
+                webReference.getHref());
+        assertEquals(200, webReference.getHttpstatus());
+        assertEquals("avisports/AVIArticle/ArticleLayout", webReference.getTemplate());
+        assertEquals("Avi", webReference.getWebroot());
 
     }
 

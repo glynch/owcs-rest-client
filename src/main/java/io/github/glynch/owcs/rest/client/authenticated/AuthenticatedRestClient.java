@@ -230,6 +230,8 @@ public interface AuthenticatedRestClient {
 
     AssetsBean search(LuceneAssetSearchQuery query) throws RestClientException;
 
+    AssetBean findByName(String name, String site, String type) throws RestClientException;
+
     /**
      * Resources for a specific asset type.
      */

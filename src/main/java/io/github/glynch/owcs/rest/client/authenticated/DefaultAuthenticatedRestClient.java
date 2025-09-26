@@ -9,8 +9,10 @@ import org.springframework.util.Assert;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.fatwire.assetapi.data.AssetId;
 import com.fatwire.rest.beans.AclsBean;
 import com.fatwire.rest.beans.ApplicationsBean;
+import com.fatwire.rest.beans.AssetBean;
 import com.fatwire.rest.beans.AssetTypesBean;
 import com.fatwire.rest.beans.AssetsBean;
 import com.fatwire.rest.beans.DeviceBean;
@@ -25,7 +27,10 @@ import com.fatwire.rest.beans.UserDefBean;
 import com.fatwire.rest.beans.UserLocalesBean;
 import com.fatwire.rest.beans.UsersBean;
 
+import io.github.glynch.owcs.rest.bean.utils.AssetIds;
 import io.github.glynch.owcs.rest.client.RestClientException;
+import io.github.glynch.owcs.rest.client.authenticated.search.Condition;
+import io.github.glynch.owcs.rest.client.authenticated.search.DBBasicAssetSearchQuery;
 import io.github.glynch.owcs.rest.client.authenticated.search.LuceneAssetSearchQuery;
 
 public class DefaultAuthenticatedRestClient implements AuthenticatedRestClient {
@@ -257,6 +262,21 @@ public class DefaultAuthenticatedRestClient implements AuthenticatedRestClient {
     private <T> T execute(String url, HttpMethod method, HttpEntity<?> requestEntity, Class<T> responseType,
             Map<String, ?> uriVariables) throws RestClientException {
         return restTemplate.exchange(url, method, requestEntity, responseType, uriVariables).getBody();
+    }
+
+    @Override
+    public AssetBean findByName(String name, String site, String type) throws RestClientException {
+        DBBasicAssetSearchQuery query = DBBasicAssetSearchQuery.builder()
+                .condition(Condition.equals("name", name))
+                .count(1)
+                .build();
+        AssetBean assetBean = null;
+        AssetsBean assetsBean = site(site).type(type).search(query);
+        if (assetsBean != null && assetsBean.getAssetinfos().size() == 1) {
+            AssetId assetId = AssetIds.of(assetsBean.getAssetinfos().get(0).getId());
+            assetBean = site(site).type(type).asset(assetId.getId()).read();
+        }
+        return assetBean;
     }
 
 }
