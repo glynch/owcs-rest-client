@@ -355,6 +355,10 @@ A fluent Java rest client that supports legacy authenticated REST resources, as 
 ```
 
 ```java
+   AssetBean assetBean = restClient.findByName("Rookie Skier Makes Her Mark ", "avisports", "AVIArticle");
+```
+
+```java
     AssetBean assetBean = ...
     assetBean = restClient.site("avisports").type("AVIArticle").asset(0L).create(assetBean);
 ```
@@ -381,6 +385,7 @@ A fluent Java rest client that supports legacy authenticated REST resources, as 
     AssociationBean associationBean = restClient.site("avisports").type("Page").asset(1327351719380L)
                 .association("contentList1");
 ```
+
 
 
 
