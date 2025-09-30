@@ -386,6 +386,19 @@ A fluent Java rest client that supports legacy authenticated REST resources, as 
                 .association("contentList1");
 ```
 
+### Exception Handling
+
+```java
+    try {
+        AssetBean assetBean = restClient.site("avisports").type("AVIArticle").asset(1328196047309L).read();
+    } catch (AuthenticatedRestClientResponseException e) {
+            AuthenticatedRestError error = e.getError();
+    } catch (RestClientException e) {
+            
+    } catch (Exception e) {
+        
+    }
+```
 
 
 
