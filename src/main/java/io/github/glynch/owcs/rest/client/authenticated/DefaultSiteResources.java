@@ -20,7 +20,7 @@ public class DefaultSiteResources implements SiteResources {
     private final AuthenticatedRestClient restClient;
     private final String site;
 
-    public DefaultSiteResources(AuthenticatedRestClient restClient, String site) {
+    DefaultSiteResources(AuthenticatedRestClient restClient, String site) {
         this.restClient = restClient;
         this.site = site;
 

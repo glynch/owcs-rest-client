@@ -12,7 +12,7 @@ public class DefaultIndexResources implements IndexResources {
     private final AuthenticatedRestClient restClient;
     private final String index;
 
-    public DefaultIndexResources(AuthenticatedRestClient restClient, String index) {
+    DefaultIndexResources(AuthenticatedRestClient restClient, String index) {
         this.restClient = restClient;
         this.index = index;
     }

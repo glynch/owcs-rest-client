@@ -12,7 +12,7 @@ public class DefaultUserResources implements UserResources {
     private final AuthenticatedRestClient restClient;
     private final String user;
 
-    public DefaultUserResources(AuthenticatedRestClient restClient, String user) {
+    DefaultUserResources(AuthenticatedRestClient restClient, String user) {
         this.restClient = restClient;
         this.user = user;
     }

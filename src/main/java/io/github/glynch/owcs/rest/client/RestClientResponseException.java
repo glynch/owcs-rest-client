@@ -9,7 +9,8 @@ public class RestClientResponseException extends RestClientException {
     private final byte[] responseBody;
     private final Charset charSet;
 
-    public RestClientResponseException(String msg, int statusCode, String statusText, byte[] responseBody, Charset charSet) {
+    public RestClientResponseException(String msg, int statusCode, String statusText, byte[] responseBody,
+            Charset charSet) {
         super(msg);
         this.statusCode = statusCode;
         this.statusText = statusText;
@@ -34,9 +35,7 @@ public class RestClientResponseException extends RestClientException {
     }
 
     public String getResponseBodyAsString() {
-       return new String(responseBody, charSet);
+        return new String(responseBody, charSet);
     }
-
-
 
 }

@@ -45,6 +45,8 @@ A fluent Java rest client that supports legacy authenticated REST resources, as 
 ### /types/{type}/search
 
 ```java
+    Condition condition = Condition.contains("name", "Running");
+
     DBBasicAssetSearchQuery query = DBBasicAssetSearchQuery.builder()
                 .condition(condition)
                 .sortField(SortField.CREATEDDATE_DESC)
@@ -396,7 +398,7 @@ A fluent Java rest client that supports legacy authenticated REST resources, as 
     } catch (RestClientException e) {
             
     } catch (Exception e) {
-        
+
     }
 ```
 

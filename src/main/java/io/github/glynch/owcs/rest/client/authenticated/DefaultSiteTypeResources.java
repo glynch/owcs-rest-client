@@ -15,7 +15,7 @@ public class DefaultSiteTypeResources implements SiteTypeResources {
     private final String site;
     private final String type;
 
-    public DefaultSiteTypeResources(AuthenticatedRestClient restClient, String site, String type) {
+    DefaultSiteTypeResources(AuthenticatedRestClient restClient, String site, String type) {
         this.restClient = restClient;
         this.site = site;
         this.type = type;

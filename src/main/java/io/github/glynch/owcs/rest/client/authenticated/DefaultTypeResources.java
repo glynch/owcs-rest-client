@@ -16,7 +16,7 @@ public class DefaultTypeResources implements TypeResources {
     private final AuthenticatedRestClient restClient;
     private final String type;
 
-    public DefaultTypeResources(AuthenticatedRestClient restClient, String type) {
+    DefaultTypeResources(AuthenticatedRestClient restClient, String type) {
         this.restClient = restClient;
         this.type = type;
     }

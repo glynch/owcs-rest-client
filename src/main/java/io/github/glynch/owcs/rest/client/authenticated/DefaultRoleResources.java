@@ -12,7 +12,7 @@ public class DefaultRoleResources implements RoleResources {
     private final AuthenticatedRestClient restClient;
     private final String role;
 
-    public DefaultRoleResources(AuthenticatedRestClient client, String role) {
+    DefaultRoleResources(AuthenticatedRestClient client, String role) {
         this.restClient = client;
         this.role = role;
     }

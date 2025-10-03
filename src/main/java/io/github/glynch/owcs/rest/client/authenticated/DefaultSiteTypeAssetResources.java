@@ -18,7 +18,7 @@ public class DefaultSiteTypeAssetResources implements SiteTypeAssetResources {
     private final String type;
     private final long id;
 
-    public DefaultSiteTypeAssetResources(AuthenticatedRestClient restClient, String site, String type, long id) {
+    DefaultSiteTypeAssetResources(AuthenticatedRestClient restClient, String site, String type, long id) {
         this.restClient = restClient;
         this.site = site;
         this.type = type;
