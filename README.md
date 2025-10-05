@@ -402,7 +402,5 @@ A fluent Java rest client that supports legacy authenticated REST resources, as 
     }
 ```
 
-
-
 ## Aggregated REST Resources 
 
